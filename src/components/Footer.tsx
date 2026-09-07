@@ -5,282 +5,145 @@ import leeLogo from '../assets/lee cars logo.png'
 export default function Footer() {
   return (
     <footer style={{
-      background: '#070B0E',
-      borderTop: '1px solid #1C232B',
-      marginTop: 48,
+      background: '#060A0D',
+      borderTop: '1px solid #161D24',
+      marginTop: 'clamp(40px, 6vw, 64px)',
       position: 'relative',
-      overflow: 'hidden',
       width: '100%',
     }}>
-      <div className="container" style={{
-        padding: '36px 0 28px',
-        display: 'grid',
-        gridTemplateColumns: '1.25fr 0.75fr 1fr',
-        gap: 32,
-        alignItems: 'start'
-      }}>
-        {/* Brand, Address & Google Rating */}
-        <div style={{ minWidth: 0 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <img
-              src={leeLogo}
-              alt="Lee Car Accessories Logo"
-              style={{
-                width: 40,
-                height: 40,
-                borderRadius: '50%',
-                objectFit: 'cover',
-                border: '1px solid #1E2A33',
-                flexShrink: 0
-              }}
-            />
-            <div style={{ lineHeight: 1.2, minWidth: 0 }}>
-              <div style={{ fontFamily: 'Orbitron', fontWeight: 800, fontSize: 12, letterSpacing: '0.06em' }}>
-                LEE CAR ACCESSORIES
+      <div className="container" style={{ padding: '30px 0 20px' }}>
+        {/* Main Footer Row */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+          gap: 'clamp(20px, 4vw, 36px)',
+          alignItems: 'start',
+          paddingBottom: 24,
+          borderBottom: '1px solid #141B22'
+        }}>
+          {/* Brand & Address Column */}
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              <img
+                src={leeLogo}
+                alt="Lee Car Accessories Logo"
+                style={{
+                  width: 36,
+                  height: 36,
+                  borderRadius: '50%',
+                  objectFit: 'cover',
+                  border: '1px solid #1E2A33',
+                  flexShrink: 0
+                }}
+              />
+              <div style={{ lineHeight: 1.15 }}>
+                <div style={{ fontFamily: 'Orbitron', fontWeight: 800, fontSize: 13, letterSpacing: '0.06em', color: '#FFFFFF' }}>
+                  LEE CAR ACCESSORIES
+                </div>
+                <div style={{ fontSize: 9, color: '#11BCE6', fontWeight: 700, letterSpacing: '0.12em', marginTop: 2 }}>
+                  PREMIUM CUSTOMIZATION
+                </div>
               </div>
-              <div style={{ fontSize: 9, color: '#687078', marginTop: 2 }}>
-                Customization & Accessories Store · Ramanathapuram
+            </div>
+
+            <p style={{
+              fontSize: 12,
+              color: '#8A929B',
+              lineHeight: 1.6,
+              marginTop: 12,
+              maxWidth: 340
+            }}>
+              Specialized car accessories, bucket-fit seat covers, and premium electronics at ECR Junction, Ramanathapuram.
+            </p>
+
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 11, color: '#A0A7AE', marginTop: 10 }}>
+              <span style={{ color: '#D69A13' }}>★</span>
+              <strong style={{ color: '#FFFFFF' }}>{businessInfo.rating} / 5</strong>
+              <span style={{ color: '#687078' }}>· ~{businessInfo.reviewCount} Google reviews</span>
+            </div>
+          </div>
+
+          {/* Quick Navigation Links */}
+          <div>
+            <div style={{ fontWeight: 800, fontSize: 11, letterSpacing: '0.12em', color: '#11BCE6', marginBottom: 12 }}>
+              QUICK NAVIGATION
+            </div>
+            <nav style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(2, 1fr)',
+              gap: '8px 16px',
+              fontSize: 11,
+              letterSpacing: '0.06em',
+              fontWeight: 700,
+              color: '#8A929B'
+            }}>
+              <Link to="/" style={{ transition: 'color .15s' }}>HOME</Link>
+              <Link to="/services" style={{ transition: 'color .15s' }}>SERVICES</Link>
+              <Link to="/seat-covers" style={{ transition: 'color .15s', color: '#11BCE6' }}>SEAT COVERS</Link>
+              <Link to="/shop" style={{ transition: 'color .15s' }}>SHOP</Link>
+              <Link to="/gallery" style={{ transition: 'color .15s' }}>GALLERY</Link>
+              <Link to="/booking" style={{ transition: 'color .15s' }}>BOOKING</Link>
+              <Link to="/reviews" style={{ transition: 'color .15s' }}>REVIEWS</Link>
+              <Link to="/contact" style={{ transition: 'color .15s' }}>CONTACT US</Link>
+            </nav>
+          </div>
+
+          {/* Direct Contact & Store Info */}
+          <div>
+            <div style={{ fontWeight: 800, fontSize: 11, letterSpacing: '0.12em', color: '#11BCE6', marginBottom: 12 }}>
+              CONNECT & VISIT
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8, fontSize: 12, color: '#A0A7AE' }}>
+              <a
+                href={`tel:${businessInfo.phoneHref}`}
+                style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: '#FFFFFF', fontWeight: 600 }}
+              >
+                <span style={{ color: '#11BCE6' }}>☎</span> {businessInfo.phoneDisplay}
+              </a>
+              <a
+                href={businessInfo.whatsappHref}
+                target="_blank"
+                rel="noreferrer"
+                style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: '#25D366', fontWeight: 700 }}
+              >
+                <span>💬</span> WhatsApp Store Support
+              </a>
+              <a
+                href={businessInfo.mapsUrl}
+                target="_blank"
+                rel="noreferrer"
+                style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: '#A0A7AE', lineHeight: 1.4 }}
+              >
+                <span style={{ color: '#11BCE6' }}>📍</span> No. 01, SK Complex, ECR Junction, Ramanathapuram
+              </a>
+              <div style={{ fontSize: 11, color: '#687078', marginTop: 2 }}>
+                Open Mon - Sun: 9:00 AM – 9:00 PM
               </div>
             </div>
           </div>
-
-          <div style={{
-            marginTop: 16,
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 8,
-            fontSize: 12,
-            color: '#A0A7AE',
-            lineHeight: 1.6
-          }}>
-            <div style={{ display: 'flex', gap: 8, alignItems: 'flex-start' }}>
-              <span style={{ color: '#11BCE6', marginTop: 2, flexShrink: 0 }}>📍</span>
-              <span>
-                {businessInfo.addressLine1}<br />
-                {businessInfo.addressLine2}<br />
-                {businessInfo.addressLine3}
-              </span>
-            </div>
-            <a href={`tel:${businessInfo.phoneHref}`} style={{ display: 'flex', gap: 8, alignItems: 'center', color: '#A0A7AE' }}>
-              <span style={{ color: '#11BCE6', flexShrink: 0 }}>☎</span>
-              <span>{businessInfo.phoneDisplay}</span>
-            </a>
-            <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-              <span style={{ color: '#11BCE6', flexShrink: 0 }}>◷</span>
-              <span>{businessInfo.hours}</span>
-            </div>
-            <a
-              href={businessInfo.mapsUrl}
-              target="_blank"
-              rel="noreferrer"
-              style={{
-                color: '#11BCE6',
-                fontWeight: 700,
-                fontSize: 11,
-                letterSpacing: '0.06em',
-                marginTop: 2,
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 4
-              }}
-            >
-              VIEW ON GOOGLE MAPS →
-            </a>
-          </div>
-
-          {/* Real Google Rating Badge */}
-          <div style={{
-            marginTop: 16,
-            display: 'flex',
-            alignItems: 'center',
-            gap: 8,
-            background: '#0A0F14',
-            border: '1px solid #1E2A33',
-            borderRadius: 12,
-            padding: '10px 12px',
-            width: 'fit-content',
-            maxWidth: '100%',
-            flexWrap: 'wrap'
-          }}>
-            <span style={{ color: '#D69A13', fontSize: 13 }}>★</span>
-            <span style={{ fontWeight: 800, fontSize: 13 }}>{businessInfo.rating.toFixed(1)} / 5</span>
-            <span style={{ fontSize: 11, color: '#687078' }}>· ~{businessInfo.reviewCount} Google reviews</span>
-            <Link
-              to="/reviews"
-              style={{
-                marginLeft: 4,
-                fontSize: 10,
-                fontWeight: 800,
-                letterSpacing: '0.06em',
-                color: '#11BCE6',
-                border: '1px solid rgba(17,188,230,0.3)',
-                padding: '4px 8px',
-                borderRadius: 999,
-                whiteSpace: 'nowrap'
-              }}
-            >
-              READ REVIEWS
-            </Link>
-          </div>
         </div>
 
-        {/* Explore Links */}
-        <div style={{ minWidth: 0 }}>
-          <div style={{ fontWeight: 800, fontSize: 11, letterSpacing: '0.14em', color: '#11BCE6', marginBottom: 14 }}>
-            EXPLORE
-          </div>
-          <nav className="footer-nav" style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr',
-            gap: 10,
-            fontSize: 11,
-            letterSpacing: '0.1em',
-            fontWeight: 700,
-            color: '#A0A7AE'
-          }}>
-            <Link to="/">HOME</Link>
-            <Link to="/services">SERVICES</Link>
-            <Link to="/seat-covers">PREMIUM SEAT COVERS</Link>
-            <Link to="/shop">SHOP ACCESSORIES</Link>
-            <Link to="/gallery">PROJECT GALLERY</Link>
-            <Link to="/reviews">CUSTOMER REVIEWS</Link>
-            <Link to="/about">ABOUT US</Link>
-            <Link to="/contact">CONTACT US</Link>
-            <Link to="/booking">BOOK APPOINTMENT</Link>
-          </nav>
-        </div>
-
-        {/* Connect & Action Buttons */}
-        <div style={{ minWidth: 0 }}>
-          <div style={{ fontWeight: 800, fontSize: 11, letterSpacing: '0.14em', color: '#11BCE6', marginBottom: 14 }}>
-            GET IN TOUCH
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
-            <a
-              href={businessInfo.whatsappHref}
-              target="_blank"
-              rel="noreferrer"
-              aria-label="WhatsApp"
-              style={{
-                width: 36,
-                height: 36,
-                borderRadius: '50%',
-                background: '#25D366',
-                display: 'grid',
-                placeItems: 'center',
-                flexShrink: 0
-              }}
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
-                <path d="M12 2a10 10 0 0 0-8.6 15l-1 3.6 3.7-1A10 10 0 1 0 12 2zm5.2 14.3c-.3.8-1.5 1.5-2.1 1.6-.6.1-1.1.1-1.8-.1-.5-.2-1.1-.5-1.9-1-.7-.5-1.4-1.2-1.9-2-.5-.8-.9-1.7-1-2.6 0-.9.2-1.3.5-1.8l.4-.6c.2-.3.4-.5.6-.5h.6c.2 0 .4 0 .6.5l.8 1.9c.1.3.1.5 0 .7-.1.2-.2.4-.4.6l-.4.4c-.1.1-.2.3-.1.5.1.2.5.8 1 1.4.6.7 1.1 1.1 1.5 1.4.2.1.4.2.5.1l.5-.5c.2-.2.4-.3.6-.4.2 0 .4 0 .7.1l1.9.9c.4.2.5.3.6.5v.6c0 .3-.2.7-.5 1z" />
-              </svg>
-            </a>
-            <a
-              href={businessInfo.mapsUrl}
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Google Maps Location"
-              style={{
-                width: 36,
-                height: 36,
-                borderRadius: '50%',
-                background: '#0D1217',
-                border: '1px solid #1E2A33',
-                display: 'grid',
-                placeItems: 'center',
-                color: '#11BCE6',
-                fontSize: 14,
-                flexShrink: 0
-              }}
-            >
-              📍
-            </a>
-            <a
-              href={`tel:${businessInfo.phoneHref}`}
-              aria-label="Call Phone"
-              style={{
-                width: 36,
-                height: 36,
-                borderRadius: '50%',
-                background: '#0D1217',
-                border: '1px solid #1E2A33',
-                display: 'grid',
-                placeItems: 'center',
-                color: '#11BCE6',
-                fontSize: 13,
-                flexShrink: 0
-              }}
-            >
-              ☎
-            </a>
-            <button
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              aria-label="Back to top"
-              style={{
-                marginLeft: 'auto',
-                width: 36,
-                height: 36,
-                borderRadius: '50%',
-                background: '#11BCE6',
-                border: 'none',
-                display: 'grid',
-                placeItems: 'center',
-                cursor: 'pointer',
-                flexShrink: 0
-              }}
-            >
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#02141B" strokeWidth="2.4">
-                <path d="M12 19V5M5 12l7-7 7 7" />
-              </svg>
-            </button>
-          </div>
-
-          <div style={{ marginTop: 16, display: 'flex', flexDirection: 'column', gap: 10 }}>
-            <a
-              href={`tel:${businessInfo.phoneHref}`}
-              className="btn-cyan"
-              style={{ width: '100%', padding: '12px' }}
-            >
-              CALL {businessInfo.phoneDisplay}
-            </a>
-            <Link
-              to="/booking"
-              className="btn-gold"
-              style={{ width: '100%', padding: '12px' }}
-            >
-              BOOK APPOINTMENT
-            </Link>
-          </div>
-
-          <div style={{ fontSize: 11, color: '#687078', marginTop: 14, lineHeight: 1.5 }}>
-            Serving Ramanathapuram, Pattinamkathan, Paramakudi, Kilakarai & ECR region.
-          </div>
-        </div>
-      </div>
-
-      {/* Bottom copyright line */}
-      <div style={{ borderTop: '1px solid #141B22', padding: '16px 0', background: '#050708' }}>
-        <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10, fontSize: 11, color: '#687078' }}>
+        {/* Bottom Compact Copyright Line */}
+        <div style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: 10,
+          paddingTop: 16,
+          fontSize: 11,
+          color: '#687078'
+        }}>
           <div>© {new Date().getFullYear()} Lee Car Accessories. All Rights Reserved.</div>
-          <div style={{ display: 'flex', gap: 14 }}>
-            <span>No. 01, SK Complex, ECR Junction</span>
-            <span>Ramanathapuram 623503</span>
+          <div style={{ display: 'flex', gap: 12 }}>
+            <Link to="/seat-covers" style={{ color: '#A0A7AE' }}>Seat Covers</Link>
+            <span>·</span>
+            <Link to="/contact" style={{ color: '#A0A7AE' }}>Contact</Link>
+            <span>·</span>
+            <Link to="/admin" style={{ color: '#687078' }}>Admin</Link>
           </div>
         </div>
       </div>
-
-      <style>{`
-        @media (max-width: 860px) {
-          footer .container {
-            grid-template-columns: 1fr !important;
-            gap: 26px !important;
-          }
-          .footer-nav {
-            grid-template-columns: repeat(2, 1fr) !important;
-            gap: 12px 16px !important;
-          }
-        }
-      `}</style>
     </footer>
   )
 }

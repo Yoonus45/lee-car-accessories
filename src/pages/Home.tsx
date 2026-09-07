@@ -281,15 +281,15 @@ export default function Home() {
 
         <div className="category-grid-5">
           {[
-            { title: 'LIGHTING', sub: 'LED & Bi-Projector', icon: '☀' },
-            { title: 'INTERIOR', sub: 'Seat Covers & 7D Mats', icon: '◈' },
-            { title: 'AUDIO & CARPLAY', sub: 'Android Stereo & Sub', icon: '♫' },
-            { title: 'EXTERIOR', sub: 'Roof Rails & Spoilers', icon: '⬢' },
-            { title: 'SAFETY TECH', sub: '4K Dashcam & Sensors', icon: '✦' },
+            { title: 'LIGHTING', sub: 'LED & Bi-Projector', icon: '💡', cat: 'lighting' },
+            { title: 'INTERIOR', sub: 'Seat Covers & 7D Mats', icon: '🛋️', cat: 'interior' },
+            { title: 'AUDIO & CARPLAY', sub: 'Android Stereo & Sub', icon: '🎵', cat: 'audio' },
+            { title: 'EXTERIOR', sub: 'Roof Rails & Spoilers', icon: '🚘', cat: 'exterior' },
+            { title: 'SAFETY TECH', sub: '4K Dashcam & Sensors', icon: '✦', cat: 'accessories' },
           ].map(c => (
             <Link
               key={c.title}
-              to="/shop"
+              to={`/shop?category=${c.cat}`}
               style={{
                 background: '#090D11',
                 border: '1px solid #1C232B',
@@ -313,11 +313,11 @@ export default function Home() {
                 display: 'grid',
                 placeItems: 'center',
                 color: '#11BCE6',
-                fontSize: 18
+                fontSize: 20
               }}>
                 {c.icon}
               </div>
-              <div style={{ fontWeight: 800, fontSize: 12, letterSpacing: '0.06em' }}>{c.title}</div>
+              <div style={{ fontWeight: 800, fontSize: 12, letterSpacing: '0.06em', color: '#FFFFFF' }}>{c.title}</div>
               <div style={{ fontSize: 11, color: '#687078', marginTop: 4 }}>{c.sub}</div>
             </Link>
           ))}
@@ -395,36 +395,42 @@ export default function Home() {
               </Link>
 
               <div className="product-card-body">
-                <div className="product-card-title">{p.title}</div>
+                <Link to={`/product/${p.id}`}>
+                  <div className="product-card-title">{p.title}</div>
+                </Link>
+                <div style={{ fontSize: 10, letterSpacing: '0.08em', fontWeight: 700, color: '#687078', marginTop: 4 }}>
+                  {p.category} · Store Fitment
+                </div>
                 <div className="product-card-desc">{p.desc}</div>
 
-                <div style={{ marginTop: 12, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
-                  <div>
-                    {p.contactForPrice ? (
-                      <span style={{ color: '#D69A13', fontWeight: 800, fontSize: 13 }}>Contact for Price</span>
-                    ) : (
-                      <div style={{ display: 'flex', alignItems: 'baseline', gap: 6 }}>
-                        <span style={{ color: '#11BCE6', fontWeight: 900, fontSize: 15 }}>₹{p.price!.toLocaleString('en-IN')}</span>
-                        {p.mrp && <span style={{ color: '#687078', fontSize: 11, textDecoration: 'line-through' }}>₹{p.mrp.toLocaleString('en-IN')}</span>}
-                      </div>
-                    )}
+                <div style={{ marginTop: 'auto', paddingTop: 14 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8, marginBottom: 12 }}>
+                    <div>
+                      {p.contactForPrice ? (
+                        <span style={{ color: '#D69A13', fontWeight: 800, fontSize: 13 }}>Contact for Price</span>
+                      ) : (
+                        <div style={{ display: 'flex', alignItems: 'baseline', gap: 6 }}>
+                          <span style={{ color: '#11BCE6', fontWeight: 900, fontSize: 15 }}>₹{p.price!.toLocaleString('en-IN')}</span>
+                          {p.mrp && <span style={{ color: '#687078', fontSize: 11, textDecoration: 'line-through' }}>₹{p.mrp.toLocaleString('en-IN')}</span>}
+                        </div>
+                      )}
+                    </div>
+                    <span style={{ color: '#D69A13', fontSize: 11, fontWeight: 700 }}>★ {p.rating}</span>
                   </div>
-                  <span style={{ color: '#D69A13', fontSize: 11, fontWeight: 700 }}>★ {p.rating}</span>
-                </div>
 
-                <Link
-                  to={`/product/${p.id}`}
-                  className="btn-cyan"
-                  style={{
-                    marginTop: 14,
-                    width: '100%',
-                    padding: '10px 14px',
-                    fontSize: 11,
-                    minHeight: 40
-                  }}
-                >
-                  VIEW DETAILS
-                </Link>
+                  <Link
+                    to={`/product/${p.id}`}
+                    className="btn-cyan"
+                    style={{
+                      width: '100%',
+                      padding: '10px 14px',
+                      fontSize: 11,
+                      minHeight: 38
+                    }}
+                  >
+                    VIEW DETAILS
+                  </Link>
+                </div>
               </div>
             </div>
           ))}

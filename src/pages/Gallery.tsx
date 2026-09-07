@@ -24,6 +24,18 @@ export default function Gallery() {
     fetchGallery()
   }, [])
 
+const fallbackGallery: DbGalleryItem[] = [
+  { id: '1', created_at: '', title: '120W LED Headlight Conversion', description: 'Ultra-bright 6000K pure white beam with sharp cutoff line.', category: 'Lighting', image_url: 'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?w=800&h=800&fit=crop', storage_path: null, gallery_type: 'general', featured: true, published: true, sort_order: 1 },
+  { id: '2', created_at: '', title: 'Custom Bucket-Fit Leather Interior', description: 'Tailored leather seat covers with memory cushion backing.', category: 'Interior', image_url: 'https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?w=600&h=600&fit=crop', storage_path: null, gallery_type: 'general', featured: true, published: true, sort_order: 2 },
+  { id: '3', created_at: '', title: 'Touchscreen Android Infotainment', description: 'Wireless Apple CarPlay & Android Auto head unit upgrade.', category: 'Audio', image_url: 'https://images.unsplash.com/photo-1502877338535-766e1452684a?w=600&h=800&fit=crop', storage_path: null, gallery_type: 'general', featured: false, published: true, sort_order: 3 },
+  { id: '4', created_at: '', title: '7D All-Weather Floor Mats Fitment', description: 'Laser measured edge-to-edge floor protection.', category: 'Interior', image_url: 'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=600&h=600&fit=crop', storage_path: null, gallery_type: 'general', featured: false, published: true, sort_order: 4 },
+  { id: '5', created_at: '', title: '64-Color RGB Concealed Ambient Lights', description: 'Fiber-optic interior glow controlled via smartphone.', category: 'Lighting', image_url: 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=600&h=600&fit=crop', storage_path: null, gallery_type: 'general', featured: false, published: true, sort_order: 5 },
+  { id: '6', created_at: '', title: 'Aerodynamic SUV Roof Rails Fitting', description: 'Heavy-duty drill-free mounting with muscular styling.', category: 'Exterior', image_url: 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=600&h=800&fit=crop', storage_path: null, gallery_type: 'general', featured: false, published: true, sort_order: 6 },
+  { id: '7', created_at: '', title: 'Slim Underseat Active Subwoofer', description: '600W peak bass output tucked neatly under the front seat.', category: 'Audio', image_url: 'https://images.unsplash.com/photo-1545454675-3531b543be5d?w=800&h=600&fit=crop', storage_path: null, gallery_type: 'general', featured: true, published: true, sort_order: 7 },
+  { id: '8', created_at: '', title: 'Dual-Lens 4K Dashcam Installation', description: 'Concealed wiring with 24/7 parking guard protection.', category: 'Accessories', image_url: 'https://images.unsplash.com/photo-1508974239320-0a029497e820?w=600&h=600&fit=crop', storage_path: null, gallery_type: 'general', featured: false, published: true, sort_order: 8 },
+  { id: '9', created_at: '', title: 'Hand-Stitched Leather Steering Wrap', description: 'Micro-perforated grip with custom red baseball stitch.', category: 'Interior', image_url: 'https://images.unsplash.com/photo-1617788138017-80ad40651399?w=600&h=600&fit=crop', storage_path: null, gallery_type: 'general', featured: false, published: true, sort_order: 9 },
+]
+
   async function fetchGallery() {
     setLoading(true)
     try {
@@ -35,13 +47,14 @@ export default function Gallery() {
         .order('sort_order', { ascending: true })
         .order('created_at', { ascending: false })
 
-      if (error) {
-        console.warn('[Gallery] Supabase query notice:', error.message)
-      } else if (data) {
+      if (error || !data || data.length === 0) {
+        setItems(fallbackGallery)
+      } else {
         setItems(data)
       }
     } catch (err) {
-      console.warn('[Gallery] Fetch failed:', err)
+      console.warn('[Gallery] Fetch notice — using local showcase:', err)
+      setItems(fallbackGallery)
     } finally {
       setLoading(false)
     }

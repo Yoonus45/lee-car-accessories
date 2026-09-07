@@ -70,7 +70,7 @@ export default function Services() {
               </div>
               <div style={{ marginTop: 16, display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
                 <Link
-                  to="/shop"
+                  to={s.slug === 'interior' ? '/seat-covers' : `/shop?category=${s.slug}`}
                   style={{
                     color: '#11BCE6',
                     fontWeight: 800,
@@ -81,7 +81,7 @@ export default function Services() {
                     alignItems: 'center'
                   }}
                 >
-                  EXPLORE ACCESSORIES →
+                  {s.slug === 'interior' ? 'VIEW SEAT COVERS →' : 'EXPLORE ACCESSORIES →'}
                 </Link>
                 <Link
                   to="/booking"

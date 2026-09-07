@@ -403,6 +403,23 @@ export default function Navbar() {
           <div style={{ fontSize: 10, color: '#687078', lineHeight: 1.5, textAlign: 'center', marginTop: 4 }}>
             {businessInfo.fullAddress}
           </div>
+
+          <Link
+            to="/admin"
+            onClick={() => setOpen(false)}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 6,
+              fontSize: 10,
+              color: '#4B5563',
+              paddingTop: 8,
+              textDecoration: 'none'
+            }}
+          >
+            <span>🔐 Admin Portal</span>
+          </Link>
         </div>
       </div>
 
@@ -412,7 +429,10 @@ export default function Navbar() {
           .hamburger-btn { display: grid !important; }
         }
         @media (max-width: 480px) {
-          .nav-profile-btn { display: none !important; }
+          .nav-profile-btn {
+            width: 34px !important;
+            height: 34px !important;
+          }
         }
         @media (max-width: 360px) {
           .logo-tagline { display: none !important; }
