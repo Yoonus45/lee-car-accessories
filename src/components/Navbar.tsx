@@ -178,10 +178,11 @@ export default function Navbar() {
             </svg>
           </a>
 
-          {/* Contact / Profile Icon (Desktop only to prevent clutter on small mobile) */}
+          {/* Admin Login Icon */}
           <Link
-            to="/contact"
-            aria-label="Contact Us"
+            to="/admin"
+            aria-label="Admin Login"
+            title="Admin Login"
             className="nav-profile-btn"
             style={{
               width: 38,
