@@ -30,6 +30,14 @@ export interface DbProduct {
   updated_at: string
 }
 
+export interface DbOrderItemSnapshot {
+  product_id: string
+  product_name: string
+  price: number | null
+  quantity: number
+  image?: string
+}
+
 export interface DbOrderRequest {
   id: string
   created_at: string
@@ -41,7 +49,10 @@ export interface DbOrderRequest {
   product_name: string
   quantity: number
   address: string | null
+  city?: string | null
   notes: string | null
+  total_amount?: number | null
+  items?: DbOrderItemSnapshot[] | null
   status: 'new' | 'contacted' | 'confirmed' | 'ready' | 'completed' | 'cancelled'
 }
 

@@ -54,10 +54,10 @@ export default function SeatAppointmentsTab() {
     <div>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12, marginBottom: 20 }}>
         <div>
-          <h2 style={{ fontFamily: 'Orbitron, sans-serif', fontWeight: 900, fontSize: 18, color: '#FFFFFF', margin: 0 }}>
+          <h2 style={{ fontFamily: 'Orbitron, sans-serif', fontWeight: 900, fontSize: 18, color: 'var(--admin-text-main)', margin: 0 }}>
             SEAT COVER APPOINTMENTS
           </h2>
-          <div style={{ fontSize: 11, color: '#687078', marginTop: 4 }}>
+          <div style={{ fontSize: 11, color: 'var(--admin-text-muted)', marginTop: 4 }}>
             {appointments.length} total · {appointments.filter(a => a.status === 'pending').length} pending review
           </div>
         </div>
@@ -73,9 +73,9 @@ export default function SeatAppointmentsTab() {
             style={{
               padding: '6px 14px',
               borderRadius: 999,
-              border: `1px solid ${filterStatus === s ? '#11BCE6' : '#1E2A33'}`,
+              border: `1px solid ${filterStatus === s ? '#11BCE6' : 'var(--admin-border-subtle)'}`,
               background: filterStatus === s ? 'rgba(17,188,230,0.12)' : 'transparent',
-              color: filterStatus === s ? '#11BCE6' : '#A0A7AE',
+              color: filterStatus === s ? '#11BCE6' : 'var(--admin-text-sub)',
               fontSize: 11,
               fontWeight: 700,
               cursor: 'pointer',
@@ -97,13 +97,13 @@ export default function SeatAppointmentsTab() {
             <div key={a.id} style={cardStyle}>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, justifyContent: 'space-between', alignItems: 'flex-start' }}>
                 <div>
-                  <div style={{ fontWeight: 800, fontSize: 14, color: '#FFFFFF', display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <div style={{ fontWeight: 800, fontSize: 14, color: 'var(--admin-text-main)', display: 'flex', alignItems: 'center', gap: 8 }}>
                     <span>{a.full_name}</span>
                     <span style={{ fontSize: 11, color: '#11BCE6', fontWeight: 700 }}>
                       [{a.car_brand ? `${a.car_brand} ` : ''}{a.car_model}{a.car_year ? ` (${a.car_year})` : ''}]
                     </span>
                   </div>
-                  <div style={{ fontSize: 11, color: '#687078', marginTop: 2 }}>{formatDate(a.created_at)}</div>
+                  <div style={{ fontSize: 11, color: 'var(--admin-text-muted)', marginTop: 2 }}>{formatDate(a.created_at)}</div>
                 </div>
                 <StatusBadge status={a.status as AppointmentStatus} />
               </div>
@@ -120,9 +120,9 @@ export default function SeatAppointmentsTab() {
               </div>
 
               {a.notes && (
-                <div style={{ marginTop: 12, padding: '10px 14px', background: '#0D1217', borderRadius: 8, border: '1px solid #1E2A33' }}>
-                  <div style={{ fontSize: 10, fontWeight: 800, color: '#687078', letterSpacing: '0.08em' }}>CUSTOMER NOTES:</div>
-                  <div style={{ fontSize: 12, color: '#FFFFFF', marginTop: 4, lineHeight: 1.5 }}>{a.notes}</div>
+                <div style={{ marginTop: 12, padding: '10px 14px', background: 'var(--admin-subcard-bg)', borderRadius: 8, border: '1px solid var(--admin-border-subtle)' }}>
+                  <div style={{ fontSize: 10, fontWeight: 800, color: 'var(--admin-text-muted)', letterSpacing: '0.08em' }}>CUSTOMER NOTES:</div>
+                  <div style={{ fontSize: 12, color: 'var(--admin-text-main)', marginTop: 4, lineHeight: 1.5 }}>{a.notes}</div>
                 </div>
               )}
 
@@ -178,19 +178,19 @@ function StatusBadge({ status }: { status: AppointmentStatus }) {
 
 function InfoPill({ label, value }: { label: string; value: string }) {
   return (
-    <div style={{ background: '#0D1217', borderRadius: 8, padding: '8px 12px', border: '1px solid #1E2A33' }}>
-      <div style={{ fontSize: 9, fontWeight: 800, color: '#687078', letterSpacing: '0.08em' }}>{label}</div>
-      <div style={{ fontSize: 12, fontWeight: 700, color: '#FFFFFF', marginTop: 2, wordBreak: 'break-word' }}>{value}</div>
+    <div style={{ background: 'var(--admin-subcard-bg)', borderRadius: 8, padding: '8px 12px', border: '1px solid var(--admin-border-subtle)' }}>
+      <div style={{ fontSize: 9, fontWeight: 800, color: 'var(--admin-text-muted)', letterSpacing: '0.08em' }}>{label}</div>
+      <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--admin-text-main)', marginTop: 2, wordBreak: 'break-word' }}>{value}</div>
     </div>
   )
 }
 
 function LoadingRow() {
-  return <div style={{ color: '#687078', fontSize: 12, padding: '30px 0', textAlign: 'center' }}>Loading seat cover appointments…</div>
+  return <div style={{ color: 'var(--admin-text-muted)', fontSize: 12, padding: '30px 0', textAlign: 'center' }}>Loading seat cover appointments…</div>
 }
 
 function EmptyRow({ text }: { text: string }) {
-  return <div style={{ color: '#687078', fontSize: 12, padding: '30px 0', textAlign: 'center' }}>{text}</div>
+  return <div style={{ color: 'var(--admin-text-muted)', background: 'var(--admin-card-bg)', border: '1px solid var(--admin-border)', borderRadius: 14, padding: '30px 0', textAlign: 'center', fontSize: 12 }}>{text}</div>
 }
 
 function formatDate(iso: string) {
@@ -202,19 +202,20 @@ function formatDate(iso: string) {
 }
 
 const cardStyle: React.CSSProperties = {
-  background: '#090D11',
-  border: '1px solid #1C232B',
+  background: 'var(--admin-card-bg)',
+  border: '1px solid var(--admin-border)',
   borderRadius: 14,
   padding: '16px 18px',
+  boxShadow: 'var(--admin-card-shadow)'
 }
 
 const refreshBtnStyle: React.CSSProperties = {
   fontSize: 11,
-  color: '#A0A7AE',
-  border: '1px solid #1E2A33',
+  color: 'var(--admin-text-sub)',
+  border: '1px solid var(--admin-border-subtle)',
   borderRadius: 8,
   padding: '6px 14px',
-  background: 'transparent',
+  background: 'var(--admin-subcard-bg)',
   cursor: 'pointer',
   fontWeight: 700
 }
@@ -242,12 +243,13 @@ const waBtnStyle: React.CSSProperties = {
 }
 
 const selectStyle: React.CSSProperties = {
-  background: '#0D1217',
-  border: '1px solid #1E2A33',
-  color: '#FFFFFF',
+  background: 'var(--admin-subcard-bg)',
+  border: '1px solid var(--admin-border-subtle)',
+  color: 'var(--admin-text-main)',
   borderRadius: 8,
   padding: '5px 10px',
   fontSize: 12,
   cursor: 'pointer',
   outline: 'none'
 }
+

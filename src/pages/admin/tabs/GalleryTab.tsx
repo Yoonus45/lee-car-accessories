@@ -433,7 +433,7 @@ export default function GalleryTab() {
                 fontFamily: 'Orbitron, sans-serif',
                 fontWeight: 900,
                 fontSize: 18,
-                color: '#FFFFFF',
+                color: 'var(--admin-text-main)',
                 margin: 0,
               }}
             >
@@ -454,7 +454,7 @@ export default function GalleryTab() {
               SHOWCASE & PORTFOLIO
             </span>
           </div>
-          <div style={{ fontSize: 11, color: '#687078', marginTop: 4 }}>
+          <div style={{ fontSize: 11, color: 'var(--admin-text-muted)', marginTop: 4 }}>
             Manage client showcase photos and completed work for General Website & Seat Covers
           </div>
         </div>
@@ -511,11 +511,12 @@ export default function GalleryTab() {
           display: 'flex',
           gap: 10,
           marginBottom: 20,
-          background: '#090D11',
+          background: 'var(--admin-card-bg)',
           padding: '6px',
           borderRadius: 12,
-          border: '1px solid #1C232B',
+          border: '1px solid var(--admin-border)',
           width: 'fit-content',
+          boxShadow: 'var(--admin-card-shadow)',
         }}
       >
         <button
@@ -528,7 +529,7 @@ export default function GalleryTab() {
             borderRadius: 8,
             border: 'none',
             background: activeType === 'general' ? '#11BCE6' : 'transparent',
-            color: activeType === 'general' ? '#02141B' : '#A0A7AE',
+            color: activeType === 'general' ? '#02141B' : 'var(--admin-text-sub)',
             fontWeight: 800,
             fontSize: 12,
             letterSpacing: '0.04em',
@@ -544,8 +545,8 @@ export default function GalleryTab() {
           <span
             style={{
               fontSize: 10,
-              background: activeType === 'general' ? 'rgba(2,20,27,0.25)' : '#1C232B',
-              color: activeType === 'general' ? '#02141B' : '#687078',
+              background: activeType === 'general' ? 'rgba(2,20,27,0.25)' : 'var(--admin-subcard-bg)',
+              color: activeType === 'general' ? '#02141B' : 'var(--admin-text-muted)',
               padding: '1px 6px',
               borderRadius: 999,
             }}
@@ -564,7 +565,7 @@ export default function GalleryTab() {
             borderRadius: 8,
             border: 'none',
             background: activeType === 'seat_cover' ? '#11BCE6' : 'transparent',
-            color: activeType === 'seat_cover' ? '#02141B' : '#A0A7AE',
+            color: activeType === 'seat_cover' ? '#02141B' : 'var(--admin-text-sub)',
             fontWeight: 800,
             fontSize: 12,
             letterSpacing: '0.04em',
@@ -580,8 +581,8 @@ export default function GalleryTab() {
           <span
             style={{
               fontSize: 10,
-              background: activeType === 'seat_cover' ? 'rgba(2,20,27,0.25)' : '#1C232B',
-              color: activeType === 'seat_cover' ? '#02141B' : '#687078',
+              background: activeType === 'seat_cover' ? 'rgba(2,20,27,0.25)' : 'var(--admin-subcard-bg)',
+              color: activeType === 'seat_cover' ? '#02141B' : 'var(--admin-text-muted)',
               padding: '1px 6px',
               borderRadius: 999,
             }}
@@ -608,9 +609,9 @@ export default function GalleryTab() {
             label: 'TOTAL PHOTOS',
             icon: '📸',
             count: metrics.total,
-            color: '#FFFFFF',
-            bg: '#0D1217',
-            border: '#1E2A33',
+            color: 'var(--admin-text-main)',
+            bg: 'var(--admin-subcard-bg)',
+            border: 'var(--admin-border-subtle)',
           },
           {
             key: 'published',
@@ -626,7 +627,7 @@ export default function GalleryTab() {
             label: 'HIDDEN / DRAFT',
             icon: '🔒',
             count: metrics.hidden,
-            color: '#A0A7AE',
+            color: 'var(--admin-text-sub)',
             bg: 'rgba(160,167,174,0.08)',
             border: 'rgba(160,167,174,0.2)',
           },
@@ -683,8 +684,8 @@ export default function GalleryTab() {
       ───────────────────────────────────────────────────────────── */}
       <div
         style={{
-          background: '#090D11',
-          border: '1px solid #1C232B',
+          background: 'var(--admin-card-bg)',
+          border: '1px solid var(--admin-border)',
           borderRadius: 14,
           padding: '14px 16px',
           marginBottom: 20,
@@ -693,6 +694,7 @@ export default function GalleryTab() {
           gap: 12,
           alignItems: 'center',
           justifyContent: 'space-between',
+          boxShadow: 'var(--admin-card-shadow)',
         }}
       >
         {/* Search */}
@@ -704,17 +706,17 @@ export default function GalleryTab() {
             onChange={e => setSearchQuery(e.target.value)}
             style={{
               width: '100%',
-              background: '#0D1217',
-              border: '1px solid #1E2A33',
+              background: 'var(--admin-input-bg)',
+              border: '1px solid var(--admin-input-border)',
               borderRadius: 8,
               padding: '8px 12px 8px 32px',
               fontSize: 12,
-              color: '#FFFFFF',
+              color: 'var(--admin-input-text)',
               outline: 'none',
               boxSizing: 'border-box',
             }}
           />
-          <span style={{ position: 'absolute', left: 10, top: '50%', transform: 'translateY(-50%)', color: '#687078', fontSize: 13 }}>
+          <span style={{ position: 'absolute', left: 10, top: '50%', transform: 'translateY(-50%)', color: 'var(--admin-text-muted)', fontSize: 13 }}>
             🔍
           </span>
           {searchQuery && (
@@ -727,7 +729,7 @@ export default function GalleryTab() {
                 transform: 'translateY(-50%)',
                 background: 'none',
                 border: 'none',
-                color: '#687078',
+                color: 'var(--admin-text-muted)',
                 cursor: 'pointer',
                 fontSize: 12,
               }}
@@ -838,17 +840,18 @@ export default function GalleryTab() {
             <div
               key={item.id}
               style={{
-                background: '#090D11',
-                border: '1px solid #1C232B',
+                background: 'var(--admin-card-bg)',
+                border: '1px solid var(--admin-border)',
                 borderRadius: 14,
                 overflow: 'hidden',
                 display: 'flex',
                 flexDirection: 'column',
                 transition: 'border-color 0.2s ease',
+                boxShadow: 'var(--admin-card-shadow)',
               }}
             >
               {/* Image thumbnail container with badges */}
-              <div style={{ position: 'relative', height: 180, background: '#050708', overflow: 'hidden' }}>
+              <div style={{ position: 'relative', height: 180, background: 'var(--admin-subcard-bg)', overflow: 'hidden' }}>
                 <img
                   src={item.image_url}
                   alt={item.title}
@@ -932,7 +935,7 @@ export default function GalleryTab() {
                     fontFamily: 'Orbitron, sans-serif',
                     fontWeight: 800,
                     fontSize: 13,
-                    color: '#FFFFFF',
+                    color: 'var(--admin-text-main)',
                     lineHeight: 1.3,
                   }}
                 >
@@ -1068,7 +1071,7 @@ export default function GalleryTab() {
           style={{
             position: 'fixed',
             inset: 0,
-            background: 'rgba(0,0,0,0.75)',
+            background: 'var(--admin-modal-overlay)',
             backdropFilter: 'blur(6px)',
             zIndex: 1000,
             display: 'flex',
@@ -1082,21 +1085,21 @@ export default function GalleryTab() {
         >
           <div
             style={{
-              background: '#090D11',
-              border: '1px solid #1C232B',
+              background: 'var(--admin-card-bg)',
+              border: '1px solid var(--admin-border)',
               borderRadius: 18,
               width: '100%',
               maxWidth: 540,
               maxHeight: '90vh',
               overflowY: 'auto',
-              boxShadow: '0 20px 50px rgba(0,0,0,0.7)',
+              boxShadow: '0 20px 50px rgba(0,0,0,0.5)',
             }}
           >
             {/* Modal Header */}
             <div
               style={{
                 padding: '18px 22px',
-                borderBottom: '1px solid #1C232B',
+                borderBottom: '1px solid var(--admin-border)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
@@ -1108,13 +1111,13 @@ export default function GalleryTab() {
                     fontFamily: 'Orbitron, sans-serif',
                     fontWeight: 900,
                     fontSize: 15,
-                    color: '#FFFFFF',
+                    color: 'var(--admin-text-main)',
                     margin: 0,
                   }}
                 >
                   {editingItem ? 'EDIT GALLERY ITEM' : 'UPLOAD NEW WORK PHOTO'}
                 </h3>
-                <div style={{ fontSize: 11, color: '#687078', marginTop: 2 }}>
+                <div style={{ fontSize: 11, color: 'var(--admin-text-muted)', marginTop: 2 }}>
                   Destination:{' '}
                   <span style={{ color: '#11BCE6', fontWeight: 800 }}>
                     {form.gallery_type === 'seat_cover' ? 'Seat Covers Our Work' : 'General Website Gallery'}
@@ -1455,7 +1458,7 @@ export default function GalleryTab() {
           style={{
             position: 'fixed',
             inset: 0,
-            background: 'rgba(0,0,0,0.8)',
+            background: 'var(--admin-modal-overlay)',
             backdropFilter: 'blur(6px)',
             zIndex: 1100,
             display: 'flex',
@@ -1466,32 +1469,33 @@ export default function GalleryTab() {
         >
           <div
             style={{
-              background: '#090D11',
+              background: 'var(--admin-card-bg)',
               border: '1px solid rgba(255,85,85,0.3)',
               borderRadius: 16,
               maxWidth: 420,
               width: '100%',
               padding: '24px 22px',
               textAlign: 'center',
+              boxShadow: '0 20px 50px rgba(0,0,0,0.5)',
             }}
           >
             <div style={{ fontSize: 36, marginBottom: 12 }}>🗑️</div>
             <h3 style={{ fontFamily: 'Orbitron, sans-serif', fontWeight: 900, color: '#FF5555', margin: 0, fontSize: 16 }}>
               DELETE GALLERY ITEM?
             </h3>
-            <p style={{ fontSize: 12, color: '#A0A7AE', marginTop: 10, lineHeight: 1.5 }}>
+            <p style={{ fontSize: 12, color: 'var(--admin-text-sub)', marginTop: 10, lineHeight: 1.5 }}>
               Are you sure you want to permanently delete{' '}
-              <strong style={{ color: '#FFFFFF' }}>"{deleteConfirmItem.title}"</strong>?
+              <strong style={{ color: 'var(--admin-text-main)' }}>"{deleteConfirmItem.title}"</strong>?
             </p>
             <div
               style={{
                 fontSize: 11,
-                color: '#687078',
-                background: '#0D1217',
+                color: 'var(--admin-text-muted)',
+                background: 'var(--admin-subcard-bg)',
                 padding: '8px 12px',
                 borderRadius: 8,
                 marginTop: 10,
-                border: '1px solid #1E2A33',
+                border: '1px solid var(--admin-border-subtle)',
               }}
             >
               This will remove the database record and delete the image file from Supabase Storage.
@@ -1541,9 +1545,9 @@ export default function GalleryTab() {
 }
 
 const refreshBtnStyle: React.CSSProperties = {
-  background: '#0D1217',
-  border: '1px solid #1E2A33',
-  color: '#A0A7AE',
+  background: 'var(--admin-subcard-bg)',
+  border: '1px solid var(--admin-border-subtle)',
+  color: 'var(--admin-text-sub)',
   borderRadius: 8,
   padding: '8px 14px',
   fontSize: 11,
@@ -1556,18 +1560,18 @@ const formLabelStyle: React.CSSProperties = {
   fontSize: 10,
   letterSpacing: '0.08em',
   fontWeight: 800,
-  color: '#8A929B',
+  color: 'var(--admin-text-sub)',
   marginBottom: 6,
 }
 
 const formInputStyle: React.CSSProperties = {
   width: '100%',
-  background: '#0D1217',
-  border: '1px solid #1E2A33',
+  background: 'var(--admin-input-bg)',
+  border: '1px solid var(--admin-input-border)',
   borderRadius: 8,
   padding: '9px 12px',
   fontSize: 12,
-  color: '#FFFFFF',
+  color: 'var(--admin-input-text)',
   outline: 'none',
   boxSizing: 'border-box',
 }

@@ -25,8 +25,8 @@ export default function Services() {
             style={{
               borderRadius: 18,
               overflow: 'hidden',
-              border: '1px solid #1C232B',
-              background: '#090D11',
+              border: '1px solid var(--card-border, #1C232B)',
+              background: 'var(--card-bg, #090D11)',
               position: 'relative',
               minHeight: 280,
               display: 'flex',

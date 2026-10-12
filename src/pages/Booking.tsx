@@ -64,8 +64,8 @@ export default function Booking() {
         className="booking-form"
         style={{
           marginTop: 24,
-          background: '#090D11',
-          border: '1px solid #1C232B',
+          background: 'var(--card-bg, #090D11)',
+          border: '1px solid var(--card-border, #1C232B)',
           borderRadius: 18,
           padding: '26px 22px',
           display: 'grid',

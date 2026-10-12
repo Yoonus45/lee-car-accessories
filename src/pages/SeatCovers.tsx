@@ -538,7 +538,7 @@ export default function SeatCovers() {
           SECTION A — SEAT COVER DESIGNS (PORTFOLIO SHOWCASE)
           NO direct order / cart. Clicking opens rich showcase view!
       ───────────────────────────────────────────────────────────── */}
-      <section id="seat-designs" className="container" style={{ padding: 'clamp(44px, 7vw, 76px) 0 32px' }}>
+      <section id="seat-designs" className="container" style={{ paddingTop: 'clamp(44px, 7vw, 76px)', paddingBottom: 32 }}>
         <div style={{ textAlign: 'center', marginBottom: 'clamp(28px, 4vw, 44px)' }}>
           <div style={{
             display: 'inline-flex',
@@ -563,17 +563,13 @@ export default function SeatCovers() {
         </div>
 
         {/* Designs Grid */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-          gap: 'clamp(18px, 3vw, 26px)'
-        }}>
+        <div className="seat-designs-grid">
           {SEAT_DESIGNS.map(design => (
             <div
               key={design.id}
               onClick={() => openDesignModal(design)}
               className="product-card hover-card"
-              style={{ cursor: 'pointer' }}
+              style={{ cursor: 'pointer', minWidth: 0 }}
             >
               {/* Card Image Wrap with Multi-image Indicator */}
               <div className="product-card-img-wrap">
@@ -642,9 +638,16 @@ export default function SeatCovers() {
                   <button
                     onClick={(e) => { e.stopPropagation(); openDesignModal(design); }}
                     className="btn-cyan"
-                    style={{ width: '100%', padding: '10px 14px', fontSize: 11, minHeight: 38 }}
+                    style={{
+                      width: '100%',
+                      padding: '8px 8px',
+                      fontSize: 'clamp(9.5px, 2.2vw, 11px)',
+                      minHeight: 34,
+                      boxSizing: 'border-box',
+                      whiteSpace: 'nowrap',
+                    }}
                   >
-                    VIEW DESIGN & SPECIFICATIONS →
+                    VIEW DESIGN & SPECS →
                   </button>
                 </div>
               </div>
@@ -702,9 +705,9 @@ export default function SeatCovers() {
                       fontSize: 11,
                       letterSpacing: '0.06em',
                       cursor: 'pointer',
-                      border: `1.5px solid ${isSelected ? '#11BCE6' : '#1C232B'}`,
-                      background: isSelected ? '#11BCE6' : '#090D11',
-                      color: isSelected ? '#02141B' : '#A0A7AE',
+                      border: `1.5px solid ${isSelected ? 'var(--cyan, #11BCE6)' : 'var(--card-border, #1C232B)'}`,
+                      background: isSelected ? 'var(--cyan, #11BCE6)' : 'var(--card-bg, #090D11)',
+                      color: isSelected ? '#FFFFFF' : 'var(--text-muted, #A0A7AE)',
                       transition: 'all .15s ease'
                     }}
                   >
@@ -721,17 +724,13 @@ export default function SeatCovers() {
               Loading seat cover installation gallery…
             </div>
           ) : (
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-              gap: 'clamp(16px, 2.5vw, 24px)'
-            }}>
+            <div className="seat-work-grid">
               {filteredWorkItems.map(work => (
                 <div
                   key={work.id}
                   onClick={() => openWorkModal(work)}
                   className="product-card hover-card"
-                  style={{ cursor: 'pointer' }}
+                  style={{ cursor: 'pointer', minWidth: 0 }}
                 >
                   <div className="product-card-img-wrap" style={{ aspectRatio: '16 / 10' }}>
                     <img src={work.images[0]} alt={work.title} loading="lazy" />
@@ -882,11 +881,11 @@ export default function SeatCovers() {
       ───────────────────────────────────────────────────────────── */}
       <section id="appointment-form" className="container" style={{ padding: 'clamp(32px, 6vw, 56px) 0', maxWidth: 860 }}>
         <div style={{
-          background: 'linear-gradient(135deg, #090D11 0%, #0A0F14 100%)',
-          border: '1px solid #1C232B',
+          background: 'var(--card-bg, #090D11)',
+          border: '1px solid var(--card-border, #1C232B)',
           borderRadius: 22,
           padding: 'clamp(24px, 5vw, 44px)',
-          boxShadow: '0 20px 50px rgba(0,0,0,0.5)'
+          boxShadow: '0 20px 50px rgba(0,0,0,0.15)'
         }}>
           <div style={{ textAlign: 'center', marginBottom: 28 }}>
             <div style={{

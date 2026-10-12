@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '../../lib/supabase'
+import { useTheme } from '../../context/ThemeContext'
 import ProductsTab from './tabs/ProductsTab'
 import OrdersTab from './tabs/OrdersTab'
 import BookingsTab from './tabs/BookingsTab'
@@ -8,22 +9,23 @@ import MessagesTab from './tabs/MessagesTab'
 import CategoriesTab from './tabs/CategoriesTab'
 import SeatAppointmentsTab from './tabs/SeatAppointmentsTab'
 import GalleryTab from './tabs/GalleryTab'
-import leeLogo from '../../assets/lee cars logo.png'
+import leeLogo from '../../assets/lee-cars-logo.png'
 
 type Tab = 'products' | 'categories' | 'gallery' | 'orders' | 'bookings' | 'seat_appointments' | 'messages'
 
 const TABS: { id: Tab; label: string; icon: string }[] = [
-  { id: 'products',          label: 'Products',       icon: '📦' },
-  { id: 'categories',        label: 'Categories',     icon: '🏷' },
-  { id: 'gallery',           label: 'Gallery',        icon: '📸' },
-  { id: 'orders',            label: 'Order Requests', icon: '🛒' },
-  { id: 'bookings',          label: 'Bookings',       icon: '📅' },
-  { id: 'seat_appointments', label: 'Seat Covers',    icon: '💺' },
-  { id: 'messages',          label: 'Messages',       icon: '💬' },
+  { id: 'products', label: 'Products', icon: '📦' },
+  { id: 'categories', label: 'Categories', icon: '🏷' },
+  { id: 'gallery', label: 'Gallery', icon: '📸' },
+  { id: 'orders', label: 'Order Requests', icon: '🛒' },
+  { id: 'bookings', label: 'Bookings', icon: '📅' },
+  { id: 'seat_appointments', label: 'Seat Covers', icon: '💺' },
+  { id: 'messages', label: 'Messages', icon: '💬' },
 ]
 
 export default function AdminDashboard() {
   const navigate = useNavigate()
+  const { theme, toggleTheme } = useTheme()
   const [tab, setTab] = useState<Tab>('orders')
   const [adminEmail, setAdminEmail] = useState('')
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -40,27 +42,34 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div style={{
-      minHeight: '100vh',
-      background: '#060A0E',
-      display: 'flex',
-      flexDirection: 'column',
-      fontFamily: 'Inter, system-ui, sans-serif'
-    }}>
-      {/* Top Nav */}
-      <header style={{
-        background: '#090D11',
-        borderBottom: '1px solid #1C232B',
-        padding: '0 20px',
+    <div
+      className="admin-dashboard-container"
+      style={{
+        minHeight: '100vh',
+        background: 'var(--admin-bg)',
+        color: 'var(--admin-text-main)',
         display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        height: 60,
-        flexShrink: 0,
-        position: 'sticky',
-        top: 0,
-        zIndex: 100
-      }}>
+        flexDirection: 'column',
+        fontFamily: 'Inter, system-ui, sans-serif'
+      }}
+    >
+      {/* Top Nav */}
+      <header
+        className="admin-header"
+        style={{
+          background: 'var(--admin-card-bg)',
+          borderBottom: '1px solid var(--admin-border)',
+          padding: '0 20px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          height: 60,
+          flexShrink: 0,
+          position: 'sticky',
+          top: 0,
+          zIndex: 100
+        }}
+      >
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           {/* Mobile hamburger */}
           <button
@@ -69,10 +78,10 @@ export default function AdminDashboard() {
               display: 'none',
               width: 36,
               height: 36,
-              background: 'none',
-              border: '1px solid #1E2A33',
+              background: 'var(--admin-subcard-bg)',
+              border: '1px solid var(--admin-border-subtle)',
               borderRadius: 8,
-              color: '#A0A7AE',
+              color: 'var(--admin-text-sub)',
               cursor: 'pointer',
               fontSize: 18
             }}
@@ -89,7 +98,7 @@ export default function AdminDashboard() {
                 width: 32,
                 height: 32,
                 borderRadius: '50%',
-                border: '1px solid #1E2A33',
+                border: '1px solid var(--admin-border-subtle)',
                 objectFit: 'cover'
               }}
             />
@@ -97,28 +106,60 @@ export default function AdminDashboard() {
               <div style={{ fontFamily: 'Orbitron, sans-serif', fontWeight: 900, fontSize: 13, color: '#11BCE6', letterSpacing: '0.06em' }}>
                 LEE CAR ACCESSORIES
               </div>
-              <div style={{ fontSize: 10, color: '#687078', marginTop: 1 }}>Admin Dashboard</div>
+              <div style={{ fontSize: 10, color: 'var(--admin-text-muted)', marginTop: 1 }}>Admin Dashboard</div>
             </div>
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <div style={{ fontSize: 11, color: '#687078', display: 'none' }} className="admin-email-label">
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <div style={{ fontSize: 11, color: 'var(--admin-text-muted)', display: 'none' }} className="admin-email-label">
             {adminEmail}
           </div>
+
+          {/* Theme Toggle Button */}
+          <button
+            onClick={toggleTheme}
+            style={{
+              fontSize: 13,
+              color: 'var(--admin-text-main)',
+              background: 'var(--admin-subcard-bg)',
+              border: '1px solid var(--admin-border-subtle)',
+              borderRadius: 8,
+              padding: '6px 11px',
+              cursor: 'pointer',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 6,
+              fontWeight: 700,
+              transition: 'all .15s ease'
+            }}
+            title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+            aria-label={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+          >
+            <span style={{ fontSize: 14 }}>{theme === 'dark' ? '☀️' : '🌙'}</span>
+            <span className="admin-theme-text" style={{ fontSize: 11, fontWeight: 700 }}>
+              {theme === 'dark' ? 'Light' : 'Dark'}
+            </span>
+          </button>
+
           <a
             href="/"
             style={{
               fontSize: 11,
-              color: '#A0A7AE',
-              border: '1px solid #1E2A33',
+              color: 'var(--admin-text-sub)',
+              background: 'var(--admin-subcard-bg)',
+              border: '1px solid var(--admin-border-subtle)',
               borderRadius: 8,
               padding: '6px 12px',
-              fontWeight: 700
+              fontWeight: 700,
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 4
             }}
           >
             ← Website
           </a>
+
           <button
             onClick={signOut}
             style={{
@@ -139,17 +180,20 @@ export default function AdminDashboard() {
 
       <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
         {/* Sidebar */}
-        <aside style={{
-          width: 220,
-          background: '#090D11',
-          borderRight: '1px solid #1C232B',
-          padding: '20px 12px',
-          flexShrink: 0,
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 4,
-          overflowY: 'auto'
-        }} className={`admin-sidebar${mobileMenuOpen ? ' admin-sidebar-open' : ''}`}>
+        <aside
+          style={{
+            width: 220,
+            background: 'var(--admin-card-bg)',
+            borderRight: '1px solid var(--admin-border)',
+            padding: '20px 12px',
+            flexShrink: 0,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 4,
+            overflowY: 'auto'
+          }}
+          className={`admin-sidebar${mobileMenuOpen ? ' admin-sidebar-open' : ''}`}
+        >
           {TABS.map(t => (
             <button
               key={t.id}
@@ -162,7 +206,7 @@ export default function AdminDashboard() {
                 borderRadius: 10,
                 border: 'none',
                 background: tab === t.id ? 'rgba(17,188,230,0.12)' : 'transparent',
-                color: tab === t.id ? '#11BCE6' : '#A0A7AE',
+                color: tab === t.id ? '#11BCE6' : 'var(--admin-text-sub)',
                 fontWeight: tab === t.id ? 800 : 600,
                 fontSize: 13,
                 cursor: 'pointer',
@@ -177,28 +221,31 @@ export default function AdminDashboard() {
             </button>
           ))}
 
-          <div style={{ marginTop: 'auto', paddingTop: 20, borderTop: '1px solid #1C232B' }}>
-            <div style={{ fontSize: 10, color: '#687078', padding: '0 14px', lineHeight: 1.6 }}>
+          <div style={{ marginTop: 'auto', paddingTop: 20, borderTop: '1px solid var(--admin-border)' }}>
+            <div style={{ fontSize: 10, color: 'var(--admin-text-muted)', padding: '0 14px', lineHeight: 1.6 }}>
               Signed in as<br />
-              <span style={{ color: '#A0A7AE', wordBreak: 'break-all' }}>{adminEmail}</span>
+              <span style={{ color: 'var(--admin-text-sub)', wordBreak: 'break-all' }}>{adminEmail}</span>
             </div>
           </div>
         </aside>
 
         {/* Main Content */}
-        <main style={{
-          flex: 1,
-          overflowY: 'auto',
-          overflowX: 'hidden',
-          padding: '24px 20px'
-        }}>
-          {tab === 'products'          && <ProductsTab />}
-          {tab === 'categories'        && <CategoriesTab />}
-          {tab === 'gallery'           && <GalleryTab />}
-          {tab === 'orders'            && <OrdersTab />}
-          {tab === 'bookings'          && <BookingsTab />}
+        <main
+          className="admin-main-content"
+          style={{
+            flex: 1,
+            overflowY: 'auto',
+            overflowX: 'hidden',
+            padding: '24px 20px'
+          }}
+        >
+          {tab === 'products' && <ProductsTab />}
+          {tab === 'categories' && <CategoriesTab />}
+          {tab === 'gallery' && <GalleryTab />}
+          {tab === 'orders' && <OrdersTab />}
+          {tab === 'bookings' && <BookingsTab />}
           {tab === 'seat_appointments' && <SeatAppointmentsTab />}
-          {tab === 'messages'          && <MessagesTab />}
+          {tab === 'messages' && <MessagesTab />}
         </main>
       </div>
 
@@ -214,7 +261,7 @@ export default function AdminDashboard() {
             height: calc(100vh - 60px) !important;
             z-index: 200 !important;
             transition: left .25s ease !important;
-            border-right: 1px solid #1C232B !important;
+            border-right: 1px solid var(--admin-border) !important;
             box-shadow: 4px 0 24px rgba(0,0,0,0.6) !important;
           }
           .admin-sidebar-open { left: 0 !important; }

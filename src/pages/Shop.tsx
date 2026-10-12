@@ -3,6 +3,7 @@ import { useMemo } from 'react'
 import { useProducts } from '../hooks/useProducts'
 import { useCategories } from '../hooks/useCategories'
 import { businessInfo } from '../data/mockData'
+import { formatINR } from '../lib/currency'
 import type { DbProduct } from '../types/database'
 
 // Standard automotive categories with emoji icons
@@ -65,89 +66,17 @@ export default function Shop() {
 
   return (
     <div style={{ width: '100%', overflowX: 'hidden' }}>
-      {/* SHOP HEADER BANNER */}
-      <section className="container" style={{ marginTop: 'clamp(16px, 3vw, 24px)' }}>
-        <div className="hero-grid-shop">
-          <div className="hero-content">
-            <div style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 8,
-              background: 'rgba(17,188,230,0.08)',
-              border: '1px solid rgba(17,188,230,0.22)',
-              borderRadius: 999,
-              padding: '6px 14px',
-              width: 'fit-content',
-              marginBottom: 12
-            }}>
-              <span style={{ fontSize: 10, fontWeight: 800, letterSpacing: '0.14em', color: '#11BCE6' }}>
-                GENUINE CAR ACCESSORIES
-              </span>
-            </div>
-            <h1 className="sec-title" style={{ fontSize: 'clamp(26px, 5vw, 42px)', margin: 0 }}>
-              STORE <span style={{ color: '#11BCE6' }}>CATALOGUE</span>
-            </h1>
-            <p style={{ color: '#A0A7AE', fontSize: 13, marginTop: 12, lineHeight: 1.65, maxWidth: 460 }}>
-              Upgrade your vehicle with authentic accessories, coupler-to-coupler LED headlights, Android touchscreen infotainment, and custom fitments at Ramanathapuram.
-            </p>
-            <div style={{ marginTop: 18, display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-              <span style={{ background: 'rgba(17,188,230,0.12)', color: '#11BCE6', border: '1px solid rgba(17,188,230,0.3)', fontWeight: 800, fontSize: 11, padding: '6px 14px', borderRadius: 999 }}>
-                ✓ COUPLER-TO-COUPLER
-              </span>
-              <span style={{ border: '1px solid #1E2A33', color: '#A0A7AE', fontWeight: 700, fontSize: 11, padding: '6px 14px', borderRadius: 999 }}>
-                ✓ STORE WARRANTY
-              </span>
-            </div>
-          </div>
-
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            gap: 12,
-            padding: 'clamp(12px, 3vw, 20px)',
-            alignItems: 'center'
-          }}>
-            <div style={{ height: '100%', minHeight: 180, borderRadius: 14, overflow: 'hidden' }}>
-              <img
-                src="https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?w=600&h=600&fit=crop"
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                alt="Leather Interior"
-                loading="lazy"
-              />
-            </div>
-            <div style={{ display: 'grid', gap: 12, height: '100%' }}>
-              <div style={{ height: 110, borderRadius: 14, overflow: 'hidden' }}>
-                <img
-                  src="https://images.unsplash.com/photo-1502877338535-766e1452684a?w=500&h=250&fit=crop"
-                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                  alt="Android System"
-                  loading="lazy"
-                />
-              </div>
-              <div style={{ height: 110, borderRadius: 14, overflow: 'hidden' }}>
-                <img
-                  src="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?w=500&h=250&fit=crop"
-                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                  alt="LED Headlights"
-                  loading="lazy"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* ─────────────────────────────────────────────────────────────
           CATEGORY FILTER BAR (CLEAR, CLEAN, EXPLICIT)
       ───────────────────────────────────────────────────────────── */}
-      <section className="container" style={{ marginTop: 'clamp(28px, 5vw, 44px)' }}>
+      <section className="container" style={{ marginTop: 'clamp(16px, 3vw, 24px)' }}>
         <div style={{ textAlign: 'center', marginBottom: 20 }}>
           <div style={{ color: '#11BCE6', fontWeight: 800, fontSize: 11, letterSpacing: '0.16em' }}>
             SELECT CATEGORY
           </div>
-          <div className="sec-title" style={{ fontSize: 'clamp(20px, 4vw, 26px)', marginTop: 4 }}>
+          <h1 className="sec-title" style={{ fontSize: 'clamp(20px, 4vw, 26px)', marginTop: 4 }}>
             SHOP BY <span style={{ color: '#11BCE6' }}>CATEGORY</span>
-          </div>
+          </h1>
           <p style={{ color: '#8A929B', fontSize: 13, marginTop: 6 }}>
             Click a category below to filter products instantly
           </p>
@@ -185,19 +114,20 @@ export default function Shop() {
                   fontSize: 12,
                   letterSpacing: '0.06em',
                   cursor: 'pointer',
-                  border: `1.5px solid ${isSelected ? '#11BCE6' : '#1C232B'}`,
-                  background: isSelected ? '#11BCE6' : '#090D11',
-                  color: isSelected ? '#02141B' : '#A0A7AE',
+                  border: `1.5px solid ${isSelected ? 'var(--cyan, #00C8F0)' : 'var(--card-border, #1C232B)'}`,
+                  background: isSelected ? 'var(--cyan, #00C8F0)' : 'var(--card-bg, #090D11)',
+                  color: isSelected ? '#02141B' : 'var(--text, #A0A7AE)',
                   transition: 'all .18s ease',
-                  boxShadow: isSelected ? '0 0 16px rgba(17,188,230,0.35)' : 'none'
+                  boxShadow: isSelected ? '0 0 16px rgba(0,200,240,0.35)' : 'none'
                 }}
               >
                 <span>{meta.icon}</span>
                 <span>{meta.label.toUpperCase()}</span>
                 <span style={{
                   fontSize: 10,
-                  opacity: isSelected ? 0.9 : 0.6,
-                  background: isSelected ? 'rgba(2,20,27,0.15)' : '#0D1217',
+                  opacity: isSelected ? 0.95 : 0.8,
+                  background: isSelected ? 'rgba(2,20,27,0.18)' : 'var(--card-item-bg, #0D1217)',
+                  color: isSelected ? '#02141B' : 'var(--text-muted, #8E9BAE)',
                   padding: '2px 6px',
                   borderRadius: 999,
                   fontWeight: 900
@@ -304,7 +234,7 @@ export default function Shop() {
               NEED HELP CHOOSING?
             </div>
             <div className="sec-title" style={{ fontSize: 'clamp(20px, 4vw, 26px)', marginTop: 6 }}>
-              FREE EXPERT <span style={{ color: '#11BCE6' }}>FITMENT CONSULTATION</span>
+              <span style={{ color: '#FFFFFF' }}>FREE EXPERT</span> <span style={{ color: '#11BCE6' }}>FITMENT CONSULTATION</span>
             </div>
             <p style={{ fontSize: 13, color: '#A0A7AE', marginTop: 10, lineHeight: 1.65, maxWidth: 480 }}>
               Not sure which LED socket fits your headlights or which Android frame matches your dashboard? Send us a photo of your vehicle on WhatsApp for instant guidance.
@@ -357,7 +287,7 @@ export default function Shop() {
                 height: 36,
                 borderRadius: 10,
                 background: '#0D1217',
-                border: '1px solid #1E2A33',
+                border: '1px solid #1E2834',
                 display: 'grid',
                 placeItems: 'center',
                 color: '#11BCE6',
@@ -378,60 +308,66 @@ export default function Shop() {
 
 function ProductCard({ p }: { p: DbProduct }) {
   return (
-    <div className="product-card">
+    <div className="product-card" style={{ minWidth: 0 }}>
       <Link to={`/product/${p.id}`} className="product-card-img-wrap" style={{ display: 'block' }}>
         <img src={p.image} alt={p.name} loading="lazy" />
         <span style={{
           position: 'absolute',
-          top: 10,
-          right: 10,
+          top: 8,
+          right: 8,
+          maxWidth: 'calc(100% - 16px)',
           background: 'rgba(5,7,8,0.85)',
           backdropFilter: 'blur(6px)',
           border: '1px solid rgba(17,188,230,0.3)',
-          padding: '4px 10px',
+          padding: '3px 8px',
           borderRadius: 999,
-          fontSize: 10,
+          fontSize: 9,
           fontWeight: 800,
           color: '#11BCE6',
-          letterSpacing: '0.06em'
+          letterSpacing: '0.06em',
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
         }}>
           {p.category}
         </span>
       </Link>
 
-      <div className="product-card-body">
+      <div className="product-card-body" style={{ minWidth: 0 }}>
         <Link to={`/product/${p.id}`}>
           <div className="product-card-title">{p.title || p.name}</div>
         </Link>
-        <div style={{ fontSize: 10, letterSpacing: '0.08em', fontWeight: 700, color: '#687078', marginTop: 4 }}>
+        <div style={{ fontSize: 9.5, letterSpacing: '0.06em', fontWeight: 700, color: '#687078', marginTop: 3, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
           {p.category} · Store Fitment
         </div>
         <div className="product-card-desc">{p.description}</div>
 
-        <div style={{ marginTop: 'auto', paddingTop: 14 }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8, marginBottom: 12 }}>
-            <div>
+        <div style={{ marginTop: 'auto', paddingTop: 12 }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 6, marginBottom: 10, flexWrap: 'wrap' }}>
+            <div style={{ minWidth: 0 }}>
               {p.contact_for_price ? (
-                <span style={{ color: '#D69A13', fontWeight: 800, fontSize: 13 }}>Contact for Price</span>
+                <span style={{ color: '#D69A13', fontWeight: 800, fontSize: 'clamp(10px, 2.4vw, 12px)' }}>Contact for Price</span>
               ) : (
-                <div style={{ display: 'flex', alignItems: 'baseline', gap: 6 }}>
-                  <span style={{ color: '#11BCE6', fontWeight: 900, fontSize: 16 }}>₹{p.price!.toLocaleString('en-IN')}</span>
-                  {p.mrp && <span style={{ color: '#687078', fontSize: 11, textDecoration: 'line-through' }}>₹{p.mrp.toLocaleString('en-IN')}</span>}
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: 4, flexWrap: 'wrap' }}>
+                  <span style={{ color: '#00C8F0', fontWeight: 900, fontSize: 'clamp(12px, 3vw, 15px)', whiteSpace: 'nowrap' }}>{formatINR(p.price)}</span>
+                  {p.mrp && <span style={{ color: '#687078', fontSize: 'clamp(8.5px, 2vw, 10px)', textDecoration: 'line-through', whiteSpace: 'nowrap' }}>{formatINR(p.mrp)}</span>}
                 </div>
               )}
             </div>
-            <span style={{ color: '#D69A13', fontSize: 11, fontWeight: 800 }}>★ {p.rating}</span>
+            <span style={{ color: '#D69A13', fontSize: 'clamp(9.5px, 2.2vw, 11px)', fontWeight: 800, whiteSpace: 'nowrap' }}>★ {p.rating}</span>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: 8 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: 6 }}>
             <Link
               to={`/product/${p.id}`}
               className="btn-cyan"
               style={{
                 width: '100%',
-                padding: '10px 14px',
-                fontSize: 11,
-                minHeight: 38
+                padding: '8px 8px',
+                fontSize: 'clamp(9.5px, 2.2vw, 11px)',
+                minHeight: 34,
+                boxSizing: 'border-box',
+                whiteSpace: 'nowrap',
               }}
             >
               VIEW DETAILS
@@ -442,16 +378,17 @@ function ProductCard({ p }: { p: DbProduct }) {
               rel="noreferrer"
               aria-label="Inquire on WhatsApp"
               style={{
-                width: 38,
-                height: 38,
+                width: 34,
+                height: 34,
                 borderRadius: '50%',
                 background: '#0D1217',
-                border: '1px solid #1E2A33',
+                border: '1px solid #1E2834',
                 display: 'grid',
                 placeItems: 'center',
                 cursor: 'pointer',
                 color: '#25D366',
-                fontSize: 16
+                fontSize: 14,
+                flexShrink: 0,
               }}
             >
               💬

@@ -32,8 +32,8 @@ export default function Reviews() {
           gap: 10,
           marginTop: 14,
           flexWrap: 'wrap',
-          background: '#090D11',
-          border: '1px solid #1C232B',
+          background: 'var(--card-bg, #090D11)',
+          border: '1px solid var(--card-border, #1C232B)',
           borderRadius: 999,
           padding: '8px 16px'
         }}>
@@ -86,8 +86,8 @@ export default function Reviews() {
         <div className="reviews-summary-grid">
           {/* Overall Rating Card */}
           <div style={{
-            background: '#090D11',
-            border: '1px solid #1C232B',
+            background: 'var(--card-bg, #090D11)',
+            border: '1px solid var(--card-border, #1C232B)',
             borderRadius: 16,
             padding: '24px 20px',
             textAlign: 'center',
@@ -141,8 +141,8 @@ export default function Reviews() {
 
           {/* Rating Distribution Visual */}
           <div style={{
-            background: '#090D11',
-            border: '1px solid #1C232B',
+            background: 'var(--card-bg, #090D11)',
+            border: '1px solid var(--card-border, #1C232B)',
             borderRadius: 16,
             padding: '22px 20px',
             display: 'flex',
@@ -223,8 +223,8 @@ export default function Reviews() {
             <div
               key={r.id}
               style={{
-                background: '#090D11',
-                border: '1px solid #1C232B',
+                background: 'var(--card-bg, #090D11)',
+                border: '1px solid var(--card-border, #1C232B)',
                 borderRadius: 16,
                 padding: '20px',
                 display: 'flex',

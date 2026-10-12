@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { supabase } from '../../../lib/supabase'
+import { formatINR } from '../../../lib/currency'
 import type { DbCategory, DbProduct } from '../../../types/database'
 
 const STORAGE_BUCKET = 'product-images'
@@ -211,10 +212,10 @@ export default function ProductsTab() {
     <div>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12, marginBottom: 20 }}>
         <div>
-          <h2 style={{ fontFamily: 'Orbitron, sans-serif', fontWeight: 900, fontSize: 18, color: '#FFFFFF', margin: 0 }}>
+          <h2 style={{ fontFamily: 'Orbitron, sans-serif', fontWeight: 900, fontSize: 18, color: 'var(--admin-text-main)', margin: 0 }}>
             PRODUCTS
           </h2>
-          <div style={{ fontSize: 11, color: '#687078', marginTop: 4 }}>
+          <div style={{ fontSize: 11, color: 'var(--admin-text-muted)', marginTop: 4 }}>
             {products.length} products · {products.filter(p => p.in_stock).length} in stock
           </div>
         </div>
@@ -227,7 +228,7 @@ export default function ProductsTab() {
       {products.length === 0 && !loading && (
         <div style={{ background: 'rgba(214,154,19,0.08)', border: '1px solid rgba(214,154,19,0.25)', borderRadius: 12, padding: '14px 16px', marginBottom: 16 }}>
           <div style={{ color: '#D69A13', fontWeight: 800, fontSize: 12 }}>ℹ No products yet</div>
-          <div style={{ color: '#A0A7AE', fontSize: 12, marginTop: 4 }}>
+          <div style={{ color: 'var(--admin-text-sub)', fontSize: 12, marginTop: 4 }}>
             Run the <code>supabase_setup.sql</code> seed script to import all 12 products, or add them manually.
           </div>
         </div>
@@ -238,25 +239,25 @@ export default function ProductsTab() {
           {products.map(p => (
             <div key={p.id} style={{ ...cardStyle, display: 'flex', gap: 14, alignItems: 'center', flexWrap: 'wrap' }}>
               {/* Thumbnail */}
-              <div style={{ width: 68, height: 68, borderRadius: 10, overflow: 'hidden', background: '#0D1217', border: '1px solid #1E2A33', flexShrink: 0 }}>
+              <div style={{ width: 68, height: 68, borderRadius: 10, overflow: 'hidden', background: 'var(--admin-subcard-bg)', border: '1px solid var(--admin-border-subtle)', flexShrink: 0 }}>
                 {p.image ? (
                   <img src={p.image} alt={p.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 ) : (
-                  <div style={{ width: '100%', height: '100%', display: 'grid', placeItems: 'center', color: '#687078', fontSize: 10 }}>No img</div>
+                  <div style={{ width: '100%', height: '100%', display: 'grid', placeItems: 'center', color: 'var(--admin-text-muted)', fontSize: 10 }}>No img</div>
                 )}
               </div>
 
               {/* Info */}
               <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ fontWeight: 800, fontSize: 13, color: '#FFFFFF', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{p.name}</div>
-                <div style={{ fontSize: 11, color: '#687078', marginTop: 2 }}>
-                  <span style={{ color: '#11BCE6' }}>{p.category}</span>
+                <div style={{ fontWeight: 800, fontSize: 13, color: 'var(--admin-text-main)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{p.name}</div>
+                <div style={{ fontSize: 11, color: 'var(--admin-text-muted)', marginTop: 2 }}>
+                  <span style={{ color: '#00C8F0' }}>{p.category}</span>
                   {' · '}
-                  {p.contact_for_price ? 'Contact for Price' : `₹${p.price?.toLocaleString('en-IN') ?? '—'}`}
+                  {p.contact_for_price ? 'Contact for Price' : formatINR(p.price)}
                   {' · '}<span style={{ color: '#D69A13' }}>★ {p.rating}</span>
                   {' · '}{p.images?.length ?? 0} image{p.images?.length !== 1 ? 's' : ''}
                 </div>
-                <div style={{ fontSize: 10, color: '#A0A7AE', marginTop: 2 }}>ID: {p.id} · Order: {p.display_order}</div>
+                <div style={{ fontSize: 10, color: 'var(--admin-text-sub)', marginTop: 2 }}>ID: {p.id} · Order: {p.display_order}</div>
               </div>
 
               {/* Stock toggle */}
@@ -294,7 +295,7 @@ export default function ProductsTab() {
           onClick={closeForm}
           style={{
             position: 'fixed', inset: 0, zIndex: 1000,
-            background: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(4px)',
+            background: 'var(--admin-modal-overlay)', backdropFilter: 'blur(4px)',
             display: 'flex', alignItems: 'flex-start', justifyContent: 'center',
             padding: '20px 16px', overflowY: 'auto'
           }}
@@ -302,18 +303,19 @@ export default function ProductsTab() {
           <div
             onClick={e => e.stopPropagation()}
             style={{
-              background: '#090D11', border: '1px solid #1C232B', borderRadius: 18,
+              background: 'var(--admin-card-bg)', border: '1px solid var(--admin-border)', borderRadius: 18,
               width: '100%', maxWidth: 720, padding: '24px 22px',
-              position: 'relative', marginTop: 20, marginBottom: 40
+              position: 'relative', marginTop: 20, marginBottom: 40,
+              boxShadow: '0 20px 40px rgba(0,0,0,0.3)'
             }}
           >
             <button
               onClick={closeForm}
-              style={{ position: 'absolute', top: 14, right: 14, width: 32, height: 32, borderRadius: '50%', border: '1px solid #1E2A33', background: '#0D1217', color: '#A0A7AE', fontSize: 16, cursor: 'pointer', display: 'grid', placeItems: 'center' }}
+              style={{ position: 'absolute', top: 14, right: 14, width: 32, height: 32, borderRadius: '50%', border: '1px solid var(--admin-border-subtle)', background: 'var(--admin-subcard-bg)', color: 'var(--admin-text-sub)', fontSize: 16, cursor: 'pointer', display: 'grid', placeItems: 'center' }}
               aria-label="Close"
             >×</button>
 
-            <h3 style={{ fontFamily: 'Orbitron, sans-serif', fontWeight: 900, fontSize: 16, color: '#FFFFFF', margin: '0 0 20px' }}>
+            <h3 style={{ fontFamily: 'Orbitron, sans-serif', fontWeight: 900, fontSize: 16, color: 'var(--admin-text-main)', margin: '0 0 20px' }}>
               {editProduct ? 'EDIT PRODUCT' : 'ADD PRODUCT'}
             </h3>
 
@@ -539,22 +541,23 @@ export default function ProductsTab() {
 // ── Helpers ──
 
 function FormLabel({ label }: { label: string }) {
-  return <div style={{ fontSize: 10, letterSpacing: '0.1em', fontWeight: 800, color: '#A0A7AE', marginBottom: 6 }}>{label}</div>
+  return <div style={{ fontSize: 10, letterSpacing: '0.1em', fontWeight: 800, color: 'var(--admin-text-sub)', marginBottom: 6 }}>{label}</div>
 }
 
 function LoadingRow() {
-  return <div style={{ color: '#687078', fontSize: 13, padding: '40px 0', textAlign: 'center' }}>Loading…</div>
+  return <div style={{ color: 'var(--admin-text-muted)', fontSize: 13, padding: '40px 0', textAlign: 'center' }}>Loading…</div>
 }
 
-const cardStyle: React.CSSProperties = { background: '#090D11', border: '1px solid #1C232B', borderRadius: 14, padding: '14px 16px' }
+const cardStyle: React.CSSProperties = { background: 'var(--admin-card-bg)', border: '1px solid var(--admin-border)', borderRadius: 14, padding: '14px 16px', boxShadow: 'var(--admin-card-shadow)' }
 const addBtnStyle: React.CSSProperties = { background: '#11BCE6', color: '#02141B', fontWeight: 900, fontSize: 11, letterSpacing: '0.06em', padding: '8px 16px', borderRadius: 8, border: 'none', cursor: 'pointer' }
-const refreshBtnStyle: React.CSSProperties = { background: '#0D1217', border: '1px solid #1E2A33', color: '#A0A7AE', borderRadius: 8, padding: '8px 14px', fontSize: 11, fontWeight: 700, cursor: 'pointer' }
-const editBtnStyle: React.CSSProperties = { background: '#0D1217', border: '1px solid #1E2A33', color: '#A0A7AE', borderRadius: 8, padding: '6px 12px', fontSize: 11, fontWeight: 700, cursor: 'pointer' }
-const inputStyle: React.CSSProperties = { background: '#0D1217', border: '1px solid #1E2A33', borderRadius: 10, padding: '10px 12px', color: '#FFFFFF', outline: 'none', width: '100%', fontSize: 12, boxSizing: 'border-box', minHeight: 40 }
-const iconBtnStyle: React.CSSProperties = { background: 'rgba(0,0,0,0.4)', border: '1px solid #1E2A33', color: '#A0A7AE', borderRadius: 6, padding: '2px 6px', fontSize: 11, cursor: 'pointer' }
+const refreshBtnStyle: React.CSSProperties = { background: 'var(--admin-subcard-bg)', border: '1px solid var(--admin-border-subtle)', color: 'var(--admin-text-sub)', borderRadius: 8, padding: '8px 14px', fontSize: 11, fontWeight: 700, cursor: 'pointer' }
+const editBtnStyle: React.CSSProperties = { background: 'var(--admin-subcard-bg)', border: '1px solid var(--admin-border-subtle)', color: 'var(--admin-text-sub)', borderRadius: 8, padding: '6px 12px', fontSize: 11, fontWeight: 700, cursor: 'pointer' }
+const inputStyle: React.CSSProperties = { background: 'var(--admin-input-bg)', border: '1px solid var(--admin-input-border)', borderRadius: 10, padding: '10px 12px', color: 'var(--admin-input-text)', outline: 'none', width: '100%', fontSize: 12, boxSizing: 'border-box', minHeight: 40 }
+const iconBtnStyle: React.CSSProperties = { background: 'var(--admin-subcard-bg)', border: '1px solid var(--admin-border-subtle)', color: 'var(--admin-text-sub)', borderRadius: 6, padding: '2px 6px', fontSize: 11, cursor: 'pointer' }
 const fullCol: React.CSSProperties = { gridColumn: '1 / -1' }
 const sectionHeader: React.CSSProperties = {
   gridColumn: '1 / -1',
   fontSize: 10, letterSpacing: '0.14em', fontWeight: 900, color: '#11BCE6',
-  paddingBottom: 8, borderBottom: '1px solid #1C232B', marginTop: 6
+  paddingBottom: 8, borderBottom: '1px solid var(--admin-border)', marginTop: 6
 }
+

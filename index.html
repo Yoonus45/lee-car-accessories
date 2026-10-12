@@ -6,6 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lee Car Accessories — Premium Car Customization in Ramanathapuram | ECR Junction</title>
     <meta name="description" content="Lee Car Accessories at No.01 SK Complex, ECR Junction, Ramanathapuram — 4.8★ on Google (70+ reviews). Seat covers, Android systems, LED lights, floor mats, dash cams, alloys & expert fitment. Call +91 99526 37233." />
+    <script>
+      (function() {
+        try {
+          var isAdm = window.location.pathname.indexOf('/admin') === 0;
+          var active = isAdm
+            ? (localStorage.getItem('lee_car_admin_theme') || 'light')
+            : (localStorage.getItem('lee_car_theme') || 'dark');
+          document.documentElement.setAttribute('data-theme', active);
+          document.documentElement.style.colorScheme = active;
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

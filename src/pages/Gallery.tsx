@@ -85,7 +85,7 @@ const fallbackGallery: DbGalleryItem[] = [
   return (
     <div style={{ width: '100%', overflowX: 'hidden' }}>
       {/* Hero / Header */}
-      <section className="container" style={{ textAlign: 'center', padding: '36px 0 20px' }}>
+      <section className="container" style={{ textAlign: 'center', paddingTop: 36, paddingBottom: 20 }}>
         <div style={{ color: '#11BCE6', fontWeight: 800, fontSize: 11, letterSpacing: '0.16em' }}>
           WORK PORTFOLIO
         </div>
@@ -144,8 +144,8 @@ const fallbackGallery: DbGalleryItem[] = [
                 style={{
                   height: 230,
                   borderRadius: 14,
-                  background: '#090D11',
-                  border: '1px solid #1C232B',
+                  background: 'var(--card-bg, #090D11)',
+                  border: '1px solid var(--card-border, #1C232B)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -161,10 +161,10 @@ const fallbackGallery: DbGalleryItem[] = [
           <div
             style={{
               textAlign: 'center',
-              color: '#687078',
+              color: 'var(--text-muted2, #687078)',
               padding: '60px 20px',
-              background: '#090D11',
-              border: '1px solid #1C232B',
+              background: 'var(--card-bg, #090D11)',
+              border: '1px solid var(--card-border, #1C232B)',
               borderRadius: 16,
               maxWidth: 600,
               marginInline: 'auto',
@@ -196,11 +196,12 @@ const fallbackGallery: DbGalleryItem[] = [
                 style={{
                   borderRadius: 14,
                   overflow: 'hidden',
-                  border: '1px solid #1C232B',
+                  border: '1px solid var(--card-border, #1C232B)',
                   position: 'relative',
-                  background: '#090D11',
+                  background: 'var(--card-bg, #090D11)',
                   boxSizing: 'border-box',
                   cursor: 'pointer',
+                  minWidth: 0,
                 }}
                 className="hover-card"
               >
@@ -215,12 +216,13 @@ const fallbackGallery: DbGalleryItem[] = [
                 <div
                   style={{
                     position: 'absolute',
-                    top: 10,
-                    left: 10,
-                    right: 10,
+                    top: 8,
+                    left: 8,
+                    right: 8,
                     display: 'flex',
                     justifyContent: 'space-between',
                     alignItems: 'center',
+                    gap: 4,
                     pointerEvents: 'none',
                   }}
                 >
@@ -229,12 +231,16 @@ const fallbackGallery: DbGalleryItem[] = [
                       background: 'rgba(5,7,8,0.82)',
                       backdropFilter: 'blur(8px)',
                       border: '1px solid rgba(17,188,230,0.3)',
-                      padding: '4px 10px',
+                      padding: '3px 8px',
                       borderRadius: 999,
-                      fontSize: 10,
+                      fontSize: 9,
                       fontWeight: 800,
-                      letterSpacing: '0.08em',
+                      letterSpacing: '0.06em',
                       color: '#11BCE6',
+                      maxWidth: 'calc(100% - 10px)',
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
                     }}
                   >
                     {g.category}
@@ -245,11 +251,13 @@ const fallbackGallery: DbGalleryItem[] = [
                       style={{
                         background: 'rgba(214,154,19,0.9)',
                         color: '#FFFFFF',
-                        fontSize: 9,
+                        fontSize: 8.5,
                         fontWeight: 900,
-                        padding: '3px 8px',
+                        padding: '2px 6px',
                         borderRadius: 999,
-                        letterSpacing: '0.06em',
+                        letterSpacing: '0.04em',
+                        whiteSpace: 'nowrap',
+                        flexShrink: 0,
                       }}
                     >
                       ⭐ FEATURED
@@ -319,11 +327,11 @@ const fallbackGallery: DbGalleryItem[] = [
             style={{
               maxWidth: 800,
               width: '100%',
-              background: '#090D11',
-              border: '1px solid #1C232B',
+              background: 'var(--card-bg, #090D11)',
+              border: '1px solid var(--card-border, #1C232B)',
               borderRadius: 18,
               overflow: 'hidden',
-              boxShadow: '0 24px 60px rgba(0,0,0,0.8)',
+              boxShadow: '0 24px 60px rgba(0,0,0,0.5)',
             }}
             onClick={e => e.stopPropagation()}
           >

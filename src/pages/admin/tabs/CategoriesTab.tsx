@@ -133,10 +133,10 @@ export default function CategoriesTab() {
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12, marginBottom: 20 }}>
         <div>
-          <h2 style={{ fontFamily: 'Orbitron, sans-serif', fontWeight: 900, fontSize: 18, color: '#FFFFFF', margin: 0 }}>
+          <h2 style={{ fontFamily: 'Orbitron, sans-serif', fontWeight: 900, fontSize: 18, color: 'var(--admin-text-main)', margin: 0 }}>
             CATEGORIES
           </h2>
-          <div style={{ fontSize: 11, color: '#687078', marginTop: 4 }}>
+          <div style={{ fontSize: 11, color: 'var(--admin-text-muted)', marginTop: 4 }}>
             {categories.length} categories · controls Shop page filter
           </div>
         </div>
@@ -147,7 +147,7 @@ export default function CategoriesTab() {
       </div>
 
       {/* Info banner */}
-      <div style={{ background: 'rgba(17,188,230,0.06)', border: '1px solid rgba(17,188,230,0.18)', borderRadius: 10, padding: '10px 14px', marginBottom: 16, fontSize: 11, color: '#A0A7AE', lineHeight: 1.6 }}>
+      <div style={{ background: 'rgba(17,188,230,0.06)', border: '1px solid rgba(17,188,230,0.18)', borderRadius: 10, padding: '10px 14px', marginBottom: 16, fontSize: 11, color: 'var(--admin-text-sub)', lineHeight: 1.6 }}>
         Categories appear in the Shop page filter strip. The <strong style={{ color: '#11BCE6' }}>Category ID</strong> must match the category field used on products (e.g. LIGHTING, INTERIOR).
       </div>
 
@@ -156,18 +156,18 @@ export default function CategoriesTab() {
           {categories.map(c => (
             <div key={c.id} style={cardStyle}>
               {/* Image */}
-              <div style={{ aspectRatio: '16/9', borderRadius: 10, overflow: 'hidden', background: '#0D1217', marginBottom: 12 }}>
+              <div style={{ aspectRatio: '16/9', borderRadius: 10, overflow: 'hidden', background: 'var(--admin-subcard-bg)', marginBottom: 12 }}>
                 {c.img ? (
                   <img src={c.img} alt={c.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 ) : (
-                  <div style={{ width: '100%', height: '100%', display: 'grid', placeItems: 'center', color: '#687078', fontSize: 11 }}>No image</div>
+                  <div style={{ width: '100%', height: '100%', display: 'grid', placeItems: 'center', color: 'var(--admin-text-muted)', fontSize: 11 }}>No image</div>
                 )}
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 8 }}>
                 <div>
-                  <div style={{ fontWeight: 800, fontSize: 14, color: '#FFFFFF' }}>{c.name}</div>
-                  <div style={{ fontSize: 10, color: '#687078', marginTop: 2 }}>ID: {c.id} · Order: {c.display_order}</div>
+                  <div style={{ fontWeight: 800, fontSize: 14, color: 'var(--admin-text-main)' }}>{c.name}</div>
+                  <div style={{ fontSize: 10, color: 'var(--admin-text-muted)', marginTop: 2 }}>ID: {c.id} · Order: {c.display_order}</div>
                 </div>
               </div>
 
@@ -197,7 +197,7 @@ export default function CategoriesTab() {
           onClick={closeForm}
           style={{
             position: 'fixed', inset: 0, zIndex: 1000,
-            background: 'rgba(0,0,0,0.8)', backdropFilter: 'blur(4px)',
+            background: 'var(--admin-modal-overlay)', backdropFilter: 'blur(4px)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             padding: '20px 16px', overflowY: 'auto'
           }}
@@ -205,17 +205,18 @@ export default function CategoriesTab() {
           <div
             onClick={e => e.stopPropagation()}
             style={{
-              background: '#090D11', border: '1px solid #1C232B', borderRadius: 18,
-              width: '100%', maxWidth: 480, padding: '24px 22px', position: 'relative'
+              background: 'var(--admin-card-bg)', border: '1px solid var(--admin-border)', borderRadius: 18,
+              width: '100%', maxWidth: 480, padding: '24px 22px', position: 'relative',
+              boxShadow: '0 20px 40px rgba(0,0,0,0.3)'
             }}
           >
             <button
               onClick={closeForm}
-              style={{ position: 'absolute', top: 14, right: 14, width: 32, height: 32, borderRadius: '50%', border: '1px solid #1E2A33', background: '#0D1217', color: '#A0A7AE', fontSize: 16, cursor: 'pointer', display: 'grid', placeItems: 'center' }}
+              style={{ position: 'absolute', top: 14, right: 14, width: 32, height: 32, borderRadius: '50%', border: '1px solid var(--admin-border-subtle)', background: 'var(--admin-subcard-bg)', color: 'var(--admin-text-sub)', fontSize: 16, cursor: 'pointer', display: 'grid', placeItems: 'center' }}
               aria-label="Close"
             >×</button>
 
-            <h3 style={{ fontFamily: 'Orbitron, sans-serif', fontWeight: 900, fontSize: 16, color: '#FFFFFF', margin: '0 0 20px' }}>
+            <h3 style={{ fontFamily: 'Orbitron, sans-serif', fontWeight: 900, fontSize: 16, color: 'var(--admin-text-main)', margin: '0 0 20px' }}>
               {editCat ? 'EDIT CATEGORY' : 'ADD CATEGORY'}
             </h3>
 
@@ -331,21 +332,22 @@ export default function CategoriesTab() {
 }
 
 function FormLabel({ label }: { label: string }) {
-  return <div style={{ fontSize: 10, letterSpacing: '0.1em', fontWeight: 800, color: '#A0A7AE', marginBottom: 6 }}>{label}</div>
+  return <div style={{ fontSize: 10, letterSpacing: '0.1em', fontWeight: 800, color: 'var(--admin-text-sub)', marginBottom: 6 }}>{label}</div>
 }
 
 function LoadingRow() {
-  return <div style={{ color: '#687078', fontSize: 13, padding: '40px 0', textAlign: 'center' }}>Loading…</div>
+  return <div style={{ color: 'var(--admin-text-muted)', fontSize: 13, padding: '40px 0', textAlign: 'center' }}>Loading…</div>
 }
 
 function EmptyRow({ text }: { text: string }) {
   return (
-    <div style={{ background: '#090D11', border: '1px solid #1C232B', borderRadius: 14, padding: '40px 20px', textAlign: 'center', color: '#687078', fontSize: 13 }}>{text}</div>
+    <div style={{ background: 'var(--admin-card-bg)', border: '1px solid var(--admin-border)', borderRadius: 14, padding: '40px 20px', textAlign: 'center', color: 'var(--admin-text-muted)', fontSize: 13 }}>{text}</div>
   )
 }
 
-const cardStyle: React.CSSProperties = { background: '#090D11', border: '1px solid #1C232B', borderRadius: 14, padding: '14px 16px' }
+const cardStyle: React.CSSProperties = { background: 'var(--admin-card-bg)', border: '1px solid var(--admin-border)', borderRadius: 14, padding: '14px 16px', boxShadow: 'var(--admin-card-shadow)' }
 const addBtnStyle: React.CSSProperties = { background: '#11BCE6', color: '#02141B', fontWeight: 900, fontSize: 11, letterSpacing: '0.06em', padding: '8px 16px', borderRadius: 8, border: 'none', cursor: 'pointer' }
-const refreshBtnStyle: React.CSSProperties = { background: '#0D1217', border: '1px solid #1E2A33', color: '#A0A7AE', borderRadius: 8, padding: '8px 14px', fontSize: 11, fontWeight: 700, cursor: 'pointer' }
-const editBtnStyle: React.CSSProperties = { background: '#0D1217', border: '1px solid #1E2A33', color: '#A0A7AE', borderRadius: 8, padding: '6px 12px', fontSize: 11, fontWeight: 700, cursor: 'pointer' }
-const inputStyle: React.CSSProperties = { background: '#0D1217', border: '1px solid #1E2A33', borderRadius: 10, padding: '10px 12px', color: '#FFFFFF', outline: 'none', width: '100%', fontSize: 12, boxSizing: 'border-box', minHeight: 40 }
+const refreshBtnStyle: React.CSSProperties = { background: 'var(--admin-subcard-bg)', border: '1px solid var(--admin-border-subtle)', color: 'var(--admin-text-sub)', borderRadius: 8, padding: '8px 14px', fontSize: 11, fontWeight: 700, cursor: 'pointer' }
+const editBtnStyle: React.CSSProperties = { background: 'var(--admin-subcard-bg)', border: '1px solid var(--admin-border-subtle)', color: 'var(--admin-text-sub)', borderRadius: 8, padding: '6px 12px', fontSize: 11, fontWeight: 700, cursor: 'pointer' }
+const inputStyle: React.CSSProperties = { background: 'var(--admin-input-bg)', border: '1px solid var(--admin-input-border)', borderRadius: 10, padding: '10px 12px', color: 'var(--admin-input-text)', outline: 'none', width: '100%', fontSize: 12, boxSizing: 'border-box', minHeight: 40 }
+

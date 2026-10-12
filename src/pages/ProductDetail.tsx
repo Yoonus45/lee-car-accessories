@@ -3,6 +3,7 @@ import { useProduct } from '../hooks/useProduct'
 import { useState } from 'react'
 import { supabase } from '../lib/supabase'
 import { businessInfo } from '../data/mockData'
+import { formatINR } from '../lib/currency'
 
 interface OrderForm {
   customer_name: string
@@ -187,7 +188,7 @@ export default function ProductDetail() {
             </div>
 
             {/* Pricing */}
-            <div style={{ marginTop: 16, background: '#090D11', border: '1px solid #1C232B', borderRadius: 12, padding: '14px 18px' }}>
+            <div style={{ marginTop: 16, background: 'var(--card-bg, #090D11)', border: '1px solid var(--card-border, #1C232B)', borderRadius: 12, padding: '14px 18px' }}>
               {isContactForPrice ? (
                 <div>
                   <span style={{ color: '#D69A13', fontWeight: 900, fontSize: 22 }}>Contact for Price</span>
@@ -198,10 +199,10 @@ export default function ProductDetail() {
               ) : (
                 <div>
                   <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, flexWrap: 'wrap' }}>
-                    <span style={{ color: '#11BCE6', fontWeight: 900, fontSize: 26 }}>₹{product.price!.toLocaleString('en-IN')}</span>
+                    <span style={{ color: '#00C8F0', fontWeight: 900, fontSize: 26 }}>{formatINR(product.price)}</span>
                     {product.mrp && (
                       <span style={{ color: '#687078', fontWeight: 600, fontSize: 14, textDecoration: 'line-through' }}>
-                        MRP ₹{product.mrp!.toLocaleString('en-IN')}
+                        MRP {formatINR(product.mrp)}
                       </span>
                     )}
                     <span style={{ background: 'rgba(17,188,230,0.1)', color: '#11BCE6', fontWeight: 800, fontSize: 10, padding: '3px 8px', borderRadius: 999 }}>
@@ -306,12 +307,12 @@ export default function ProductDetail() {
         {/* Description & Warranty Specifications */}
         <div style={{
           marginTop: 32,
-          background: '#090D11',
-          border: '1px solid #1C232B',
+          background: 'var(--card-bg, #090D11)',
+          border: '1px solid var(--card-border, #1C232B)',
           borderRadius: 16,
           padding: '24px 22px'
         }}>
-          <div style={{ fontWeight: 800, fontSize: 12, letterSpacing: '0.1em', paddingBottom: 12, borderBottom: '1px solid #1C232B', color: '#11BCE6' }}>
+          <div style={{ fontWeight: 800, fontSize: 12, letterSpacing: '0.1em', paddingBottom: 12, borderBottom: '1px solid var(--divider, #1C232B)', color: 'var(--cyan, #00C8F0)' }}>
             TECHNICAL SPECIFICATIONS & FITMENT DETAILS
           </div>
           <p style={{ color: '#A0A7AE', fontSize: 13, lineHeight: 1.75, marginTop: 14 }}>
@@ -326,8 +327,8 @@ export default function ProductDetail() {
               { t: 'INSTANT SUPPORT', d: businessInfo.phoneDisplay, i: '☎' },
             ].map(f => (
               <div key={f.t} style={{
-                background: '#0D1217',
-                border: '1px solid #1C232B',
+                background: 'var(--card-item-bg, #0D1217)',
+                border: '1px solid var(--card-item-border, #1C232B)',
                 borderRadius: 12,
                 padding: '16px',
                 textAlign: 'center'
@@ -355,8 +356,8 @@ export default function ProductDetail() {
           <div
             onClick={e => e.stopPropagation()}
             style={{
-              background: '#090D11',
-              border: '1px solid #1C232B',
+              background: 'var(--card-bg, #090D11)',
+              border: '1px solid var(--card-border, #1C232B)',
               borderRadius: 18,
               width: '100%',
               maxWidth: 520,

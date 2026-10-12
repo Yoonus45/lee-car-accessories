@@ -39,10 +39,10 @@ export default function MessagesTab() {
     <div>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12, marginBottom: 20 }}>
         <div>
-          <h2 style={{ fontFamily: 'Orbitron, sans-serif', fontWeight: 900, fontSize: 18, color: '#FFFFFF', margin: 0 }}>
+          <h2 style={{ fontFamily: 'Orbitron, sans-serif', fontWeight: 900, fontSize: 18, color: 'var(--admin-text-main)', margin: 0 }}>
             CONTACT MESSAGES
           </h2>
-          <div style={{ fontSize: 11, color: '#687078', marginTop: 4 }}>
+          <div style={{ fontSize: 11, color: 'var(--admin-text-muted)', marginTop: 4 }}>
             {messages.length} total · {messages.filter(m => m.status === 'unread').length} unread
           </div>
         </div>
@@ -56,9 +56,9 @@ export default function MessagesTab() {
             onClick={() => setFilterStatus(s)}
             style={{
               padding: '6px 14px', borderRadius: 999,
-              border: `1px solid ${filterStatus === s ? '#11BCE6' : '#1E2A33'}`,
+              border: `1px solid ${filterStatus === s ? '#11BCE6' : 'var(--admin-border-subtle)'}`,
               background: filterStatus === s ? 'rgba(17,188,230,0.12)' : 'transparent',
-              color: filterStatus === s ? '#11BCE6' : '#A0A7AE',
+              color: filterStatus === s ? '#11BCE6' : 'var(--admin-text-sub)',
               fontSize: 11, fontWeight: 700, cursor: 'pointer', textTransform: 'capitalize'
             }}
           >{s}</button>
@@ -71,8 +71,8 @@ export default function MessagesTab() {
             <div key={m.id} style={{ ...cardStyle, borderLeft: m.status === 'unread' ? '3px solid #11BCE6' : '3px solid transparent' }}>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, justifyContent: 'space-between', alignItems: 'flex-start' }}>
                 <div>
-                  <div style={{ fontWeight: 800, fontSize: 14, color: '#FFFFFF' }}>{m.customer_name}</div>
-                  <div style={{ fontSize: 11, color: '#687078', marginTop: 2 }}>{formatDate(m.created_at)}</div>
+                  <div style={{ fontWeight: 800, fontSize: 14, color: 'var(--admin-text-main)' }}>{m.customer_name}</div>
+                  <div style={{ fontSize: 11, color: 'var(--admin-text-muted)', marginTop: 2 }}>{formatDate(m.created_at)}</div>
                 </div>
                 <StatusBadge status={m.status as MsgStatus} />
               </div>
@@ -82,9 +82,9 @@ export default function MessagesTab() {
               </div>
 
               {m.message && (
-                <div style={{ marginTop: 10, background: '#0D1217', border: '1px solid #1E2A33', borderRadius: 8, padding: '10px 12px' }}>
-                  <div style={{ fontSize: 9, letterSpacing: '0.1em', fontWeight: 800, color: '#687078', marginBottom: 4 }}>MESSAGE</div>
-                  <div style={{ fontSize: 13, color: '#FFFFFF', lineHeight: 1.6 }}>{m.message}</div>
+                <div style={{ marginTop: 10, background: 'var(--admin-subcard-bg)', border: '1px solid var(--admin-border-subtle)', borderRadius: 8, padding: '10px 12px' }}>
+                  <div style={{ fontSize: 9, letterSpacing: '0.1em', fontWeight: 800, color: 'var(--admin-text-muted)', marginBottom: 4 }}>MESSAGE</div>
+                  <div style={{ fontSize: 13, color: 'var(--admin-text-main)', lineHeight: 1.6 }}>{m.message}</div>
                 </div>
               )}
 
@@ -123,20 +123,20 @@ function StatusBadge({ status }: { status: MsgStatus }) {
 
 function InfoPill({ label, value }: { label: string; value: string }) {
   return (
-    <div style={{ background: '#0D1217', border: '1px solid #1E2A33', borderRadius: 8, padding: '8px 10px', display: 'inline-block' }}>
-      <div style={{ fontSize: 9, letterSpacing: '0.1em', fontWeight: 800, color: '#687078' }}>{label}</div>
-      <div style={{ fontSize: 12, color: '#FFFFFF', marginTop: 3 }}>{value}</div>
+    <div style={{ background: 'var(--admin-subcard-bg)', border: '1px solid var(--admin-border-subtle)', borderRadius: 8, padding: '8px 10px', display: 'inline-block' }}>
+      <div style={{ fontSize: 9, letterSpacing: '0.1em', fontWeight: 800, color: 'var(--admin-text-muted)' }}>{label}</div>
+      <div style={{ fontSize: 12, color: 'var(--admin-text-main)', marginTop: 3 }}>{value}</div>
     </div>
   )
 }
 
 function LoadingRow() {
-  return <div style={{ color: '#687078', fontSize: 13, padding: '40px 0', textAlign: 'center' }}>Loading…</div>
+  return <div style={{ color: 'var(--admin-text-muted)', fontSize: 13, padding: '40px 0', textAlign: 'center' }}>Loading…</div>
 }
 
 function EmptyRow({ text }: { text: string }) {
   return (
-    <div style={{ background: '#090D11', border: '1px solid #1C232B', borderRadius: 14, padding: '40px 20px', textAlign: 'center', color: '#687078', fontSize: 13 }}>{text}</div>
+    <div style={{ background: 'var(--admin-card-bg)', border: '1px solid var(--admin-border)', borderRadius: 14, padding: '40px 20px', textAlign: 'center', color: 'var(--admin-text-muted)', fontSize: 13 }}>{text}</div>
   )
 }
 
@@ -144,8 +144,9 @@ function formatDate(iso: string) {
   return new Date(iso).toLocaleString('en-IN', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })
 }
 
-const cardStyle: React.CSSProperties = { background: '#090D11', border: '1px solid #1C232B', borderRadius: 14, padding: '16px 18px' }
-const callBtnStyle: React.CSSProperties = { background: '#0D1217', border: '1px solid #1E2A33', color: '#FFFFFF', borderRadius: 8, padding: '7px 14px', fontSize: 11, fontWeight: 700, cursor: 'pointer', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 6 }
+const cardStyle: React.CSSProperties = { background: 'var(--admin-card-bg)', border: '1px solid var(--admin-border)', borderRadius: 14, padding: '16px 18px', boxShadow: 'var(--admin-card-shadow)' }
+const callBtnStyle: React.CSSProperties = { background: 'var(--admin-subcard-bg)', border: '1px solid var(--admin-border-subtle)', color: 'var(--admin-text-main)', borderRadius: 8, padding: '7px 14px', fontSize: 11, fontWeight: 700, cursor: 'pointer', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 6 }
 const waBtnStyle: React.CSSProperties = { background: '#25D366', border: 'none', color: '#FFFFFF', borderRadius: 8, padding: '7px 14px', fontSize: 11, fontWeight: 700, cursor: 'pointer', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 6 }
-const selectStyle: React.CSSProperties = { background: '#0D1217', border: '1px solid #1E2A33', color: '#FFFFFF', borderRadius: 8, padding: '7px 10px', fontSize: 11, fontWeight: 700, cursor: 'pointer', marginLeft: 'auto' }
-const refreshBtnStyle: React.CSSProperties = { background: '#0D1217', border: '1px solid #1E2A33', color: '#A0A7AE', borderRadius: 8, padding: '8px 14px', fontSize: 11, fontWeight: 700, cursor: 'pointer' }
+const selectStyle: React.CSSProperties = { background: 'var(--admin-subcard-bg)', border: '1px solid var(--admin-border-subtle)', color: 'var(--admin-text-main)', borderRadius: 8, padding: '7px 10px', fontSize: 11, fontWeight: 700, cursor: 'pointer', marginLeft: 'auto' }
+const refreshBtnStyle: React.CSSProperties = { background: 'var(--admin-subcard-bg)', border: '1px solid var(--admin-border-subtle)', color: 'var(--admin-text-sub)', borderRadius: 8, padding: '8px 14px', fontSize: 11, fontWeight: 700, cursor: 'pointer' }
+

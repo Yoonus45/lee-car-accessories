@@ -66,8 +66,8 @@ export default function Contact() {
                   display: 'flex',
                   gap: 12,
                   alignItems: 'center',
-                  background: '#090D11',
-                  border: '1px solid #1C232B',
+                  background: 'var(--card-bg, #090D11)',
+                  border: '1px solid var(--card-border, #1C232B)',
                   borderRadius: 14,
                   padding: '14px 16px',
                   minWidth: 0,
@@ -104,8 +104,8 @@ export default function Contact() {
           {/* Google Rating Snippet */}
           <div style={{
             marginTop: 16,
-            background: '#0D1217',
-            border: '1px solid #1E2A33',
+            background: 'var(--card-item-bg, #0D1217)',
+            border: '1px solid var(--card-item-border, #1E2A33)',
             borderRadius: 14,
             padding: '12px 16px',
             display: 'flex',
@@ -139,8 +139,8 @@ export default function Contact() {
             onSubmit={handleSend}
             style={{
               marginTop: 18,
-              background: '#090D11',
-              border: '1px solid #1C232B',
+              background: 'var(--card-bg, #090D11)',
+              border: '1px solid var(--card-border, #1C232B)',
               borderRadius: 16,
               padding: '18px 16px',
               display: 'flex',
@@ -228,8 +228,8 @@ export default function Contact() {
         {/* Right: Real Google Maps Location */}
         <div style={{ minWidth: 0 }}>
           <div style={{
-            background: '#090D11',
-            border: '1px solid #1C232B',
+            background: 'var(--card-bg, #090D11)',
+            border: '1px solid var(--card-border, #1C232B)',
             borderRadius: 18,
             overflow: 'hidden',
             height: 380,

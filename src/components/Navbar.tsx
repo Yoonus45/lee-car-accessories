@@ -1,15 +1,16 @@
 import { useState, useEffect } from 'react'
-import { NavLink, Link, useLocation, useNavigate } from 'react-router-dom'
+import { NavLink, Link, useLocation } from 'react-router-dom'
 import { businessInfo } from '../data/mockData'
-import leeLogo from '../assets/lee cars logo.png'
+import { useTheme } from '../context/ThemeContext'
+import leeLogo from '../assets/lee-cars-logo.png'
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
   const loc = useLocation()
-  const nav = useNavigate()
-  const [cartCount] = useState(2)
+  const { theme, toggleTheme } = useTheme()
   const active = (p: string) => loc.pathname === p
 
+  // Close drawer on navigation
   useEffect(() => {
     setOpen(false)
   }, [loc.pathname])
@@ -28,9 +29,9 @@ export default function Navbar() {
 
   const links: [string, string][] = [
     ['/', 'HOME'],
-    ['/services', 'SERVICES'],
-    ['/seat-covers', 'SEAT COVERS'],
     ['/shop', 'SHOP'],
+    ['/seat-covers', 'SEAT COVERS'],
+    ['/services', 'SERVICES'],
     ['/gallery', 'GALLERY'],
     ['/reviews', 'REVIEWS'],
     ['/about', 'ABOUT US'],
@@ -38,61 +39,169 @@ export default function Navbar() {
   ]
 
   return (
-    <header style={{
-      position: 'sticky',
-      top: 0,
-      zIndex: 100,
-      background: 'rgba(5,7,8,0.95)',
-      backdropFilter: 'blur(16px)',
-      borderBottom: '1px solid #1C232B',
-      width: '100%',
-    }}>
-      <div className="container" style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        height: 64,
-        gap: 8,
-      }}>
-        {/* Left: Brand Logo */}
-        <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 10, minWidth: 0, flexShrink: 1 }}>
-          <img
-            src={leeLogo}
-            alt="Lee Car Accessories Logo"
+    <header
+      className="site-header"
+      style={{
+        position: 'sticky',
+        top: 0,
+        zIndex: 100,
+        background: 'var(--header-bg, rgba(7, 10, 14, 0.96))',
+        backdropFilter: 'blur(16px)',
+        WebkitBackdropFilter: 'blur(16px)',
+        borderBottom: '1px solid var(--header-border, #161F2A)',
+        width: '100%',
+        transition: 'background 0.25s ease, border-color 0.25s ease',
+      }}
+    >
+      <div
+        className="container"
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          height: 60,
+          position: 'relative',
+        }}
+      >
+        {/* ─────────────────────────────────────────────────────────────
+            MOBILE LEFT: HAMBURGER TOGGLE BUTTON
+        ───────────────────────────────────────────────────────────── */}
+        <div className="mobile-header-left" style={{ display: 'none' }}>
+          <button
+            onClick={() => setOpen(!open)}
+            aria-label={open ? 'Close Menu' : 'Open Navigation Menu'}
+            aria-expanded={open}
             style={{
               width: 38,
               height: 38,
-              borderRadius: '50%',
-              objectFit: 'cover',
-              border: '1px solid #1E2A33',
-              flexShrink: 0
+              borderRadius: 8,
+              background: open ? 'rgba(0, 200, 240, 0.15)' : 'var(--button-ghost-bg, rgba(255, 255, 255, 0.04))',
+              border: open ? '1px solid var(--cyan, #00C8F0)' : '1px solid var(--button-ghost-border, #1E2834)',
+              cursor: 'pointer',
+              display: 'grid',
+              placeItems: 'center',
+              padding: 0,
+              transition: 'all 0.2s ease',
             }}
-          />
-          <div style={{ lineHeight: 1.1, minWidth: 0, overflow: 'hidden' }}>
-            <div style={{
-              fontFamily: 'Orbitron',
-              fontWeight: 800,
-              fontSize: 'clamp(10px, 3vw, 11px)',
-              letterSpacing: '0.05em',
-              whiteSpace: 'nowrap',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis'
-            }}>
-              LEE CAR ACCESSORIES
-            </div>
-            <div className="logo-tagline" style={{
-              fontSize: 8,
-              letterSpacing: '0.16em',
-              color: '#687078',
-              fontWeight: 600,
-              marginTop: 2
-            }}>
-              PREMIUM CUSTOMIZATION
-            </div>
-          </div>
-        </Link>
+          >
+            {open ? (
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cyan, #00C8F0)" strokeWidth="2.4" strokeLinecap="round">
+                <path d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            ) : (
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text, #FFFFFF)" strokeWidth="2.2" strokeLinecap="round">
+                <line x1="4" y1="7" x2="20" y2="7" />
+                <line x1="4" y1="12" x2="20" y2="12" />
+                <line x1="4" y1="17" x2="20" y2="17" />
+              </svg>
+            )}
+          </button>
+        </div>
 
-        {/* Center: Desktop Navigation */}
+        {/* ─────────────────────────────────────────────────────────────
+            CENTER (MOBILE): PERFECTLY CENTERED LOGO
+            Uses absolute positioning so left & right width differences
+            never displace the logo.
+        ───────────────────────────────────────────────────────────── */}
+        <div className="mobile-header-center" style={{ display: 'none' }}>
+          <Link
+            to="/"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8,
+              textDecoration: 'none',
+            }}
+          >
+            <img
+              src={leeLogo}
+              alt="Lee Car Accessories Logo"
+              style={{
+                width: 36,
+                height: 36,
+                borderRadius: '50%',
+                objectFit: 'cover',
+                border: '1.5px solid var(--card-item-border, #1E2834)',
+                boxShadow: '0 0 10px rgba(0, 200, 240, 0.2)',
+                flexShrink: 0,
+              }}
+            />
+            <div style={{ lineHeight: 1.15 }}>
+              <div
+                style={{
+                  fontFamily: 'Orbitron, sans-serif',
+                  fontWeight: 900,
+                  fontSize: 12.5,
+                  letterSpacing: '0.06em',
+                  color: 'var(--text, #FFFFFF)',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                LEE <span style={{ color: 'var(--cyan, #00C8F0)' }}>CARS</span>
+              </div>
+              <div
+                style={{
+                  fontSize: 7.5,
+                  letterSpacing: '0.18em',
+                  color: 'var(--text-muted, #8E9BAE)',
+                  fontWeight: 700,
+                  marginTop: 1,
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                ACCESSORIES
+              </div>
+            </div>
+          </Link>
+        </div>
+
+        {/* ─────────────────────────────────────────────────────────────
+            DESKTOP LEFT: BRAND LOGO
+        ───────────────────────────────────────────────────────────── */}
+        <div className="desktop-header-logo">
+          <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
+            <img
+              src={leeLogo}
+              alt="Lee Car Accessories Logo"
+              style={{
+                width: 38,
+                height: 38,
+                borderRadius: '50%',
+                objectFit: 'cover',
+                border: '1px solid var(--card-item-border, #1E2834)',
+                flexShrink: 0,
+              }}
+            />
+            <div style={{ lineHeight: 1.1 }}>
+              <div
+                style={{
+                  fontFamily: 'Orbitron, sans-serif',
+                  fontWeight: 900,
+                  fontSize: 13,
+                  letterSpacing: '0.06em',
+                  color: 'var(--text, #FFFFFF)',
+                }}
+              >
+                LEE CAR ACCESSORIES
+              </div>
+              <div
+                style={{
+                  fontSize: 8.5,
+                  letterSpacing: '0.16em',
+                  color: 'var(--cyan, #00C8F0)',
+                  fontWeight: 700,
+                  marginTop: 2,
+                }}
+              >
+                PREMIUM AUTOMOTIVE CUSTOMIZATION
+              </div>
+            </div>
+          </Link>
+        </div>
+
+        {/* ─────────────────────────────────────────────────────────────
+            DESKTOP CENTER: MAIN NAVIGATION LINKS
+        ───────────────────────────────────────────────────────────── */}
         <nav style={{ display: 'flex', gap: 18, alignItems: 'center' }} className="nav-desktop">
           {links.map(([to, label]) => (
             <NavLink
@@ -102,11 +211,12 @@ export default function Navbar() {
                 fontSize: 11,
                 letterSpacing: '0.12em',
                 fontWeight: 700,
-                color: active(to) ? '#11BCE6' : '#A0A7AE',
-                borderBottom: active(to) ? '2px solid #11BCE6' : '2px solid transparent',
+                color: active(to) ? 'var(--cyan, #00C8F0)' : 'var(--text-muted, #8E9BAE)',
+                borderBottom: active(to) ? '2px solid var(--cyan, #00C8F0)' : '2px solid transparent',
                 paddingBottom: 4,
                 transition: 'all .2s ease',
-                whiteSpace: 'nowrap'
+                whiteSpace: 'nowrap',
+                textDecoration: 'none',
               }}
             >
               {label}
@@ -114,63 +224,27 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* Right: Quick actions & Hamburger */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
-          {/* Cart button */}
-          <button
-            onClick={() => nav('/shop')}
-            aria-label="View Shop Cart"
-            style={{
-              width: 38,
-              height: 38,
-              borderRadius: '50%',
-              background: '#0D1217',
-              border: '1px solid #1E2A33',
-              display: 'grid',
-              placeItems: 'center',
-              cursor: 'pointer',
-              position: 'relative'
-            }}
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A0A7AE" strokeWidth="1.7">
-              <path d="M6 6h15l-1.5 9h-13z" />
-              <path d="M6 6L5 2H2" />
-              <circle cx="9" cy="20" r="1.8" />
-              <circle cx="18" cy="20" r="1.8" />
-            </svg>
-            <span style={{
-              position: 'absolute',
-              top: -3,
-              right: -3,
-              background: '#11BCE6',
-              color: '#02141B',
-              fontSize: 9,
-              fontWeight: 900,
-              width: 17,
-              height: 17,
-              borderRadius: '50%',
-              display: 'grid',
-              placeItems: 'center'
-            }}>
-              {cartCount}
-            </span>
-          </button>
-
-          {/* WhatsApp Direct Chat */}
+        {/* ─────────────────────────────────────────────────────────────
+            RIGHT: THEME TOGGLE BUTTON + LOGIN BUTTON (MOBILE & DESKTOP)
+        ───────────────────────────────────────────────────────────── */}
+        <div className="header-right-controls" style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
+          {/* WhatsApp shortcut for Desktop */}
           <a
             href={businessInfo.whatsappHref}
             target="_blank"
             rel="noreferrer"
             aria-label="Chat on WhatsApp"
+            className="desktop-whatsapp-btn"
             style={{
-              width: 38,
-              height: 38,
-              borderRadius: '50%',
-              background: '#0D1217',
-              border: '1px solid #1E2A33',
+              width: 36,
+              height: 36,
+              borderRadius: 8,
+              background: 'var(--card-item-bg, #0E141C)',
+              border: '1px solid var(--button-ghost-border, #1E2834)',
               display: 'grid',
               placeItems: 'center',
-              cursor: 'pointer'
+              cursor: 'pointer',
+              textDecoration: 'none',
             }}
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="#25D366">
@@ -178,62 +252,83 @@ export default function Navbar() {
             </svg>
           </a>
 
-          {/* Admin Login Icon */}
-          <Link
-            to="/admin"
-            aria-label="Admin Login"
-            title="Admin Login"
-            className="nav-profile-btn"
+          {/* Theme Toggle Button: Light / Dark Mode */}
+          <button
+            onClick={toggleTheme}
+            aria-label={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+            title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+            className="theme-toggle-btn"
             style={{
-              width: 38,
-              height: 38,
-              borderRadius: '50%',
-              background: '#11BCE6',
-              border: '1px solid #11BCE6',
+              width: 36,
+              height: 36,
+              borderRadius: 8,
+              background: 'var(--button-ghost-bg, rgba(255, 255, 255, 0.05))',
+              border: '1px solid var(--button-ghost-border, #1E2834)',
+              color: theme === 'dark' ? '#FFC72C' : '#00A6CE',
               display: 'grid',
               placeItems: 'center',
-              cursor: 'pointer'
-            }}
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#02141B" strokeWidth="2">
-              <circle cx="12" cy="8" r="3.5" />
-              <path d="M5 19a7 7 0 0 1 14 0" />
-            </svg>
-          </Link>
-
-          {/* Mobile Hamburger Toggle Button */}
-          <button
-            onClick={() => setOpen(!open)}
-            className="hamburger-btn"
-            aria-label={open ? 'Close Menu' : 'Open Navigation Menu'}
-            aria-expanded={open}
-            style={{
-              width: 40,
-              height: 40,
-              borderRadius: 10,
-              background: open ? '#11BCE6' : '#0D1217',
-              border: open ? '1px solid #11BCE6' : '1px solid #1E2A33',
               cursor: 'pointer',
-              display: 'none',
-              placeItems: 'center',
-              transition: 'all .2s ease',
-              padding: 0
+              padding: 0,
+              transition: 'all 0.2s ease',
+              flexShrink: 0,
             }}
           >
-            {open ? (
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#02141B" strokeWidth="2.4" strokeLinecap="round">
-                <path d="M6 18L18 6M6 6l12 12" />
+            {theme === 'dark' ? (
+              /* ☀️ Sun icon when Dark Mode is active (indicates clicking switches to Light Mode) */
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="4" />
+                <path d="M12 2v2" />
+                <path d="M12 20v2" />
+                <path d="m4.93 4.93 1.41 1.41" />
+                <path d="m17.66 17.66 1.41 1.41" />
+                <path d="M2 12h2" />
+                <path d="M20 12h2" />
+                <path d="m6.34 17.66-1.41 1.41" />
+                <path d="m19.07 4.93-1.41 1.41" />
               </svg>
             ) : (
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#A0A7AE" strokeWidth="2.2" strokeLinecap="round">
-                <path d="M4 7h16M4 12h16M4 17h16" />
+              /* 🌙 Moon icon when Light Mode is active (indicates clicking switches to Dark Mode) */
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
               </svg>
             )}
           </button>
+
+          {/* Login icon + "Login" text (Mobile & Desktop) */}
+          <Link
+            to="/admin"
+            aria-label="Login"
+            title="Admin Login"
+            className="header-login-btn"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 6,
+              color: 'var(--text, #FFFFFF)',
+              textDecoration: 'none',
+              fontSize: 12,
+              fontWeight: 700,
+              padding: '7px 11px',
+              borderRadius: 8,
+              background: 'var(--button-ghost-bg, rgba(255, 255, 255, 0.05))',
+              border: '1px solid var(--button-ghost-border, #1E2834)',
+              transition: 'all .2s ease',
+              lineHeight: 1,
+            }}
+          >
+            {/* Login User Icon */}
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--cyan, #00C8F0)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+            <span style={{ fontSize: 12, fontWeight: 700 }}>Login</span>
+          </Link>
         </div>
       </div>
 
-      {/* Backdrop overlay for mobile menu */}
+      {/* ─────────────────────────────────────────────────────────────
+          MOBILE SLIDE DRAWER BACKDROP
+      ───────────────────────────────────────────────────────────── */}
       {open && (
         <div
           onClick={() => setOpen(false)}
@@ -241,93 +336,165 @@ export default function Navbar() {
           style={{
             position: 'fixed',
             inset: 0,
-            top: 64,
-            background: 'rgba(0, 0, 0, 0.7)',
-            backdropFilter: 'blur(4px)',
+            top: 60,
+            background: 'rgba(0, 0, 0, 0.75)',
+            backdropFilter: 'blur(5px)',
+            WebkitBackdropFilter: 'blur(5px)',
             zIndex: 90,
           }}
         />
       )}
 
-      {/* Mobile Slide Drawer Menu */}
+      {/* ─────────────────────────────────────────────────────────────
+          MOBILE SLIDE NAVIGATION DRAWER
+      ───────────────────────────────────────────────────────────── */}
       <div
         style={{
           position: 'fixed',
-          top: 64,
-          right: open ? 0 : '-100%',
+          top: 60,
+          left: open ? 0 : '-100%',
           width: 'min(320px, 86vw)',
-          height: 'calc(100dvh - 64px)',
-          background: '#080C10',
-          borderLeft: '1px solid #1C232B',
+          height: 'calc(100dvh - 60px)',
+          background: 'var(--nav-drawer-bg, #080C11)',
+          borderRight: '1px solid var(--card-border, #1A232E)',
           zIndex: 95,
           display: 'flex',
           flexDirection: 'column',
-          padding: '20px 18px 28px',
-          gap: 10,
-          transition: 'right .3s cubic-bezier(0.16, 1, 0.3, 1)',
+          padding: '18px 16px 24px',
+          gap: 8,
+          transition: 'left .28s cubic-bezier(0.16, 1, 0.3, 1), background 0.25s ease',
           overflowY: 'auto',
-          boxShadow: '-10px 0 30px rgba(0, 0, 0, 0.6)'
+          boxShadow: '10px 0 35px rgba(0, 0, 0, 0.75)',
         }}
       >
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6, paddingBottom: 10, borderBottom: '1px solid #1C232B' }}>
-          <div>
-            <div style={{ fontWeight: 800, fontSize: 11, letterSpacing: '0.14em', color: '#11BCE6' }}>NAVIGATION</div>
-            <div style={{ fontSize: 10, color: '#687078', marginTop: 2 }}>{businessInfo.name}</div>
+        {/* Drawer Header */}
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            paddingBottom: 12,
+            borderBottom: '1px solid var(--divider, #17202B)',
+            marginBottom: 6,
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <img
+              src={leeLogo}
+              alt="Lee Car Accessories"
+              style={{
+                width: 32,
+                height: 32,
+                borderRadius: '50%',
+                objectFit: 'cover',
+                border: '1px solid var(--card-item-border, #1E2834)',
+              }}
+            />
+            <div>
+              <div style={{ fontWeight: 800, fontSize: 12, letterSpacing: '0.08em', color: 'var(--cyan, #00C8F0)' }}>
+                LEE CAR ACCESSORIES
+              </div>
+              <div style={{ fontSize: 9.5, color: 'var(--text-muted, #8E9BAE)', marginTop: 1 }}>ECR Junction Ramanathapuram</div>
+            </div>
           </div>
           <button
             onClick={() => setOpen(false)}
             aria-label="Close Menu"
             style={{
-              width: 32,
-              height: 32,
+              width: 30,
+              height: 30,
               borderRadius: 8,
-              background: '#0D1217',
-              border: '1px solid #1E2A33',
+              background: 'var(--card-item-bg, #0E141C)',
+              border: '1px solid var(--button-ghost-border, #1E2834)',
+              color: 'var(--text-muted, #8E9BAE)',
               display: 'grid',
               placeItems: 'center',
-              cursor: 'pointer'
+              cursor: 'pointer',
+              fontSize: 14,
             }}
           >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#A0A7AE" strokeWidth="2">
-              <path d="M6 18L18 6M6 6l12 12" />
-            </svg>
+            ✕
           </button>
         </div>
 
-        {/* Links list */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        {/* Links List */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
           {links.map(([to, label]) => (
             <Link
               key={to}
               to={to}
               onClick={() => setOpen(false)}
               style={{
-                fontSize: 13,
-                letterSpacing: '0.1em',
+                fontSize: 12.5,
+                letterSpacing: '0.08em',
                 fontWeight: 700,
-                color: loc.pathname === to ? '#11BCE6' : '#A0A7AE',
-                background: loc.pathname === to ? 'rgba(17,188,230,0.1)' : 'transparent',
-                border: loc.pathname === to ? '1px solid rgba(17,188,230,0.3)' : '1px solid transparent',
-                padding: '12px 14px',
-                borderRadius: 10,
+                color: loc.pathname === to ? 'var(--cyan, #00C8F0)' : 'var(--text-muted, #A0AAB6)',
+                background: loc.pathname === to ? 'rgba(0, 200, 240, 0.08)' : 'transparent',
+                border: loc.pathname === to ? '1px solid rgba(0, 200, 240, 0.25)' : '1px solid transparent',
+                padding: '10px 12px',
+                borderRadius: 8,
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                transition: 'all .15s ease'
+                textDecoration: 'none',
+                transition: 'all .15s ease',
               }}
             >
               <span>{label}</span>
-              <span style={{ color: loc.pathname === to ? '#11BCE6' : '#3A444E', fontSize: 14 }}>›</span>
+              <span style={{ color: loc.pathname === to ? 'var(--cyan, #00C8F0)' : 'var(--text-muted2, #45505C)', fontSize: 13 }}>›</span>
             </Link>
           ))}
+          {/* Cart & Appointments in drawer */}
+          <Link
+            to="/cart"
+            onClick={() => setOpen(false)}
+            style={{
+              fontSize: 12.5,
+              letterSpacing: '0.08em',
+              fontWeight: 700,
+              color: loc.pathname === '/cart' ? 'var(--cyan, #00C8F0)' : 'var(--text-muted, #A0AAB6)',
+              background: loc.pathname === '/cart' ? 'rgba(0, 200, 240, 0.08)' : 'transparent',
+              border: loc.pathname === '/cart' ? '1px solid rgba(0, 200, 240, 0.25)' : '1px solid transparent',
+              padding: '10px 12px',
+              borderRadius: 8,
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              textDecoration: 'none',
+            }}
+          >
+            <span>SHOPPING CART</span>
+            <span style={{ color: loc.pathname === '/cart' ? 'var(--cyan, #00C8F0)' : 'var(--text-muted2, #45505C)', fontSize: 13 }}>›</span>
+          </Link>
+          <Link
+            to="/booking"
+            onClick={() => setOpen(false)}
+            style={{
+              fontSize: 12.5,
+              letterSpacing: '0.08em',
+              fontWeight: 700,
+              color: loc.pathname === '/booking' ? 'var(--cyan, #00C8F0)' : 'var(--text-muted, #A0AAB6)',
+              background: loc.pathname === '/booking' ? 'rgba(0, 200, 240, 0.08)' : 'transparent',
+              border: loc.pathname === '/booking' ? '1px solid rgba(0, 200, 240, 0.25)' : '1px solid transparent',
+              padding: '10px 12px',
+              borderRadius: 8,
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              textDecoration: 'none',
+            }}
+          >
+            <span>BOOK APPOINTMENT</span>
+            <span style={{ color: loc.pathname === '/booking' ? 'var(--cyan, #00C8F0)' : 'var(--text-muted2, #45505C)', fontSize: 13 }}>›</span>
+          </Link>
         </div>
 
-        {/* Real Business Quick Actions in Drawer */}
-        <div style={{ marginTop: 'auto', paddingTop: 14, borderTop: '1px solid #1C232B', display: 'flex', flexDirection: 'column', gap: 10 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6, background: '#0D1217', padding: '6px 10px', borderRadius: 8, border: '1px solid #1E2A33' }}>
+        {/* Business Contact & Support */}
+        <div style={{ marginTop: 'auto', paddingTop: 14, borderTop: '1px solid var(--divider, #17202B)', display: 'flex', flexDirection: 'column', gap: 10 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'var(--card-item-bg, #0E141C)', padding: '6px 10px', borderRadius: 8, border: '1px solid var(--card-item-border, #1E2834)' }}>
             <span style={{ color: '#D69A13', fontSize: 12 }}>★</span>
-            <span style={{ fontWeight: 800, fontSize: 11 }}>{businessInfo.rating} / 5</span>
-            <span style={{ fontSize: 10, color: '#687078' }}>· ~{businessInfo.reviewCount} Google reviews</span>
+            <span style={{ fontWeight: 800, fontSize: 11, color: 'var(--text, #FFFFFF)' }}>{businessInfo.rating} / 5</span>
+            <span style={{ fontSize: 10, color: 'var(--text-muted, #8E9BAE)' }}>· ~{businessInfo.reviewCount} Google reviews</span>
           </div>
 
           <a
@@ -336,26 +503,31 @@ export default function Navbar() {
               display: 'flex',
               alignItems: 'center',
               gap: 10,
-              background: '#0D1217',
-              border: '1px solid #1E2A33',
-              borderRadius: 10,
-              padding: '11px 12px',
-              color: '#FFFFFF'
+              background: 'var(--card-item-bg, #0E141C)',
+              border: '1px solid var(--card-item-border, #1E2834)',
+              borderRadius: 8,
+              padding: '9px 12px',
+              color: 'var(--text, #FFFFFF)',
+              textDecoration: 'none',
             }}
           >
-            <span style={{
-              width: 28,
-              height: 28,
-              borderRadius: 6,
-              background: '#11BCE6',
-              display: 'grid',
-              placeItems: 'center',
-              color: '#02141B',
-              fontSize: 12
-            }}>☎</span>
+            <span
+              style={{
+                width: 26,
+                height: 26,
+                borderRadius: 6,
+                background: 'var(--cyan, #00C8F0)',
+                display: 'grid',
+                placeItems: 'center',
+                color: '#02141B',
+                fontSize: 12,
+              }}
+            >
+              ☎
+            </span>
             <div>
-              <div style={{ fontSize: 9, letterSpacing: '0.1em', fontWeight: 700, color: '#687078' }}>DIRECT CALL</div>
-              <div style={{ fontWeight: 800, fontSize: 12 }}>{businessInfo.phoneDisplay}</div>
+              <div style={{ fontSize: 9, letterSpacing: '0.1em', fontWeight: 700, color: 'var(--text-muted, #8E9BAE)' }}>DIRECT CALL</div>
+              <div style={{ fontWeight: 800, fontSize: 11.5 }}>{businessInfo.phoneDisplay}</div>
             </div>
           </a>
 
@@ -372,35 +544,16 @@ export default function Navbar() {
               color: '#FFFFFF',
               fontWeight: 800,
               fontSize: 12,
-              letterSpacing: '0.06em',
-              padding: '12px',
-              borderRadius: 999
+              letterSpacing: '0.04em',
+              padding: '11px',
+              borderRadius: 8,
+              textDecoration: 'none',
             }}
           >
             WHATSAPP US
           </a>
 
-          <Link
-            to="/booking"
-            onClick={() => setOpen(false)}
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              background: '#11BCE6',
-              color: '#02141B',
-              fontWeight: 800,
-              fontSize: 11,
-              letterSpacing: '0.08em',
-              padding: '12px',
-              borderRadius: 999,
-              border: '1px solid #11BCE6',
-              textAlign: 'center'
-            }}
-          >
-            BOOK APPOINTMENT →
-          </Link>
-
-          <div style={{ fontSize: 10, color: '#687078', lineHeight: 1.5, textAlign: 'center', marginTop: 4 }}>
+          <div style={{ fontSize: 9.5, color: 'var(--text-muted2, #687280)', lineHeight: 1.4, textAlign: 'center', marginTop: 2 }}>
             {businessInfo.fullAddress}
           </div>
 
@@ -412,10 +565,10 @@ export default function Navbar() {
               alignItems: 'center',
               justifyContent: 'center',
               gap: 6,
-              fontSize: 10,
-              color: '#4B5563',
-              paddingTop: 8,
-              textDecoration: 'none'
+              fontSize: 10.5,
+              color: 'var(--text-muted2, #556070)',
+              paddingTop: 4,
+              textDecoration: 'none',
             }}
           >
             <span>🔐 Admin Portal</span>
@@ -424,18 +577,32 @@ export default function Navbar() {
       </div>
 
       <style>{`
-        @media (max-width: 1080px) {
+        @media (max-width: 900px) {
           .nav-desktop { display: none !important; }
-          .hamburger-btn { display: grid !important; }
-        }
-        @media (max-width: 480px) {
-          .nav-profile-btn {
-            width: 34px !important;
-            height: 34px !important;
+          .desktop-header-logo { display: none !important; }
+          .desktop-whatsapp-btn { display: none !important; }
+          .mobile-header-left { display: block !important; }
+          .mobile-header-center {
+            display: block !important;
+            position: absolute !important;
+            left: 50% !important;
+            top: 50% !important;
+            transform: translate(-50%, -50%) !important;
           }
         }
         @media (max-width: 360px) {
-          .logo-tagline { display: none !important; }
+          .theme-toggle-btn {
+            width: 32px !important;
+            height: 32px !important;
+          }
+          .header-login-btn {
+            padding: 6px 8px !important;
+            font-size: 11px !important;
+          }
+          .mobile-header-center img {
+            width: 32px !important;
+            height: 32px !important;
+          }
         }
       `}</style>
     </header>

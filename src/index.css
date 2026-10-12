@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Orbitron:wght@600;700;800;900&display=swap');
 
-:root {
+:root, [data-theme="dark"] {
   --bg: #050708;
   --bg-subtle: #080C10;
   --card: #0A0F14;
@@ -8,21 +8,100 @@
   --card3: #11171D;
   --border: #1C232B;
   --border2: #1E2A33;
-  --border-focus: rgba(17, 188, 230, 0.4);
-  --cyan: #11BCE6;
-  --cyan2: #0EA5CC;
-  --cyan-glow: rgba(17, 188, 230, 0.2);
+  --border-focus: rgba(0, 200, 240, 0.4);
+  --cyan: #00C8F0;
+  --cyan2: #00B4D8;
+  --cyan-glow: rgba(0, 200, 240, 0.25);
   --gold: #D69A13;
   --gold2: #B8820F;
   --gold-glow: rgba(214, 154, 19, 0.2);
   --white: #FFFFFF;
-  --muted: #687078;
-  --muted2: #A0A7AE;
-  --muted3: #8A9198;
+  --text: #FFFFFF;
+  --text-muted: #8E9BAE;
+  --text-muted2: #687078;
+  --header-bg: rgba(7, 10, 14, 0.96);
+  --header-border: #161F2A;
+  --nav-drawer-bg: #080C11;
+  --bottom-nav-bg: rgba(7, 10, 14, 0.96);
+  --bottom-nav-border: #19222C;
+  --card-bg: #090D12;
+  --card-border: #1A232E;
+  --card-item-bg: #0E141C;
+  --card-item-border: #1E2834;
+  --divider: #161F2A;
+  --button-ghost-bg: rgba(255, 255, 255, 0.05);
+  --button-ghost-border: #1E2834;
   --radius-sm: 8px;
   --radius: 14px;
   --radius-lg: 18px;
   --radius-xl: 24px;
+
+  /* Admin Dashboard Theme Tokens (Dark Mode: Cohesive Charcoal) */
+  --admin-bg: #060A0E;
+  --admin-card-bg: #090D11;
+  --admin-subcard-bg: #0D1217;
+  --admin-border: #1C232B;
+  --admin-border-subtle: #1E2A33;
+  --admin-text-main: #FFFFFF;
+  --admin-text-sub: #A0A7AE;
+  --admin-text-muted: #687078;
+  --admin-input-bg: #0D1217;
+  --admin-input-border: #1E2A33;
+  --admin-input-text: #FFFFFF;
+  --admin-modal-overlay: rgba(0, 0, 0, 0.8);
+  --admin-card-shadow: none;
+}
+
+[data-theme="light"] {
+  --bg: #F5F7FA;
+  --bg-subtle: #EBF0F5;
+  --card: #FFFFFF;
+  --card2: #F8FAFC;
+  --card3: #F1F5F9;
+  --border: #DDE2E8;
+  --border2: #CBD5E1;
+  --border-focus: rgba(0, 166, 206, 0.4);
+  --cyan: #00A6CE;
+  --cyan2: #0092B8;
+  --cyan-glow: rgba(0, 166, 206, 0.2);
+  --gold: #B47B08;
+  --gold2: #996704;
+  --gold-glow: rgba(180, 123, 8, 0.15);
+  --white: #0F172A;
+  --text: #0F172A;
+  --text-muted: #475569;
+  --text-muted2: #64748B;
+  --header-bg: rgba(255, 255, 255, 0.95);
+  --header-border: #E2E8F0;
+  --nav-drawer-bg: #FFFFFF;
+  --bottom-nav-bg: rgba(255, 255, 255, 0.96);
+  --bottom-nav-border: #E2E8F0;
+  --card-bg: #FFFFFF;
+  --card-border: #E2E8F0;
+  --card-item-bg: #F8FAFC;
+  --card-item-border: #E2E8F0;
+  --divider: #E2E8F0;
+  --button-ghost-bg: rgba(15, 23, 42, 0.04);
+  --button-ghost-border: #CBD5E1;
+  --radius-sm: 8px;
+  --radius: 14px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+
+  /* Admin Dashboard Theme Tokens (Light Mode: Clean Crisp Slate) */
+  --admin-bg: #F1F5F9;
+  --admin-card-bg: #FFFFFF;
+  --admin-subcard-bg: #F8FAFC;
+  --admin-border: #E2E8F0;
+  --admin-border-subtle: #CBD5E1;
+  --admin-text-main: #0F172A;
+  --admin-text-sub: #475569;
+  --admin-text-muted: #64748B;
+  --admin-input-bg: #FFFFFF;
+  --admin-input-border: #CBD5E1;
+  --admin-input-text: #0F172A;
+  --admin-modal-overlay: rgba(15, 23, 42, 0.6);
+  --admin-card-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 2px 8px rgba(0, 0, 0, 0.02);
 }
 
 *, *::before, *::after {
@@ -31,7 +110,7 @@
 
 html {
   scroll-behavior: smooth;
-  overflow-x: hidden;
+  overflow-x: clip;
   width: 100%;
 }
 
@@ -42,7 +121,7 @@ body {
   font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
+  overflow-x: clip;
   width: 100%;
   position: relative;
   line-height: 1.5;
@@ -52,8 +131,14 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  overflow-x: hidden;
   width: 100%;
+}
+
+/* Sticky Header */
+.site-header {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 100 !important;
 }
 
 a {
@@ -285,6 +370,14 @@ input, select, textarea {
   gap: clamp(12px, 2vw, 18px);
 }
 
+/* Seat Cover Showcase Grids */
+.seat-designs-grid,
+.seat-work-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: clamp(16px, 2.5vw, 24px);
+}
+
 /* Stats and Features */
 .stats-row-4 {
   display: grid;
@@ -494,12 +587,37 @@ input, select, textarea {
   .category-grid-5 {
     grid-template-columns: repeat(2, 1fr);
   }
+  .product-grid-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: clamp(8px, 2.5vw, 16px) !important;
+  }
   .gallery-grid-3 {
-    grid-template-columns: 1fr;
-    grid-auto-rows: 220px;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: clamp(8px, 2.5vw, 16px) !important;
+    grid-auto-rows: clamp(160px, 42vw, 220px) !important;
+  }
+  .seat-designs-grid,
+  .seat-work-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: clamp(8px, 2.5vw, 16px) !important;
+  }
+  .recent-grid-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: clamp(8px, 2.5vw, 16px) !important;
   }
   .pd-buttons-grid {
     grid-template-columns: 1fr;
+  }
+  .product-card-body {
+    padding: clamp(8px, 2.2vw, 14px);
+  }
+  .product-card-title {
+    font-size: clamp(10.5px, 2.5vw, 12.5px);
+    min-height: 28px;
+  }
+  .product-card-desc {
+    font-size: 11px;
+    margin-top: 4px;
   }
 }
 
@@ -508,12 +626,6 @@ input, select, textarea {
    =================================================== */
 
 @media (max-width: 480px) {
-  .product-grid-4 {
-    grid-template-columns: 1fr;
-  }
-  .recent-grid-4 {
-    grid-template-columns: 1fr;
-  }
   .hero-buttons {
     flex-direction: column;
     width: 100%;
@@ -643,3 +755,209 @@ input, select, textarea {
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7);
   position: relative;
 }
+
+/* Ensure customer pages have enough bottom space so fixed bottom nav never overlaps */
+.customer-main-content {
+  padding-bottom: 24px;
+}
+@media (max-width: 768px) {
+  .customer-main-content {
+    padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+}
+
+/* ===================================================
+   LIGHT MODE OVERRIDES FOR CUSTOMER PAGES
+   =================================================== */
+
+[data-theme="light"] {
+  color-scheme: light;
+}
+
+[data-theme="light"] body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+[data-theme="light"] .sec-title {
+  color: #0F172A;
+}
+
+/* Headings outside the dark hero car banner */
+[data-theme="light"] h1:not(.hero-banner-card *),
+[data-theme="light"] h2:not(.hero-banner-card *),
+[data-theme="light"] h3:not(.hero-banner-card *),
+[data-theme="light"] h4:not(.hero-banner-card *) {
+  color: #0F172A !important;
+}
+
+[data-theme="light"] p:not(.hero-banner-card *) {
+  color: #475569;
+}
+
+/* Card components */
+[data-theme="light"] .card,
+[data-theme="light"] .product-card,
+[data-theme="light"] .featured-product-card,
+[data-theme="light"] .category-card,
+[data-theme="light"] .benefits-bar,
+[data-theme="light"] .stats-row-4,
+[data-theme="light"] .feature-row-4,
+[data-theme="light"] .modal-card {
+  background: var(--card-bg) !important;
+  border-color: var(--card-border) !important;
+  box-shadow: 0 4px 18px rgba(15, 23, 42, 0.05) !important;
+}
+
+[data-theme="light"] .product-card-title {
+  color: #0F172A !important;
+}
+
+[data-theme="light"] .product-card-desc {
+  color: #64748B !important;
+}
+
+[data-theme="light"] .hover-card {
+  background: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+}
+[data-theme="light"] .hover-card:hover {
+  border-color: #00A6CE !important;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.1) !important;
+}
+
+/* Inputs, selects, and textareas */
+[data-theme="light"] input:not([type="checkbox"]):not([type="radio"]),
+[data-theme="light"] select,
+[data-theme="light"] textarea {
+  background: #FFFFFF !important;
+  border-color: #CBD5E1 !important;
+  color: #0F172A !important;
+}
+[data-theme="light"] input::placeholder,
+[data-theme="light"] textarea::placeholder {
+  color: #94A3B8 !important;
+}
+
+/* Footer in Light Mode */
+[data-theme="light"] footer {
+  background: #EBF0F5 !important;
+  border-top-color: #DDE2E8 !important;
+}
+[data-theme="light"] footer div,
+[data-theme="light"] footer nav a {
+  color: #475569 !important;
+}
+[data-theme="light"] footer strong,
+[data-theme="light"] footer a[href^="tel"],
+[data-theme="light"] footer [style*="fontFamily: Orbitron"] {
+  color: #0F172A !important;
+}
+
+/* Button & accent adaptations */
+[data-theme="light"] .btn-dark {
+  background: #E2E8F0 !important;
+  border-color: #CBD5E1 !important;
+  color: #0F172A !important;
+}
+[data-theme="light"] .btn-cyan {
+  color: #FFFFFF !important;
+  background: #00A6CE !important;
+  border-color: #00A6CE !important;
+}
+
+/* ==============================================================
+   ADMIN DASHBOARD & LOGIN LIGHT/DARK THEME SYSTEM
+   ============================================================== */
+.admin-dashboard-container {
+  min-height: 100vh;
+  background-color: var(--admin-bg) !important;
+  color: var(--admin-text-main) !important;
+}
+
+.admin-header {
+  background-color: var(--admin-card-bg) !important;
+  border-bottom: 1px solid var(--admin-border) !important;
+}
+
+.admin-sidebar {
+  background-color: var(--admin-card-bg) !important;
+  border-right: 1px solid var(--admin-border) !important;
+}
+
+[data-theme="light"] .admin-sidebar button {
+  color: var(--admin-text-sub);
+}
+
+[data-theme="light"] .admin-sidebar button:hover {
+  background-color: rgba(17, 188, 230, 0.08) !important;
+}
+
+/* Light Mode Overrides for Admin Layout & Components */
+[data-theme="light"] .admin-dashboard-container,
+[data-theme="light"] .admin-login-page {
+  background: var(--admin-bg) !important;
+  color: var(--admin-text-main) !important;
+}
+
+[data-theme="light"] .admin-dashboard-container h1,
+[data-theme="light"] .admin-dashboard-container h2,
+[data-theme="light"] .admin-dashboard-container h3,
+[data-theme="light"] .admin-dashboard-container h4,
+[data-theme="light"] .admin-login-page h1 {
+  color: var(--admin-text-main) !important;
+}
+
+/* Admin Form Controls in Light Mode */
+[data-theme="light"] .admin-dashboard-container input:not([type="checkbox"]):not([type="radio"]),
+[data-theme="light"] .admin-dashboard-container select,
+[data-theme="light"] .admin-dashboard-container textarea,
+[data-theme="light"] .admin-login-page input:not([type="checkbox"]):not([type="radio"]) {
+  background-color: var(--admin-input-bg) !important;
+  border-color: var(--admin-input-border) !important;
+  color: var(--admin-input-text) !important;
+}
+
+[data-theme="light"] .admin-dashboard-container input::placeholder,
+[data-theme="light"] .admin-dashboard-container textarea::placeholder,
+[data-theme="light"] .admin-login-page input::placeholder {
+  color: #94A3B8 !important;
+}
+
+[data-theme="light"] .admin-dashboard-container input:focus,
+[data-theme="light"] .admin-dashboard-container select:focus,
+[data-theme="light"] .admin-dashboard-container textarea:focus,
+[data-theme="light"] .admin-login-page input:focus {
+  border-color: #11BCE6 !important;
+  box-shadow: 0 0 0 2px rgba(17, 188, 230, 0.2) !important;
+}
+
+/* Dropdown option backgrounds */
+[data-theme="light"] .admin-dashboard-container select option {
+  background-color: #FFFFFF !important;
+  color: #0F172A !important;
+}
+
+[data-theme="dark"] .admin-dashboard-container select option {
+  background-color: #0D1217 !important;
+  color: #FFFFFF !important;
+}
+
+/* Custom scrollbars for admin in Light Mode */
+[data-theme="light"] .admin-dashboard-container ::-webkit-scrollbar-track,
+[data-theme="light"] .admin-sidebar::-webkit-scrollbar-track {
+  background: #E2E8F0 !important;
+}
+
+[data-theme="light"] .admin-dashboard-container ::-webkit-scrollbar-thumb,
+[data-theme="light"] .admin-sidebar::-webkit-scrollbar-thumb {
+  background: #CBD5E1 !important;
+}
+
+[data-theme="light"] .admin-dashboard-container ::-webkit-scrollbar-thumb:hover,
+[data-theme="light"] .admin-sidebar::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8 !important;
+}
+
+
+

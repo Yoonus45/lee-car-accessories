@@ -249,7 +249,7 @@ export default function OrdersTab() {
                 fontFamily: 'Orbitron, sans-serif',
                 fontWeight: 900,
                 fontSize: 18,
-                color: '#FFFFFF',
+                color: 'var(--admin-text-main)',
                 margin: 0,
               }}
             >
@@ -270,7 +270,7 @@ export default function OrdersTab() {
               MANUAL WORKFLOW
             </span>
           </div>
-          <div style={{ fontSize: 11, color: '#687078', marginTop: 4 }}>
+          <div style={{ fontSize: 11, color: 'var(--admin-text-muted)', marginTop: 4 }}>
             Direct customer product inquiries & fitment orders: New → Contacted → Confirmed → Ready → Completed
           </div>
         </div>
@@ -361,9 +361,9 @@ export default function OrdersTab() {
             label: 'TOTAL ORDERS',
             icon: '📦',
             count: metrics.total,
-            color: '#FFFFFF',
-            bg: '#0D1217',
-            border: '#1E2A33',
+            color: 'var(--admin-text-main)',
+            bg: 'var(--admin-subcard-bg)',
+            border: 'var(--admin-border-subtle)',
           },
           {
             key: 'new',
@@ -448,7 +448,7 @@ export default function OrdersTab() {
                   style={{
                     fontSize: 9,
                     fontWeight: 800,
-                    color: '#8A929B',
+                    color: 'var(--admin-text-sub)',
                     letterSpacing: '0.08em',
                   }}
                 >
@@ -477,8 +477,8 @@ export default function OrdersTab() {
       ───────────────────────────────────────────────────────────── */}
       <div
         style={{
-          background: '#090D11',
-          border: '1px solid #1C232B',
+          background: 'var(--admin-card-bg)',
+          border: '1px solid var(--admin-border)',
           borderRadius: 14,
           padding: '14px 16px',
           marginBottom: 16,
@@ -487,6 +487,7 @@ export default function OrdersTab() {
           gap: 12,
           alignItems: 'center',
           justifyContent: 'space-between',
+          boxShadow: 'var(--admin-card-shadow)',
         }}
       >
         {/* Search input */}
@@ -498,12 +499,12 @@ export default function OrdersTab() {
             onChange={e => setSearchQuery(e.target.value)}
             style={{
               width: '100%',
-              background: '#0D1217',
-              border: '1px solid #1E2A33',
+              background: 'var(--admin-input-bg)',
+              border: '1px solid var(--admin-input-border)',
               borderRadius: 8,
               padding: '8px 12px 8px 32px',
               fontSize: 12,
-              color: '#FFFFFF',
+              color: 'var(--admin-input-text)',
               outline: 'none',
               boxSizing: 'border-box',
             }}
@@ -514,7 +515,7 @@ export default function OrdersTab() {
               left: 10,
               top: '50%',
               transform: 'translateY(-50%)',
-              color: '#687078',
+              color: 'var(--admin-text-muted)',
               fontSize: 13,
             }}
           >
@@ -530,7 +531,7 @@ export default function OrdersTab() {
                 transform: 'translateY(-50%)',
                 background: 'none',
                 border: 'none',
-                color: '#687078',
+                color: 'var(--admin-text-muted)',
                 cursor: 'pointer',
                 fontSize: 12,
               }}
@@ -672,9 +673,9 @@ export default function OrdersTab() {
                   style={{
                     marginTop: 12,
                     padding: '10px 14px',
-                    background: '#0D1217',
+                    background: 'var(--admin-subcard-bg)',
                     borderRadius: 10,
-                    border: '1px solid #1E2A33',
+                    border: '1px solid var(--admin-border-subtle)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
@@ -685,10 +686,10 @@ export default function OrdersTab() {
                   <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                     <span style={{ fontSize: 18 }}>📦</span>
                     <div>
-                      <div style={{ fontSize: 13, fontWeight: 800, color: '#FFFFFF' }}>
+                      <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--admin-text-main)' }}>
                         {o.product_name}
                       </div>
-                      <div style={{ fontSize: 10, color: '#687078' }}>
+                      <div style={{ fontSize: 10, color: 'var(--admin-text-muted)' }}>
                         Product Slug: {o.product_id}
                       </div>
                     </div>
@@ -732,22 +733,22 @@ export default function OrdersTab() {
                     style={{
                       marginTop: 10,
                       padding: '8px 12px',
-                      background: '#0D1217',
+                      background: 'var(--admin-subcard-bg)',
                       borderRadius: 8,
-                      border: '1px solid #1E2A33',
+                      border: '1px solid var(--admin-border-subtle)',
                     }}
                   >
                     <div
                       style={{
                         fontSize: 9,
                         fontWeight: 800,
-                        color: '#687078',
+                        color: 'var(--admin-text-muted)',
                         letterSpacing: '0.08em',
                       }}
                     >
                       CUSTOMER INSTRUCTIONS / NOTES:
                     </div>
-                    <div style={{ fontSize: 12, color: '#A0A7AE', marginTop: 3, lineHeight: 1.5 }}>
+                    <div style={{ fontSize: 12, color: 'var(--admin-text-sub)', marginTop: 3, lineHeight: 1.5 }}>
                       {o.notes}
                     </div>
                   </div>
@@ -1051,8 +1052,8 @@ function InfoPill({ label, value }: { label: string; value: string }) {
   return (
     <div
       style={{
-        background: '#0D1217',
-        border: '1px solid #1E2A33',
+        background: 'var(--admin-subcard-bg)',
+        border: '1px solid var(--admin-border-subtle)',
         borderRadius: 8,
         padding: '8px 10px',
       }}
@@ -1062,7 +1063,7 @@ function InfoPill({ label, value }: { label: string; value: string }) {
           fontSize: 9,
           letterSpacing: '0.1em',
           fontWeight: 800,
-          color: '#687078',
+          color: 'var(--admin-text-muted)',
         }}
       >
         {label}
@@ -1070,7 +1071,7 @@ function InfoPill({ label, value }: { label: string; value: string }) {
       <div
         style={{
           fontSize: 12,
-          color: '#FFFFFF',
+          color: 'var(--admin-text-main)',
           marginTop: 3,
           wordBreak: 'break-word',
           fontWeight: 600,
@@ -1086,7 +1087,7 @@ function LoadingRow() {
   return (
     <div
       style={{
-        color: '#687078',
+        color: 'var(--admin-text-muted)',
         fontSize: 13,
         padding: '40px 0',
         textAlign: 'center',
@@ -1101,12 +1102,12 @@ function EmptyRow({ text }: { text: string }) {
   return (
     <div
       style={{
-        background: '#090D11',
-        border: '1px solid #1C232B',
+        background: 'var(--admin-card-bg)',
+        border: '1px solid var(--admin-border)',
         borderRadius: 14,
         padding: '40px 20px',
         textAlign: 'center',
-        color: '#687078',
+        color: 'var(--admin-text-muted)',
         fontSize: 13,
       }}
     >
@@ -1130,16 +1131,17 @@ function formatDate(iso: string) {
 }
 
 const cardStyle: React.CSSProperties = {
-  background: '#090D11',
-  border: '1px solid #1C232B',
+  background: 'var(--admin-card-bg)',
+  border: '1px solid var(--admin-border)',
   borderRadius: 14,
   padding: '16px 18px',
+  boxShadow: 'var(--admin-card-shadow)',
 }
 
 const callBtnStyle: React.CSSProperties = {
-  background: '#0D1217',
-  border: '1px solid #1E2A33',
-  color: '#FFFFFF',
+  background: 'var(--admin-subcard-bg)',
+  border: '1px solid var(--admin-border-subtle)',
+  color: 'var(--admin-text-main)',
   borderRadius: 8,
   padding: '7px 14px',
   fontSize: 11,
@@ -1167,8 +1169,9 @@ const waBtnStyle: React.CSSProperties = {
 }
 
 const selectStyle: React.CSSProperties = {
-  background: '#0D1217',
-  border: '1px solid #1E2A33',
+  background: 'var(--admin-subcard-bg)',
+  border: '1px solid var(--admin-border-subtle)',
+  color: 'var(--admin-text-main)',
   borderRadius: 8,
   padding: '7px 12px',
   fontSize: 11,
@@ -1178,12 +1181,13 @@ const selectStyle: React.CSSProperties = {
 }
 
 const refreshBtnStyle: React.CSSProperties = {
-  background: '#0D1217',
-  border: '1px solid #1E2A33',
-  color: '#A0A7AE',
+  background: 'var(--admin-subcard-bg)',
+  border: '1px solid var(--admin-border-subtle)',
+  color: 'var(--admin-text-sub)',
   borderRadius: 8,
   padding: '7px 14px',
   fontSize: 11,
   fontWeight: 700,
   cursor: 'pointer',
 }
+

@@ -25,8 +25,8 @@ export default function About() {
           {/* Business location box */}
           <div style={{
             marginTop: 18,
-            background: '#090D11',
-            border: '1px solid #1C232B',
+            background: 'var(--card-bg, #090D11)',
+            border: '1px solid var(--card-border, #1C232B)',
             borderRadius: 14,
             padding: '16px 18px',
             display: 'flex',
@@ -36,7 +36,7 @@ export default function About() {
             <div style={{ fontWeight: 800, fontSize: 11, letterSpacing: '0.08em', color: '#11BCE6' }}>
               STORE LOCATION
             </div>
-            <div style={{ fontSize: 12, color: '#FFFFFF', lineHeight: 1.6 }}>
+            <div style={{ fontSize: 12, color: 'var(--text, #FFFFFF)', lineHeight: 1.6 }}>
               {businessInfo.fullAddress}
             </div>
             <div style={{ display: 'flex', gap: 12, marginTop: 6, flexWrap: 'wrap' }}>
@@ -62,8 +62,8 @@ export default function About() {
               { n: '4.8 ★', l: `~${businessInfo.reviewCount} GOOGLE REVIEWS` },
             ].map(s => (
               <div key={s.l} style={{
-                background: '#090D11',
-                border: '1px solid #1C232B',
+                background: 'var(--card-bg, #090D11)',
+                border: '1px solid var(--card-border, #1C232B)',
                 borderRadius: 12,
                 padding: '14px',
                 textAlign: 'center',
@@ -131,8 +131,8 @@ export default function About() {
             },
           ].map(c => (
             <div key={c.t} style={{
-              background: '#090D11',
-              border: '1px solid #1C232B',
+              background: 'var(--card-bg, #090D11)',
+              border: '1px solid var(--card-border, #1C232B)',
               borderRadius: 14,
               padding: '22px 18px',
               textAlign: 'center',

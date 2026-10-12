@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '../../lib/supabase'
-import leeLogo from '../../assets/lee cars logo.png'
+import { useTheme } from '../../context/ThemeContext'
+import leeLogo from '../../assets/lee-cars-logo.png'
 
 export default function AdminLogin() {
   const navigate = useNavigate()
+  const { theme, toggleTheme } = useTheme()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
@@ -32,15 +34,47 @@ export default function AdminLogin() {
   }
 
   return (
-    <div style={{
-      minHeight: '100vh',
-      background: 'linear-gradient(135deg, #060A0E 0%, #0A0F14 100%)',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: '24px 16px'
-    }}>
+    <div
+      className="admin-login-page"
+      style={{
+        minHeight: '100vh',
+        background: 'var(--admin-bg)',
+        color: 'var(--admin-text-main)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '24px 16px',
+        position: 'relative'
+      }}
+    >
       <div style={{ width: '100%', maxWidth: 400 }}>
+        {/* Top bar with Theme Toggle */}
+        <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 16 }}>
+          <button
+            onClick={toggleTheme}
+            type="button"
+            style={{
+              background: 'var(--admin-subcard-bg)',
+              border: '1px solid var(--admin-border-subtle)',
+              color: 'var(--admin-text-main)',
+              borderRadius: 8,
+              padding: '6px 12px',
+              fontSize: 12,
+              fontWeight: 700,
+              cursor: 'pointer',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 6,
+              transition: 'all 0.15s ease'
+            }}
+            title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+            aria-label={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+          >
+            <span>{theme === 'dark' ? '☀️' : '🌙'}</span>
+            <span>{theme === 'dark' ? 'Light' : 'Dark'}</span>
+          </button>
+        </div>
+
         {/* Logo / Brand */}
         <div style={{ textAlign: 'center', marginBottom: 32 }}>
           <img
@@ -72,28 +106,29 @@ export default function AdminLogin() {
             fontFamily: 'Orbitron, sans-serif',
             fontWeight: 900,
             fontSize: 22,
-            color: '#FFFFFF',
+            color: 'var(--admin-text-main)',
             margin: 0,
             lineHeight: 1.2
           }}>
             LEE CAR<br />
             <span style={{ color: '#11BCE6' }}>ACCESSORIES</span>
           </h1>
-          <div style={{ color: '#687078', fontSize: 11, marginTop: 6 }}>
+          <div style={{ color: 'var(--admin-text-muted)', fontSize: 11, marginTop: 6 }}>
             Business Management Dashboard
           </div>
         </div>
 
         {/* Login Card */}
         <div style={{
-          background: '#090D11',
-          border: '1px solid #1C232B',
+          background: 'var(--admin-card-bg)',
+          border: '1px solid var(--admin-border)',
           borderRadius: 18,
-          padding: '28px 24px'
+          padding: '28px 24px',
+          boxShadow: 'var(--admin-card-shadow)'
         }}>
           <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             <div>
-              <label style={{ display: 'block', fontSize: 10, letterSpacing: '0.1em', fontWeight: 800, color: '#A0A7AE', marginBottom: 6 }}>
+              <label style={{ display: 'block', fontSize: 10, letterSpacing: '0.1em', fontWeight: 800, color: 'var(--admin-text-sub)', marginBottom: 6 }}>
                 ADMIN EMAIL
               </label>
               <input
@@ -105,11 +140,11 @@ export default function AdminLogin() {
                 placeholder="leecaraccessories.rpt@gmail.com"
                 style={{
                   width: '100%',
-                  background: '#0D1217',
-                  border: '1px solid #1E2A33',
+                  background: 'var(--admin-input-bg)',
+                  border: '1px solid var(--admin-input-border)',
                   borderRadius: 10,
                   padding: '13px 14px',
-                  color: '#FFFFFF',
+                  color: 'var(--admin-input-text)',
                   outline: 'none',
                   fontSize: 13,
                   boxSizing: 'border-box'
@@ -118,7 +153,7 @@ export default function AdminLogin() {
             </div>
 
             <div>
-              <label style={{ display: 'block', fontSize: 10, letterSpacing: '0.1em', fontWeight: 800, color: '#A0A7AE', marginBottom: 6 }}>
+              <label style={{ display: 'block', fontSize: 10, letterSpacing: '0.1em', fontWeight: 800, color: 'var(--admin-text-sub)', marginBottom: 6 }}>
                 PASSWORD
               </label>
               <input
@@ -130,11 +165,11 @@ export default function AdminLogin() {
                 placeholder="••••••••"
                 style={{
                   width: '100%',
-                  background: '#0D1217',
-                  border: '1px solid #1E2A33',
+                  background: 'var(--admin-input-bg)',
+                  border: '1px solid var(--admin-input-border)',
                   borderRadius: 10,
                   padding: '13px 14px',
-                  color: '#FFFFFF',
+                  color: 'var(--admin-input-text)',
                   outline: 'none',
                   fontSize: 13,
                   boxSizing: 'border-box'
@@ -179,9 +214,9 @@ export default function AdminLogin() {
           <div style={{
             marginTop: 20,
             paddingTop: 16,
-            borderTop: '1px solid #1C232B',
+            borderTop: '1px solid var(--admin-border)',
             fontSize: 11,
-            color: '#687078',
+            color: 'var(--admin-text-muted)',
             textAlign: 'center',
             lineHeight: 1.6
           }}>
@@ -192,7 +227,7 @@ export default function AdminLogin() {
 
         {/* Back to website */}
         <div style={{ textAlign: 'center', marginTop: 20 }}>
-          <a href="/" style={{ fontSize: 11, color: '#687078', textDecoration: 'none' }}>
+          <a href="/" style={{ fontSize: 11, color: 'var(--admin-text-muted)', textDecoration: 'none' }}>
             ← Back to Lee Car Accessories website
           </a>
         </div>
@@ -200,3 +235,4 @@ export default function AdminLogin() {
     </div>
   )
 }
+
