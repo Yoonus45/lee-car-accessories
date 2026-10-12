@@ -426,13 +426,13 @@ export default function OrdersTab() {
               key={m.label}
               onClick={() => setFilterStatus(m.key as OrderStatus | 'all')}
               style={{
-                background: m.bg,
+                background: 'var(--admin-card-bg)',
                 border: `1px solid ${isActive ? m.color : m.border}`,
                 borderRadius: 12,
                 padding: '14px 16px',
                 cursor: 'pointer',
                 transition: 'all 0.15s ease',
-                boxShadow: isActive ? `0 0 14px ${m.bg}` : 'none',
+                boxShadow: isActive ? `0 0 14px ${m.bg}` : 'var(--admin-card-shadow)',
               }}
               title={`Click to filter by ${m.label}`}
             >
@@ -567,9 +567,9 @@ export default function OrdersTab() {
                 style={{
                   padding: '6px 12px',
                   borderRadius: 999,
-                  border: `1px solid ${isSelected ? statusColor : '#1E2A33'}`,
+                  border: `1px solid ${isSelected ? statusColor : 'var(--admin-border-subtle)'}`,
                   background: isSelected ? 'rgba(17,188,230,0.12)' : 'transparent',
-                  color: isSelected ? statusColor : '#A0A7AE',
+                  color: isSelected ? statusColor : 'var(--admin-text-sub)',
                   fontSize: 11,
                   fontWeight: 700,
                   cursor: 'pointer',
@@ -583,8 +583,9 @@ export default function OrdersTab() {
                 <span
                   style={{
                     fontSize: 9,
-                    background: isSelected ? statusColor : '#1C232B',
-                    color: isSelected ? '#02141B' : '#8A929B',
+                    background: isSelected ? statusColor : 'var(--admin-subcard-bg)',
+                    border: `1px solid ${isSelected ? 'transparent' : 'var(--admin-border-subtle)'}`,
+                    color: isSelected ? '#02141B' : 'var(--admin-text-muted)',
                     padding: '1px 6px',
                     borderRadius: 999,
                     fontWeight: 800,
@@ -634,7 +635,7 @@ export default function OrdersTab() {
                       style={{
                         fontWeight: 800,
                         fontSize: 15,
-                        color: '#FFFFFF',
+                        color: 'var(--admin-text-main, #FFFFFF)',
                         display: 'flex',
                         alignItems: 'center',
                         gap: 8,
@@ -823,7 +824,7 @@ export default function OrdersTab() {
                       title="Update order status workflow"
                     >
                       {STATUS_OPTIONS.map(s => (
-                        <option key={s} value={s} style={{ background: '#0D1217', color: '#FFFFFF' }}>
+                        <option key={s} value={s}>
                           {STATUS_META[s].dropdownLabel}
                         </option>
                       ))}
@@ -870,7 +871,7 @@ function OrderTimeline({ status }: { status: OrderStatus }) {
           >
             ORDER CANCELLED
           </span>
-          <span style={{ color: '#8E949B', fontSize: 11 }}>
+          <span style={{ color: 'var(--admin-text-sub)', fontSize: 11 }}>
             — This order inquiry is closed and will not proceed.
           </span>
         </div>
@@ -885,8 +886,8 @@ function OrderTimeline({ status }: { status: OrderStatus }) {
       style={{
         marginTop: 12,
         padding: '12px 14px',
-        background: '#070B0E',
-        border: '1px solid #162029',
+        background: 'var(--admin-subcard-bg)',
+        border: '1px solid var(--admin-border-subtle)',
         borderRadius: 10,
       }}
     >
@@ -894,7 +895,7 @@ function OrderTimeline({ status }: { status: OrderStatus }) {
         style={{
           fontSize: 9,
           fontWeight: 800,
-          color: '#5C656F',
+          color: 'var(--admin-text-muted)',
           letterSpacing: '0.08em',
           marginBottom: 10,
         }}
@@ -920,19 +921,19 @@ function OrderTimeline({ status }: { status: OrderStatus }) {
             ? stepMeta.color
             : isCompleted
             ? '#00C864'
-            : '#121A22'
+            : 'var(--admin-subcard-bg)'
 
           const circleTextColor = isCurrent
             ? '#02141B'
             : isCompleted
             ? '#FFFFFF'
-            : '#4A5560'
+            : 'var(--admin-text-muted)'
 
           const labelColor = isCurrent
             ? stepMeta.color
             : isCompleted
-            ? '#A0A7AE'
-            : '#4A5560'
+            ? 'var(--admin-text-sub)'
+            : 'var(--admin-text-muted)'
 
           return (
             <div
@@ -969,10 +970,10 @@ function OrderTimeline({ status }: { status: OrderStatus }) {
                     color: circleTextColor,
                     boxShadow: isCurrent ? `0 0 12px ${stepMeta.bg}` : 'none',
                     border: isCurrent
-                      ? `2px solid #FFFFFF`
+                      ? `2px solid var(--admin-text-main)`
                       : isCompleted
                       ? '2px solid #00C864'
-                      : '1px solid #1E2A33',
+                      : '1px solid var(--admin-border-subtle)',
                     transition: 'all 0.2s ease',
                   }}
                   title={stepMeta.label}
@@ -1007,8 +1008,8 @@ function OrderTimeline({ status }: { status: OrderStatus }) {
                     background: isCompleted
                       ? 'linear-gradient(90deg, #00C864, #11BCE6)'
                       : isCurrent
-                      ? 'linear-gradient(90deg, #11BCE6, #1A242E)'
-                      : '#162029',
+                      ? 'linear-gradient(90deg, #11BCE6, var(--admin-border-subtle))'
+                      : 'var(--admin-border)',
                     borderRadius: 1,
                   }}
                 />

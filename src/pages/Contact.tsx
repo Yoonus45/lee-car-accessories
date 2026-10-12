@@ -79,8 +79,8 @@ export default function Contact() {
                   width: 38,
                   height: 38,
                   borderRadius: 10,
-                  background: '#0D1217',
-                  border: '1px solid #1E2A33',
+                  background: 'var(--card-item-bg, #0D1217)',
+                  border: '1px solid var(--card-item-border, #1E2A33)',
                   display: 'grid',
                   placeItems: 'center',
                   color: '#11BCE6',
@@ -90,10 +90,10 @@ export default function Contact() {
                   {r.icon}
                 </div>
                 <div style={{ minWidth: 0 }}>
-                  <div style={{ fontSize: 10, letterSpacing: '0.1em', fontWeight: 800, color: '#687078' }}>
+                  <div style={{ fontSize: 10, letterSpacing: '0.1em', fontWeight: 800, color: 'var(--text-muted2, #687078)' }}>
                     {r.label}
                   </div>
-                  <div style={{ fontSize: 12, color: '#FFFFFF', marginTop: 3, wordBreak: 'break-word', fontWeight: 600 }}>
+                  <div style={{ fontSize: 12, color: 'var(--text, #FFFFFF)', marginTop: 3, wordBreak: 'break-word', fontWeight: 600 }}>
                     {r.value}
                   </div>
                 </div>
@@ -252,14 +252,14 @@ export default function Contact() {
               pointerEvents: 'none'
             }}>
               <div style={{
-                background: '#0D1217',
-                border: '1px solid #1E2A33',
+                background: 'var(--card-bg, #0D1217)',
+                border: '1px solid var(--card-border, #1E2A33)',
                 borderRadius: 12,
                 padding: '10px 14px',
                 display: 'flex',
                 gap: 10,
                 alignItems: 'center',
-                boxShadow: '0 8px 24px rgba(0,0,0,0.6)',
+                boxShadow: '0 8px 24px rgba(0,0,0,0.15)',
                 pointerEvents: 'auto',
                 maxWidth: '100%'
               }}>
@@ -269,7 +269,7 @@ export default function Contact() {
                   color: '#02141B', fontWeight: 900, fontSize: 13, flexShrink: 0
                 }}>📍</div>
                 <div style={{ minWidth: 0 }}>
-                  <div style={{ fontWeight: 800, fontSize: 11, color: '#FFFFFF' }}>LEE CAR ACCESSORIES</div>
+                  <div style={{ fontWeight: 800, fontSize: 11, color: 'var(--text, #FFFFFF)' }}>LEE CAR ACCESSORIES</div>
                   <div style={{ fontSize: 10, color: '#687078', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                     No. 01, SK Complex, ECR Junction
                   </div>

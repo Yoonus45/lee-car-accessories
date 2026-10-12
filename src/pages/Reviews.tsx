@@ -99,25 +99,25 @@ export default function Reviews() {
             <div style={{ fontWeight: 800, fontSize: 11, letterSpacing: '0.12em', color: '#11BCE6' }}>
               OVERALL RATING
             </div>
-            <div style={{ fontFamily: 'Orbitron', fontWeight: 900, fontSize: 'clamp(44px, 8vw, 56px)', lineHeight: 1, marginTop: 8, color: '#FFFFFF' }}>
+            <div style={{ fontFamily: 'Orbitron', fontWeight: 900, fontSize: 'clamp(44px, 8vw, 56px)', lineHeight: 1, marginTop: 8, color: 'var(--text, #FFFFFF)' }}>
               {businessInfo.rating.toFixed(1)}
             </div>
             <div style={{ color: '#D69A13', fontSize: 20, marginTop: 6, letterSpacing: '0.08em' }}>
               ★★★★★
             </div>
-            <div style={{ fontSize: 13, color: '#A0A7AE', marginTop: 8, fontWeight: 600 }}>
+            <div style={{ fontSize: 13, color: 'var(--text-muted, #A0A7AE)', marginTop: 8, fontWeight: 600 }}>
               Based on ~{businessInfo.reviewCount} Google reviews
             </div>
 
             <div style={{ display: 'flex', gap: 8, justifyContent: 'center', marginTop: 16, flexWrap: 'wrap' }}>
               <span style={{
-                background: '#0D1217',
-                border: '1px solid #1E2A33',
+                background: 'var(--card-item-bg, #0D1217)',
+                border: '1px solid var(--card-item-border, #1E2A33)',
                 padding: '6px 12px',
                 borderRadius: 999,
                 fontSize: 11,
                 fontWeight: 800,
-                color: '#FFFFFF'
+                color: 'var(--text, #FFFFFF)'
               }}>
                 ⭐ 4.8 / 5.0
               </span>
@@ -241,8 +241,8 @@ export default function Reviews() {
                       width: 40,
                       height: 40,
                       borderRadius: '50%',
-                      background: '#0D1217',
-                      border: '1px solid #1E2A33',
+                      background: 'var(--card-item-bg, #0D1217)',
+                      border: '1px solid var(--card-item-border, #1E2A33)',
                       display: 'grid',
                       placeItems: 'center',
                       fontWeight: 900,
@@ -253,7 +253,7 @@ export default function Reviews() {
                       {r.name.charAt(0).toUpperCase()}
                     </div>
                     <div style={{ minWidth: 0 }}>
-                      <div style={{ fontWeight: 800, fontSize: 13, color: '#FFFFFF', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                      <div style={{ fontWeight: 800, fontSize: 13, color: 'var(--text, #FFFFFF)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                         {r.name}
                       </div>
                       <div style={{ fontSize: 11, color: '#687078', display: 'flex', gap: 6, alignItems: 'center', flexWrap: 'wrap', marginTop: 2 }}>
@@ -375,7 +375,7 @@ export default function Reviews() {
       <section className="container" style={{ marginTop: 32 }}>
         <div className="banner-grid" style={{
           background: 'linear-gradient(135deg, #0A0F14 0%, #0D1217 100%)',
-          border: '1px solid #1C232B',
+          border: 'none',
           borderRadius: 18,
           overflow: 'hidden'
         }}>

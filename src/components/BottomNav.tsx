@@ -239,7 +239,7 @@ export default function BottomNav() {
           bottom: moreOpen ? 'calc(60px + env(safe-area-inset-bottom, 0px))' : '-100%',
           maxHeight: 'calc(80vh - 60px)',
           background: 'var(--card-bg, #090D12)',
-          borderTop: '1px solid var(--card-border, #1E2834)',
+          borderTop: '1px solid var(--bottom-nav-border, #1E2834)',
           borderTopLeftRadius: 20,
           borderTopRightRadius: 20,
           zIndex: 108,

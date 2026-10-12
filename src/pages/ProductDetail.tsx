@@ -108,8 +108,8 @@ export default function ProductDetail() {
           {/* Left: Product Images Gallery */}
           <div style={{ minWidth: 0 }}>
             <div style={{
-              background: '#090D11',
-              border: '1px solid #1C232B',
+              background: 'var(--card-bg, #090D11)',
+              border: '1px solid var(--card-border, #1C232B)',
               borderRadius: 16,
               overflow: 'hidden',
               aspectRatio: '1',
@@ -154,7 +154,7 @@ export default function ProductDetail() {
                     opacity: i === activeImg ? 1 : 0.65,
                     padding: 0,
                     cursor: 'pointer',
-                    background: '#090D11',
+                    background: 'var(--card-bg, #090D11)',
                     transition: 'all .2s ease'
                   }}
                 >
@@ -172,7 +172,7 @@ export default function ProductDetail() {
               fontSize: 'clamp(20px, 4vw, 26px)',
               lineHeight: 1.15,
               margin: 0,
-              color: '#FFFFFF'
+              color: 'var(--text, #FFFFFF)'
             }}>
               {product.name}
             </h1>
@@ -183,8 +183,8 @@ export default function ProductDetail() {
 
             <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginTop: 10, flexWrap: 'wrap' }}>
               <div style={{ color: '#D69A13', fontSize: 14, letterSpacing: '0.04em' }}>★★★★★</div>
-              <span style={{ fontSize: 12, color: '#FFFFFF', fontWeight: 800 }}>{product.rating}</span>
-              <span style={{ fontSize: 11, color: '#687078' }}>({product.reviews_count} customer reviews)</span>
+              <span style={{ fontSize: 12, color: 'var(--text, #FFFFFF)', fontWeight: 800 }}>{product.rating}</span>
+              <span style={{ fontSize: 11, color: 'var(--text-muted2, #687078)' }}>({product.reviews_count} customer reviews)</span>
             </div>
 
             {/* Pricing */}
@@ -233,8 +233,8 @@ export default function ProductDetail() {
                 display: 'flex',
                 alignItems: 'center',
                 gap: 12,
-                background: '#090D11',
-                border: '1px solid #1C232B',
+                background: 'var(--card-bg, #090D11)',
+                border: '1px solid var(--border, #1C232B)',
                 borderRadius: 999,
                 padding: '4px 8px'
               }}>
@@ -243,12 +243,12 @@ export default function ProductDetail() {
                   aria-label="Decrease Quantity"
                   style={{
                     width: 34, height: 34, borderRadius: '50%',
-                    border: '1px solid #1E2A33', background: '#0D1217',
-                    color: '#FFFFFF', fontSize: 16, cursor: 'pointer',
+                    border: '1px solid var(--card-item-border, #1E2A33)', background: 'var(--card-item-bg, #0D1217)',
+                    color: 'var(--text, #FFFFFF)', fontSize: 16, cursor: 'pointer',
                     display: 'grid', placeItems: 'center'
                   }}
                 >−</button>
-                <span style={{ minWidth: 24, textAlign: 'center', fontWeight: 800, fontSize: 15, color: '#FFFFFF' }}>
+                <span style={{ minWidth: 24, textAlign: 'center', fontWeight: 800, fontSize: 15, color: 'var(--text, #FFFFFF)' }}>
                   {qty}
                 </span>
                 <button
@@ -256,8 +256,8 @@ export default function ProductDetail() {
                   aria-label="Increase Quantity"
                   style={{
                     width: 34, height: 34, borderRadius: '50%',
-                    border: '1px solid #1E2A33', background: '#0D1217',
-                    color: '#FFFFFF', fontSize: 16, cursor: 'pointer',
+                    border: '1px solid var(--card-item-border, #1E2A33)', background: 'var(--card-item-bg, #0D1217)',
+                    color: 'var(--text, #FFFFFF)', fontSize: 16, cursor: 'pointer',
                     display: 'grid', placeItems: 'center'
                   }}
                 >+</button>
@@ -373,8 +373,8 @@ export default function ProductDetail() {
               style={{
                 position: 'absolute', top: 14, right: 14,
                 width: 32, height: 32, borderRadius: '50%',
-                border: '1px solid #1E2A33', background: '#0D1217',
-                color: '#A0A7AE', fontSize: 16, cursor: 'pointer',
+                border: '1px solid var(--card-item-border, #1E2A33)', background: 'var(--card-item-bg, #0D1217)',
+                color: 'var(--text-muted, #A0A7AE)', fontSize: 16, cursor: 'pointer',
                 display: 'grid', placeItems: 'center'
               }}
               aria-label="Close order modal"

@@ -36,6 +36,21 @@ export default function AdminDashboard() {
     })
   }, [])
 
+  // Prevent background scroll when admin mobile drawer is open (matches homepage Navbar behavior)
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden'
+      document.documentElement.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+      document.documentElement.style.overflow = ''
+    }
+    return () => {
+      document.body.style.overflow = ''
+      document.documentElement.style.overflow = ''
+    }
+  }, [mobileMenuOpen])
+
   const signOut = async () => {
     await supabase.auth.signOut()
     navigate('/admin', { replace: true })
@@ -50,10 +65,12 @@ export default function AdminDashboard() {
         color: 'var(--admin-text-main)',
         display: 'flex',
         flexDirection: 'column',
-        fontFamily: 'Inter, system-ui, sans-serif'
+        fontFamily: 'Inter, system-ui, sans-serif',
+        paddingTop: 60,
+        boxSizing: 'border-box'
       }}
     >
-      {/* Top Nav */}
+      {/* Top Nav (Fixed at top of screen across all admin pages) */}
       <header
         className="admin-header"
         style={{
@@ -65,31 +82,48 @@ export default function AdminDashboard() {
           justifyContent: 'space-between',
           height: 60,
           flexShrink: 0,
-          position: 'sticky',
+          position: 'fixed',
           top: 0,
-          zIndex: 100
+          left: 0,
+          right: 0,
+          width: '100%',
+          zIndex: 100,
+          boxSizing: 'border-box'
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          {/* Mobile hamburger */}
+          {/* Mobile hamburger button matching homepage Navbar design & dimensions */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label={mobileMenuOpen ? 'Close Menu' : 'Open Navigation Menu'}
+            aria-expanded={mobileMenuOpen}
             style={{
-              display: 'none',
-              width: 36,
-              height: 36,
-              background: 'var(--admin-subcard-bg)',
-              border: '1px solid var(--admin-border-subtle)',
+              width: 38,
+              height: 38,
               borderRadius: 8,
-              color: 'var(--admin-text-sub)',
+              background: mobileMenuOpen ? 'rgba(0, 200, 240, 0.15)' : 'var(--button-ghost-bg, rgba(255, 255, 255, 0.04))',
+              border: mobileMenuOpen ? '1px solid var(--cyan, #00C8F0)' : '1px solid var(--button-ghost-border, #1E2834)',
               cursor: 'pointer',
-              fontSize: 18
+              display: 'none',
+              placeItems: 'center',
+              padding: 0,
+              transition: 'all 0.2s ease',
             }}
             className="admin-hamburger"
-            aria-label="Toggle menu"
           >
-            ☰
+            {mobileMenuOpen ? (
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cyan, #00C8F0)" strokeWidth="2.4" strokeLinecap="round">
+                <path d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            ) : (
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--admin-text-main, #FFFFFF)" strokeWidth="2.2" strokeLinecap="round">
+                <line x1="4" y1="7" x2="20" y2="7" />
+                <line x1="4" y1="12" x2="20" y2="12" />
+                <line x1="4" y1="17" x2="20" y2="17" />
+              </svg>
+            )}
           </button>
+
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
             <img
               src={leeLogo}
@@ -178,8 +212,201 @@ export default function AdminDashboard() {
         </div>
       </header>
 
+      {/* ─────────────────────────────────────────────────────────────
+          MOBILE SLIDE DRAWER BACKDROP (ABOVE HEADER & BOTTOM NAV)
+      ───────────────────────────────────────────────────────────── */}
+      {mobileMenuOpen && (
+        <div
+          onClick={() => setMobileMenuOpen(false)}
+          aria-hidden="true"
+          className="admin-mobile-backdrop mobile-nav-backdrop"
+          style={{
+            position: 'fixed',
+            inset: 0,
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0,
+            height: '100dvh',
+            minHeight: '100vh',
+            background: 'rgba(0, 0, 0, 0.75)',
+            backdropFilter: 'blur(5px)',
+            WebkitBackdropFilter: 'blur(5px)',
+            zIndex: 1200,
+          }}
+        />
+      )}
+
+      {/* ─────────────────────────────────────────────────────────────
+          MOBILE SLIDE NAVIGATION DRAWER (FULL VIEWPORT HEIGHT)
+      ───────────────────────────────────────────────────────────── */}
+      <div
+        className="admin-mobile-drawer mobile-nav-drawer"
+        style={{
+          position: 'fixed',
+          top: 0,
+          bottom: 0,
+          left: mobileMenuOpen ? 0 : '-100%',
+          width: 'min(320px, 86vw)',
+          height: '100dvh',
+          minHeight: '100vh',
+          maxHeight: '100dvh',
+          background: 'var(--nav-drawer-bg, #080C11)',
+          borderRight: '1px solid var(--header-border, #1A232E)',
+          zIndex: 1201,
+          display: 'flex',
+          flexDirection: 'column',
+          padding: 'max(16px, env(safe-area-inset-top, 16px)) 16px max(24px, env(safe-area-inset-bottom, 24px))',
+          gap: 8,
+          transition: 'left .28s cubic-bezier(0.16, 1, 0.3, 1), background 0.25s ease',
+          overflowY: 'auto',
+          WebkitOverflowScrolling: 'touch',
+          overscrollBehavior: 'contain',
+          boxShadow: '10px 0 35px rgba(0, 0, 0, 0.75)',
+        }}
+      >
+        {/* Drawer Header */}
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            paddingBottom: 12,
+            borderBottom: '1px solid var(--divider, #17202B)',
+            marginBottom: 6,
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <img
+              src={leeLogo}
+              alt="Lee Car Accessories"
+              style={{
+                width: 32,
+                height: 32,
+                borderRadius: '50%',
+                objectFit: 'cover',
+                border: '1px solid var(--card-item-border, #1E2834)',
+              }}
+            />
+            <div>
+              <div style={{ fontWeight: 800, fontSize: 12, letterSpacing: '0.08em', color: 'var(--cyan, #00C8F0)' }}>
+                LEE CAR ACCESSORIES
+              </div>
+              <div style={{ fontSize: 9.5, color: 'var(--text-muted, #8E9BAE)', marginTop: 1 }}>Admin Dashboard</div>
+            </div>
+          </div>
+          <button
+            onClick={() => setMobileMenuOpen(false)}
+            aria-label="Close Menu"
+            style={{
+              width: 30,
+              height: 30,
+              borderRadius: 8,
+              background: 'var(--card-item-bg, #0E141C)',
+              border: '1px solid var(--button-ghost-border, #1E2834)',
+              color: 'var(--text-muted, #8E9BAE)',
+              display: 'grid',
+              placeItems: 'center',
+              cursor: 'pointer',
+              fontSize: 14,
+              padding: 0,
+              lineHeight: 1,
+            }}
+          >
+            ✕
+          </button>
+        </div>
+
+        {/* Admin Navigation Tabs */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+          {TABS.map(t => (
+            <button
+              key={t.id}
+              onClick={() => {
+                setTab(t.id)
+                setMobileMenuOpen(false)
+              }}
+              style={{
+                fontSize: 12.5,
+                letterSpacing: '0.08em',
+                fontWeight: 700,
+                color: tab === t.id ? 'var(--cyan, #00C8F0)' : 'var(--text-muted, #A0AAB6)',
+                background: tab === t.id ? 'rgba(0, 200, 240, 0.08)' : 'transparent',
+                border: tab === t.id ? '1px solid rgba(0, 200, 240, 0.25)' : '1px solid transparent',
+                padding: '10px 12px',
+                borderRadius: 8,
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                cursor: 'pointer',
+                textAlign: 'left',
+                width: '100%',
+                transition: 'all .15s ease',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                <span style={{ fontSize: 16 }}>{t.icon}</span>
+                <span>{t.label}</span>
+              </div>
+              <span style={{ color: tab === t.id ? 'var(--cyan, #00C8F0)' : 'var(--text-muted2, #45505C)', fontSize: 13 }}>›</span>
+            </button>
+          ))}
+        </div>
+
+        {/* Drawer Footer with Quick Actions & User Info */}
+        <div style={{ marginTop: 'auto', paddingTop: 16, borderTop: '1px solid var(--divider, #17202B)', display: 'flex', flexDirection: 'column', gap: 10 }}>
+          <a
+            href="/"
+            style={{
+              fontSize: 12,
+              fontWeight: 700,
+              color: 'var(--text-muted, #A0AAB6)',
+              background: 'var(--card-item-bg, #0E141C)',
+              border: '1px solid var(--button-ghost-border, #1E2834)',
+              borderRadius: 8,
+              padding: '9px 12px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 6,
+              textDecoration: 'none',
+            }}
+          >
+            ← Website
+          </a>
+
+          <button
+            onClick={() => {
+              setMobileMenuOpen(false)
+              signOut()
+            }}
+            style={{
+              fontSize: 12,
+              fontWeight: 700,
+              color: '#FF5555',
+              background: 'rgba(255, 85, 85, 0.08)',
+              border: '1px solid rgba(255, 85, 85, 0.3)',
+              borderRadius: 8,
+              padding: '9px 12px',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 6,
+            }}
+          >
+            Sign Out
+          </button>
+
+          <div style={{ fontSize: 10, color: 'var(--text-muted, #8E9BAE)', padding: '4px 6px', lineHeight: 1.5 }}>
+            Signed in as<br />
+            <span style={{ color: 'var(--text, #FFFFFF)', wordBreak: 'break-all', fontWeight: 600 }}>{adminEmail}</span>
+          </div>
+        </div>
+      </div>
+
       <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
-        {/* Sidebar */}
+        {/* Desktop Sidebar */}
         <aside
           style={{
             width: 220,
@@ -192,7 +419,7 @@ export default function AdminDashboard() {
             gap: 4,
             overflowY: 'auto'
           }}
-          className={`admin-sidebar${mobileMenuOpen ? ' admin-sidebar-open' : ''}`}
+          className="admin-sidebar"
         >
           {TABS.map(t => (
             <button
@@ -250,23 +477,55 @@ export default function AdminDashboard() {
       </div>
 
       <style>{`
-        @media (max-width: 700px) {
-          .admin-hamburger { display: grid !important; }
-          .admin-email-label { display: block !important; }
-          .admin-sidebar {
-            position: fixed !important;
-            top: 60px !important;
-            left: -240px !important;
-            width: 220px !important;
-            height: calc(100vh - 60px) !important;
-            z-index: 200 !important;
-            transition: left .25s ease !important;
-            border-right: 1px solid var(--admin-border) !important;
-            box-shadow: 4px 0 24px rgba(0,0,0,0.6) !important;
-          }
-          .admin-sidebar-open { left: 0 !important; }
+        .admin-header {
+          position: fixed !important;
+          top: 0 !important;
+          left: 0 !important;
+          right: 0 !important;
+          width: 100% !important;
+          height: 60px !important;
+          z-index: 100 !important;
+          box-sizing: border-box !important;
         }
-        @media (min-width: 701px) {
+        .admin-dashboard-container {
+          padding-top: 60px !important;
+          box-sizing: border-box !important;
+        }
+        .admin-mobile-drawer {
+          position: fixed !important;
+          top: 0 !important;
+          bottom: 0 !important;
+          height: 100vh !important;
+          height: 100dvh !important;
+          min-height: 100vh !important;
+          min-height: 100dvh !important;
+          max-height: 100vh !important;
+          max-height: 100dvh !important;
+          z-index: 1201 !important;
+          overflow-y: auto !important;
+          -webkit-overflow-scrolling: touch !important;
+          overscroll-behavior: contain !important;
+        }
+        .admin-mobile-backdrop {
+          position: fixed !important;
+          inset: 0 !important;
+          top: 0 !important;
+          bottom: 0 !important;
+          left: 0 !important;
+          right: 0 !important;
+          height: 100vh !important;
+          height: 100dvh !important;
+          z-index: 1200 !important;
+        }
+        @media (max-width: 900px) {
+          .admin-hamburger { display: grid !important; }
+          .admin-sidebar { display: none !important; }
+        }
+        @media (min-width: 901px) {
+          .admin-dashboard-container { height: 100vh !important; }
+          .admin-hamburger { display: none !important; }
+          .admin-mobile-drawer, .admin-mobile-backdrop { display: none !important; }
+          .admin-sidebar { display: flex !important; }
           .admin-email-label { display: block !important; }
         }
       `}</style>

@@ -266,7 +266,7 @@ export default function CategoriesTab() {
                 <FormLabel label="IMAGE" />
                 {/* Current image preview */}
                 {form.img && (
-                  <div style={{ marginBottom: 10, borderRadius: 10, overflow: 'hidden', aspectRatio: '16/9', background: '#0D1217' }}>
+                  <div style={{ marginBottom: 10, borderRadius: 10, overflow: 'hidden', aspectRatio: '16/9', background: 'var(--admin-subcard-bg)' }}>
                     <img src={form.img} alt="Preview" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   </div>
                 )}

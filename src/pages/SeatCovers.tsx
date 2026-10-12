@@ -92,12 +92,12 @@ export const SEAT_DESIGNS: SeatDesign[] = [
     desc: 'Understated old-money luxury in deep roasted coffee brown. Designed to complement wooden trim dashboards and premium beige car interiors.',
     highlights: [
       'Velvety soft touch with authentic grain texture',
-      'Double-stitched ivory welt cords following the natural seat curves',
+      'Double-stitched cream welt cords following the natural seat curves',
       'No loose wrinkles, slipping, or bunching over time',
       'Complete airbag-compatible and ISOFIX-friendly seam design'
     ],
     material: 'Ultra-Soft Premium Top-Coat PU Leather',
-    stitchType: 'Tailored Ivory Welted Double Stitch',
+    stitchType: 'Tailored Contrast Welted Double Stitch',
     fitmentTime: '3 – 4 Hours',
     images: [
       'https://images.unsplash.com/photo-1563720223185-11003d516935?w=900&h=700&fit=crop',
@@ -131,7 +131,7 @@ export const SEAT_DESIGNS: SeatDesign[] = [
     name: 'OXFORD BEIGE & CREAM EXECUTIVE',
     style: 'Bright Interior Luxury',
     category: 'Luxury Leather',
-    desc: 'Brightens compact vehicle cabins with an airy, spacious luxury feel. Tailored with dual tone ivory borders and micro-stitched centre pleats.',
+    desc: 'Brightens compact vehicle cabins with an airy, spacious luxury feel. Tailored with dual tone contrast borders and micro-stitched centre pleats.',
     highlights: [
       'Visually expands the feeling of space inside smaller vehicles',
       'Anti-dust and stain-resistant polymer top layer',
@@ -406,11 +406,10 @@ export default function SeatCovers() {
       {/* ─────────────────────────────────────────────────────────────
           1. HERO SECTION (SPACIOUS & LUXURIOUS)
       ───────────────────────────────────────────────────────────── */}
-      <section style={{
+      <section className="seat-covers-hero" style={{
         position: 'relative',
         padding: 'clamp(44px, 7vw, 84px) 0',
-        background: 'linear-gradient(180deg, #050708 0%, #090E13 50%, #050708 100%)',
-        borderBottom: '1px solid #1C232B',
+        borderBottom: '1px solid var(--border, #1C232B)',
         overflow: 'hidden'
       }}>
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
@@ -486,7 +485,7 @@ export default function SeatCovers() {
                 position: 'relative',
                 borderRadius: 22,
                 overflow: 'hidden',
-                border: '1px solid #1C232B',
+                border: 'none',
                 boxShadow: '0 20px 50px rgba(0,0,0,0.6)',
                 aspectRatio: '4 / 3'
               }}>
@@ -620,7 +619,7 @@ export default function SeatCovers() {
                   {design.desc}
                 </div>
 
-                <div style={{ marginTop: 'auto', paddingTop: 16 }}>
+                <div style={{ marginTop: 12, paddingTop: 12 }}>
                   <div style={{
                     display: 'flex',
                     alignItems: 'center',
@@ -628,8 +627,10 @@ export default function SeatCovers() {
                     fontSize: 11,
                     color: '#8A929B',
                     borderTop: '1px solid #161D24',
-                    paddingTop: 10,
-                    marginBottom: 12
+                    paddingTop: 8,
+                    marginBottom: 10,
+                    flexWrap: 'wrap',
+                    gap: 4
                   }}>
                     <span>{design.material.split('&')[0]}</span>
                     <span style={{ color: '#D69A13', fontWeight: 700 }}>Custom Made</span>
@@ -660,10 +661,10 @@ export default function SeatCovers() {
           SECTION B — OUR WORK (COMPLETED VEHICLE INSTALLATIONS)
           Strictly separated from designs!
       ───────────────────────────────────────────────────────────── */}
-      <section id="our-work" style={{
-        background: '#070B0E',
-        borderTop: '1px solid #161D24',
-        borderBottom: '1px solid #161D24',
+      <section id="our-work" className="car-showcase-section" style={{
+        background: 'var(--car-section-bg, var(--bg-subtle, #070B0E))',
+        borderTop: '1px solid var(--border, #161D24)',
+        borderBottom: '1px solid var(--border, #161D24)',
         padding: 'clamp(50px, 8vw, 84px) 0',
         marginTop: 40
       }}>
@@ -705,7 +706,7 @@ export default function SeatCovers() {
                       fontSize: 11,
                       letterSpacing: '0.06em',
                       cursor: 'pointer',
-                      border: `1.5px solid ${isSelected ? 'var(--cyan, #11BCE6)' : 'var(--card-border, #1C232B)'}`,
+                      border: `1.5px solid ${isSelected ? 'var(--cyan, #11BCE6)' : 'var(--border2, #1C232B)'}`,
                       background: isSelected ? 'var(--cyan, #11BCE6)' : 'var(--card-bg, #090D11)',
                       color: isSelected ? '#FFFFFF' : 'var(--text-muted, #A0A7AE)',
                       transition: 'all .15s ease'
@@ -778,7 +779,7 @@ export default function SeatCovers() {
                       {work.description}
                     </div>
 
-                    <div style={{ marginTop: 'auto', paddingTop: 14 }}>
+                    <div style={{ marginTop: 12, paddingTop: 10, borderTop: '1px solid var(--divider, #161D24)' }}>
                       <button
                         onClick={(e) => { e.stopPropagation(); openWorkModal(work); }}
                         className="btn-dark"
@@ -837,8 +838,8 @@ export default function SeatCovers() {
             <div
               key={feature.title}
               style={{
-                background: '#090D11',
-                border: '1px solid #1C232B',
+                background: 'var(--card-bg, #090D11)',
+                border: '1px solid var(--card-border, #1C232B)',
                 borderRadius: 16,
                 padding: '24px 20px',
                 display: 'flex',
@@ -1113,8 +1114,8 @@ export default function SeatCovers() {
       ───────────────────────────────────────────────────────────── */}
       <section className="container" style={{ padding: '20px 0 clamp(40px, 6vw, 64px)' }}>
         <div style={{
-          background: '#070B0E',
-          border: '1px solid #1C232B',
+          background: 'var(--card-bg, #070B0E)',
+          border: '1px solid var(--card-border, #1C232B)',
           borderRadius: 18,
           padding: 'clamp(20px, 4vw, 32px)',
           display: 'flex',
@@ -1127,10 +1128,10 @@ export default function SeatCovers() {
             <div style={{ color: '#D69A13', fontWeight: 800, fontSize: 11, letterSpacing: '0.14em' }}>
               VISIT OUR WORKSHOP
             </div>
-            <div style={{ fontFamily: 'Orbitron', fontWeight: 800, fontSize: 'clamp(16px, 3vw, 20px)', color: '#FFFFFF', marginTop: 4 }}>
+            <div style={{ fontFamily: 'Orbitron', fontWeight: 800, fontSize: 'clamp(16px, 3vw, 20px)', color: 'var(--text, #FFFFFF)', marginTop: 4 }}>
               LEE CAR ACCESSORIES · RAMANATHAPURAM
             </div>
-            <div style={{ color: '#8A929B', fontSize: 12, marginTop: 4 }}>
+            <div style={{ color: 'var(--text-muted, #8A929B)', fontSize: 12, marginTop: 4 }}>
               {businessInfo.fullAddress} · Open 9:00 AM – 9:00 PM
             </div>
           </div>
@@ -1451,9 +1452,9 @@ export default function SeatCovers() {
 }
 
 const heroPillStyle: React.CSSProperties = {
-  background: 'rgba(255,255,255,0.04)',
-  border: '1px solid #1E2A33',
-  color: '#A0A7AE',
+  background: 'var(--button-ghost-bg, rgba(255,255,255,0.04))',
+  border: '1px solid var(--border, #1E2A33)',
+  color: 'var(--text-muted, #A0A7AE)',
   fontSize: 11,
   fontWeight: 700,
   padding: '6px 14px',

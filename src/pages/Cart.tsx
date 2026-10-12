@@ -240,8 +240,8 @@ export default function Cart() {
                       display: 'inline-flex',
                       alignItems: 'center',
                       gap: 8,
-                      background: '#0D1217',
-                      border: '1px solid #1E2A33',
+                      background: 'var(--card-item-bg, #0D1217)',
+                      border: '1px solid var(--card-item-border, #1E2A33)',
                       borderRadius: 999,
                       padding: '3px 6px',
                     }}

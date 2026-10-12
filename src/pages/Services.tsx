@@ -107,7 +107,7 @@ export default function Services() {
       <section className="container" style={{ marginTop: 32 }}>
         <div className="banner-grid" style={{
           background: 'linear-gradient(135deg, #0A0F14 0%, #0D1217 100%)',
-          border: '1px solid #1C232B',
+          border: 'none',
           borderRadius: 18,
           overflow: 'hidden'
         }}>

@@ -19,11 +19,14 @@ export default function Navbar() {
   useEffect(() => {
     if (open) {
       document.body.style.overflow = 'hidden'
+      document.documentElement.style.overflow = 'hidden'
     } else {
       document.body.style.overflow = ''
+      document.documentElement.style.overflow = ''
     }
     return () => {
       document.body.style.overflow = ''
+      document.documentElement.style.overflow = ''
     }
   }, [open])
 
@@ -39,17 +42,21 @@ export default function Navbar() {
   ]
 
   return (
-    <header
-      className="site-header"
-      style={{
-        position: 'sticky',
+    <>
+      <header
+        className="site-header"
+        style={{
+        position: 'fixed',
         top: 0,
+        left: 0,
+        right: 0,
         zIndex: 100,
         background: 'var(--header-bg, rgba(7, 10, 14, 0.96))',
         backdropFilter: 'blur(16px)',
         WebkitBackdropFilter: 'blur(16px)',
         borderBottom: '1px solid var(--header-border, #161F2A)',
         width: '100%',
+        boxSizing: 'border-box',
         transition: 'background 0.25s ease, border-color 0.25s ease',
       }}
     >
@@ -137,7 +144,7 @@ export default function Navbar() {
                   whiteSpace: 'nowrap',
                 }}
               >
-                LEE <span style={{ color: 'var(--cyan, #00C8F0)' }}>CARS</span>
+                LEE <span style={{ color: 'var(--cyan, #00C8F0)' }}>CAR</span>
               </div>
               <div
                 style={{
@@ -252,49 +259,7 @@ export default function Navbar() {
             </svg>
           </a>
 
-          {/* Theme Toggle Button: Light / Dark Mode */}
-          <button
-            onClick={toggleTheme}
-            aria-label={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-            title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-            className="theme-toggle-btn"
-            style={{
-              width: 36,
-              height: 36,
-              borderRadius: 8,
-              background: 'var(--button-ghost-bg, rgba(255, 255, 255, 0.05))',
-              border: '1px solid var(--button-ghost-border, #1E2834)',
-              color: theme === 'dark' ? '#FFC72C' : '#00A6CE',
-              display: 'grid',
-              placeItems: 'center',
-              cursor: 'pointer',
-              padding: 0,
-              transition: 'all 0.2s ease',
-              flexShrink: 0,
-            }}
-          >
-            {theme === 'dark' ? (
-              /* ☀️ Sun icon when Dark Mode is active (indicates clicking switches to Light Mode) */
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="12" r="4" />
-                <path d="M12 2v2" />
-                <path d="M12 20v2" />
-                <path d="m4.93 4.93 1.41 1.41" />
-                <path d="m17.66 17.66 1.41 1.41" />
-                <path d="M2 12h2" />
-                <path d="M20 12h2" />
-                <path d="m6.34 17.66-1.41 1.41" />
-                <path d="m19.07 4.93-1.41 1.41" />
-              </svg>
-            ) : (
-              /* 🌙 Moon icon when Light Mode is active (indicates clicking switches to Dark Mode) */
-              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
-              </svg>
-            )}
-          </button>
-
-          {/* Login icon + "Login" text (Mobile & Desktop) */}
+          {/* Login icon + "Login" text (Desktop only, hidden on mobile) */}
           <Link
             to="/admin"
             aria-label="Login"
@@ -323,50 +288,135 @@ export default function Navbar() {
             </svg>
             <span style={{ fontSize: 12, fontWeight: 700 }}>Login</span>
           </Link>
+
+          {/* Theme Toggle Button: Light / Dark Mode (Top-Right on both Desktop and Mobile) */}
+          <button
+            onClick={toggleTheme}
+            aria-label={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+            title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+            className="theme-toggle-btn"
+            style={{
+              width: 36,
+              height: 36,
+              borderRadius: 8,
+              background: 'var(--button-ghost-bg, rgba(255, 255, 255, 0.05))',
+              border: '1px solid var(--button-ghost-border, #1E2834)',
+              color: theme === 'dark' ? '#FFC72C' : '#00A6CE',
+              display: 'grid',
+              placeItems: 'center',
+              cursor: 'pointer',
+              padding: 0,
+              transition: 'all 0.2s ease',
+              flexShrink: 0,
+            }}
+          >
+            {theme === 'dark' ? (
+              /* ☀️ Sun icon when Dark Mode is active */
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="4" />
+                <path d="M12 2v2" />
+                <path d="M12 20v2" />
+                <path d="m4.93 4.93 1.41 1.41" />
+                <path d="m17.66 17.66 1.41 1.41" />
+                <path d="M2 12h2" />
+                <path d="M20 12h2" />
+                <path d="m6.34 17.66-1.41 1.41" />
+                <path d="m19.07 4.93-1.41 1.41" />
+              </svg>
+            ) : (
+              /* 🌙 Moon icon when Light Mode is active */
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+              </svg>
+            )}
+          </button>
         </div>
       </div>
 
-      {/* ─────────────────────────────────────────────────────────────
-          MOBILE SLIDE DRAWER BACKDROP
-      ───────────────────────────────────────────────────────────── */}
-      {open && (
-        <div
-          onClick={() => setOpen(false)}
-          aria-hidden="true"
-          style={{
-            position: 'fixed',
-            inset: 0,
-            top: 60,
-            background: 'rgba(0, 0, 0, 0.75)',
-            backdropFilter: 'blur(5px)',
-            WebkitBackdropFilter: 'blur(5px)',
-            zIndex: 90,
-          }}
-        />
-      )}
+      <style>{`
+        @media (max-width: 900px) {
+          .nav-desktop { display: none !important; }
+          .desktop-header-logo { display: none !important; }
+          .desktop-whatsapp-btn { display: none !important; }
+          .header-login-btn { display: none !important; }
+          .mobile-header-left { display: block !important; }
+          .mobile-header-center {
+            display: block !important;
+            position: absolute !important;
+            left: 50% !important;
+            top: 50% !important;
+            transform: translate(-50%, -50%) !important;
+          }
+        }
+        @media (min-width: 901px) {
+          .mobile-nav-drawer, .mobile-nav-backdrop {
+            display: none !important;
+          }
+        }
+        @media (max-width: 360px) {
+          .theme-toggle-btn {
+            width: 32px !important;
+            height: 32px !important;
+          }
+          .header-login-btn {
+            padding: 6px 8px !important;
+            font-size: 11px !important;
+          }
+          .mobile-header-center img {
+            width: 32px !important;
+            height: 32px !important;
+          }
+        }
+      `}</style>
+    </header>
 
-      {/* ─────────────────────────────────────────────────────────────
-          MOBILE SLIDE NAVIGATION DRAWER
-      ───────────────────────────────────────────────────────────── */}
+    {/* ─────────────────────────────────────────────────────────────
+        MOBILE SLIDE DRAWER BACKDROP (ABOVE HEADER & BOTTOM NAV)
+    ───────────────────────────────────────────────────────────── */}
+    {open && (
       <div
+        onClick={() => setOpen(false)}
+        aria-hidden="true"
+        className="mobile-nav-backdrop"
         style={{
           position: 'fixed',
-          top: 60,
-          left: open ? 0 : '-100%',
-          width: 'min(320px, 86vw)',
-          height: 'calc(100dvh - 60px)',
-          background: 'var(--nav-drawer-bg, #080C11)',
-          borderRight: '1px solid var(--card-border, #1A232E)',
-          zIndex: 95,
-          display: 'flex',
-          flexDirection: 'column',
-          padding: '18px 16px 24px',
-          gap: 8,
-          transition: 'left .28s cubic-bezier(0.16, 1, 0.3, 1), background 0.25s ease',
-          overflowY: 'auto',
-          boxShadow: '10px 0 35px rgba(0, 0, 0, 0.75)',
+          inset: 0,
+          background: 'rgba(0, 0, 0, 0.75)',
+          backdropFilter: 'blur(5px)',
+          WebkitBackdropFilter: 'blur(5px)',
+          zIndex: 1200,
         }}
-      >
+      />
+    )}
+
+    {/* ─────────────────────────────────────────────────────────────
+        MOBILE SLIDE NAVIGATION DRAWER (FULL VIEWPORT HEIGHT)
+    ───────────────────────────────────────────────────────────── */}
+    <div
+      className="mobile-nav-drawer"
+      style={{
+        position: 'fixed',
+        top: 0,
+        bottom: 0,
+        left: open ? 0 : '-100%',
+        width: 'min(320px, 86vw)',
+        height: '100dvh',
+        minHeight: '100vh',
+        maxHeight: '100dvh',
+        background: 'var(--nav-drawer-bg, #080C11)',
+        borderRight: '1px solid var(--header-border, #1A232E)',
+        zIndex: 1201,
+        display: 'flex',
+        flexDirection: 'column',
+        padding: 'max(16px, env(safe-area-inset-top, 16px)) 16px max(24px, env(safe-area-inset-bottom, 24px))',
+        gap: 8,
+        transition: 'left .28s cubic-bezier(0.16, 1, 0.3, 1), background 0.25s ease',
+        overflowY: 'auto',
+        WebkitOverflowScrolling: 'touch',
+        overscrollBehavior: 'contain',
+        boxShadow: '10px 0 35px rgba(0, 0, 0, 0.75)',
+      }}
+    >
         {/* Drawer Header */}
         <div
           style={{
@@ -487,6 +537,36 @@ export default function Navbar() {
             <span>BOOK APPOINTMENT</span>
             <span style={{ color: loc.pathname === '/booking' ? 'var(--cyan, #00C8F0)' : 'var(--text-muted2, #45505C)', fontSize: 13 }}>›</span>
           </Link>
+
+          {/* Admin Login item inside hamburger drawer */}
+          <Link
+            to="/admin"
+            onClick={() => setOpen(false)}
+            style={{
+              fontSize: 12.5,
+              letterSpacing: '0.08em',
+              fontWeight: 700,
+              color: loc.pathname === '/admin' ? 'var(--cyan, #00C8F0)' : 'var(--text-muted, #A0AAB6)',
+              background: loc.pathname === '/admin' ? 'rgba(0, 200, 240, 0.08)' : 'transparent',
+              border: loc.pathname === '/admin' ? '1px solid rgba(0, 200, 240, 0.25)' : '1px solid transparent',
+              padding: '10px 12px',
+              borderRadius: 8,
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              textDecoration: 'none',
+              transition: 'all .15s ease',
+            }}
+          >
+            <span style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--cyan, #00C8F0)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+              ADMIN LOGIN
+            </span>
+            <span style={{ color: loc.pathname === '/admin' ? 'var(--cyan, #00C8F0)' : 'var(--text-muted2, #45505C)', fontSize: 13 }}>›</span>
+          </Link>
         </div>
 
         {/* Business Contact & Support */}
@@ -565,46 +645,18 @@ export default function Navbar() {
               alignItems: 'center',
               justifyContent: 'center',
               gap: 6,
-              fontSize: 10.5,
-              color: 'var(--text-muted2, #556070)',
+              fontSize: 11,
+              fontWeight: 700,
+              color: 'var(--text-muted, #8E9BAE)',
               paddingTop: 4,
               textDecoration: 'none',
             }}
           >
-            <span>🔐 Admin Portal</span>
+            <span>🔐 Admin Login</span>
           </Link>
         </div>
       </div>
 
-      <style>{`
-        @media (max-width: 900px) {
-          .nav-desktop { display: none !important; }
-          .desktop-header-logo { display: none !important; }
-          .desktop-whatsapp-btn { display: none !important; }
-          .mobile-header-left { display: block !important; }
-          .mobile-header-center {
-            display: block !important;
-            position: absolute !important;
-            left: 50% !important;
-            top: 50% !important;
-            transform: translate(-50%, -50%) !important;
-          }
-        }
-        @media (max-width: 360px) {
-          .theme-toggle-btn {
-            width: 32px !important;
-            height: 32px !important;
-          }
-          .header-login-btn {
-            padding: 6px 8px !important;
-            font-size: 11px !important;
-          }
-          .mobile-header-center img {
-            width: 32px !important;
-            height: 32px !important;
-          }
-        }
-      `}</style>
-    </header>
+    </>
   )
 }

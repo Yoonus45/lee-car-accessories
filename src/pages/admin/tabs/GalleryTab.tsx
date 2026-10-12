@@ -647,13 +647,13 @@ export default function GalleryTab() {
               key={m.label}
               onClick={() => setFilterState(m.key as typeof filterState)}
               style={{
-                background: m.bg,
+                background: 'var(--admin-card-bg)',
                 border: `1px solid ${isActive ? m.color : m.border}`,
                 borderRadius: 12,
                 padding: '14px 16px',
                 cursor: 'pointer',
                 transition: 'all 0.15s ease',
-                boxShadow: isActive ? `0 0 12px ${m.bg}` : 'none',
+                boxShadow: isActive ? `0 0 12px ${m.bg}` : 'var(--admin-card-shadow)',
               }}
               title={`Filter by ${m.label}`}
             >
@@ -793,20 +793,21 @@ export default function GalleryTab() {
       ) : displayedItems.length === 0 ? (
         <div
           style={{
-            background: '#090D11',
-            border: '1px solid #1C232B',
+            background: 'var(--admin-card-bg)',
+            border: '1px solid var(--admin-border)',
             borderRadius: 14,
             padding: '50px 20px',
             textAlign: 'center',
-            color: '#687078',
+            color: 'var(--admin-text-muted)',
             fontSize: 13,
+            boxShadow: 'var(--admin-card-shadow)',
           }}
         >
           <div style={{ fontSize: 32, marginBottom: 10 }}>📸</div>
-          <div style={{ fontWeight: 800, color: '#FFFFFF', fontSize: 14 }}>
+          <div style={{ fontWeight: 800, color: 'var(--admin-text-main)', fontSize: 14 }}>
             No gallery items found
           </div>
-          <div style={{ fontSize: 12, color: '#8A929B', marginTop: 4 }}>
+          <div style={{ fontSize: 12, color: 'var(--admin-text-sub)', marginTop: 4 }}>
             {searchQuery
               ? `No items match "${searchQuery}".`
               : `No photos uploaded for ${activeType === 'general' ? 'General Gallery' : 'Seat Covers Our Work'} yet.`}
@@ -1168,9 +1169,9 @@ export default function GalleryTab() {
                     style={{
                       padding: '8px 12px',
                       borderRadius: 8,
-                      border: `1px solid ${form.gallery_type === 'general' ? '#11BCE6' : '#1E2A33'}`,
-                      background: form.gallery_type === 'general' ? 'rgba(17,188,230,0.12)' : '#0D1217',
-                      color: form.gallery_type === 'general' ? '#11BCE6' : '#A0A7AE',
+                      border: `1px solid ${form.gallery_type === 'general' ? '#11BCE6' : 'var(--admin-border-subtle)'}`,
+                      background: form.gallery_type === 'general' ? 'rgba(17,188,230,0.12)' : 'var(--admin-subcard-bg)',
+                      color: form.gallery_type === 'general' ? '#11BCE6' : 'var(--admin-text-sub)',
                       fontWeight: 700,
                       fontSize: 11,
                       cursor: 'pointer',
@@ -1184,9 +1185,9 @@ export default function GalleryTab() {
                     style={{
                       padding: '8px 12px',
                       borderRadius: 8,
-                      border: `1px solid ${form.gallery_type === 'seat_cover' ? '#11BCE6' : '#1E2A33'}`,
-                      background: form.gallery_type === 'seat_cover' ? 'rgba(17,188,230,0.12)' : '#0D1217',
-                      color: form.gallery_type === 'seat_cover' ? '#11BCE6' : '#A0A7AE',
+                      border: `1px solid ${form.gallery_type === 'seat_cover' ? '#11BCE6' : 'var(--admin-border-subtle)'}`,
+                      background: form.gallery_type === 'seat_cover' ? 'rgba(17,188,230,0.12)' : 'var(--admin-subcard-bg)',
+                      color: form.gallery_type === 'seat_cover' ? '#11BCE6' : 'var(--admin-text-sub)',
                       fontWeight: 700,
                       fontSize: 11,
                       cursor: 'pointer',
@@ -1209,8 +1210,8 @@ export default function GalleryTab() {
                       height: 180,
                       borderRadius: 10,
                       overflow: 'hidden',
-                      border: '1px solid #1E2A33',
-                      background: '#050708',
+                      border: '1px solid var(--admin-border-subtle)',
+                      background: 'var(--admin-subcard-bg)',
                       marginBottom: 8,
                     }}
                   >
@@ -1248,11 +1249,11 @@ export default function GalleryTab() {
                   <div
                     onClick={() => fileInputRef.current?.click()}
                     style={{
-                      border: '2px dashed #1E2A33',
+                      border: '2px dashed var(--admin-border-subtle)',
                       borderRadius: 10,
                       padding: '24px 16px',
                       textAlign: 'center',
-                      background: '#0D1217',
+                      background: 'var(--admin-subcard-bg)',
                       cursor: 'pointer',
                       transition: 'border-color 0.2s ease',
                       marginBottom: 8,
@@ -1350,10 +1351,10 @@ export default function GalleryTab() {
                   display: 'grid',
                   gridTemplateColumns: '1fr 1fr 1fr',
                   gap: 10,
-                  background: '#0D1217',
+                  background: 'var(--admin-subcard-bg)',
                   padding: '12px 14px',
                   borderRadius: 10,
-                  border: '1px solid #1E2A33',
+                  border: '1px solid var(--admin-border-subtle)',
                 }}
               >
                 <label style={{ display: 'flex', alignItems: 'center', gap: 6, cursor: 'pointer' }}>
@@ -1362,7 +1363,7 @@ export default function GalleryTab() {
                     checked={form.published}
                     onChange={e => setForm({ ...form, published: e.target.checked })}
                   />
-                  <span style={{ fontSize: 11, fontWeight: 700, color: form.published ? '#00C864' : '#A0A7AE' }}>
+                  <span style={{ fontSize: 11, fontWeight: 700, color: form.published ? '#00C864' : 'var(--admin-text-sub)' }}>
                     {form.published ? '✓ Published' : 'Hidden'}
                   </span>
                 </label>
@@ -1373,13 +1374,13 @@ export default function GalleryTab() {
                     checked={form.featured}
                     onChange={e => setForm({ ...form, featured: e.target.checked })}
                   />
-                  <span style={{ fontSize: 11, fontWeight: 700, color: form.featured ? '#D69A13' : '#A0A7AE' }}>
+                  <span style={{ fontSize: 11, fontWeight: 700, color: form.featured ? '#D69A13' : 'var(--admin-text-sub)' }}>
                     {form.featured ? '⭐ Featured' : 'Standard'}
                   </span>
                 </label>
 
                 <div>
-                  <label style={{ fontSize: 9, fontWeight: 800, color: '#687078', display: 'block', marginBottom: 2 }}>
+                  <label style={{ fontSize: 9, fontWeight: 800, color: 'var(--admin-text-muted)', display: 'block', marginBottom: 2 }}>
                     SORT ORDER
                   </label>
                   <input
@@ -1388,11 +1389,11 @@ export default function GalleryTab() {
                     onChange={e => setForm({ ...form, sort_order: parseInt(e.target.value, 10) || 0 })}
                     style={{
                       width: '100%',
-                      background: '#070A0D',
-                      border: '1px solid #1E2A33',
+                      background: 'var(--admin-input-bg)',
+                      border: '1px solid var(--admin-input-border)',
                       borderRadius: 6,
                       padding: '4px 8px',
-                      color: '#FFFFFF',
+                      color: 'var(--admin-input-text)',
                       fontSize: 11,
                       boxSizing: 'border-box',
                     }}
@@ -1434,9 +1435,9 @@ export default function GalleryTab() {
                   style={{
                     padding: '12px 18px',
                     borderRadius: 8,
-                    background: '#0D1217',
-                    border: '1px solid #1E2A33',
-                    color: '#A0A7AE',
+                    background: 'var(--admin-subcard-bg)',
+                    border: '1px solid var(--admin-border-subtle)',
+                    color: 'var(--admin-text-sub)',
                     fontWeight: 700,
                     fontSize: 12,
                     cursor: 'pointer',
@@ -1526,9 +1527,9 @@ export default function GalleryTab() {
                 style={{
                   padding: '10px 18px',
                   borderRadius: 8,
-                  background: '#0D1217',
-                  border: '1px solid #1E2A33',
-                  color: '#A0A7AE',
+                  background: 'var(--admin-subcard-bg)',
+                  border: '1px solid var(--admin-border-subtle)',
+                  color: 'var(--admin-text-sub)',
                   fontWeight: 700,
                   fontSize: 12,
                   cursor: 'pointer',

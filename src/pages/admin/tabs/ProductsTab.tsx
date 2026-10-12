@@ -435,7 +435,7 @@ export default function ProductsTab() {
               <div style={sectionHeader}>PRODUCT IMAGES</div>
 
               <div style={fullCol}>
-                <div style={{ fontSize: 11, color: '#A0A7AE', marginBottom: 10 }}>
+                <div style={{ fontSize: 11, color: 'var(--admin-text-sub)', marginBottom: 10 }}>
                   First image = main display image. Drag to reorder (use ↑↓ buttons). Upload to Supabase Storage or paste any public URL.
                 </div>
 
@@ -444,7 +444,7 @@ export default function ProductsTab() {
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(130px, 1fr))', gap: 10, marginBottom: 14 }}>
                     {imageUrls.map((url, idx) => (
                       <div key={url + idx} style={{
-                        background: '#0D1217', border: `2px solid ${idx === 0 ? '#11BCE6' : '#1E2A33'}`,
+                        background: 'var(--admin-subcard-bg)', border: `2px solid ${idx === 0 ? '#11BCE6' : 'var(--admin-border-subtle)'}`,
                         borderRadius: 10, overflow: 'hidden', position: 'relative'
                       }}>
                         <img src={url} alt={`Image ${idx + 1}`}

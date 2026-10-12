@@ -75,6 +75,7 @@ function ReviewCarousel() {
         {reviews.map(r => (
           <div
             key={r.id}
+            className="review-card hover-card"
             style={{
               width: 'min(320px, calc(100vw - 64px))',
               minWidth: 'min(280px, calc(100vw - 64px))',
@@ -175,12 +176,12 @@ function ReviewCarousel() {
             width: 36,
             height: 36,
             borderRadius: '50%',
-            background: '#0E141C',
-            border: '1px solid #1E2834',
+            background: 'var(--card-item-bg, #0E141C)',
+            border: '1px solid var(--card-item-border, #1E2834)',
             display: 'grid',
             placeItems: 'center',
             cursor: 'pointer',
-            color: '#FFFFFF',
+            color: 'var(--text, #FFFFFF)',
             fontSize: 16,
           }}
         >
@@ -193,12 +194,12 @@ function ReviewCarousel() {
             width: 36,
             height: 36,
             borderRadius: '50%',
-            background: '#0E141C',
-            border: '1px solid #1E2834',
+            background: 'var(--card-item-bg, #0E141C)',
+            border: '1px solid var(--card-item-border, #1E2834)',
             display: 'grid',
             placeItems: 'center',
             cursor: 'pointer',
-            color: '#FFFFFF',
+            color: 'var(--text, #FFFFFF)',
             fontSize: 16,
           }}
         >
@@ -258,7 +259,7 @@ export default function Home() {
             position: 'relative',
             borderRadius: 18,
             overflow: 'hidden',
-            border: '1px solid #1B2430',
+            border: 'none',
             background: '#080C10',
             minHeight: 'clamp(360px, 60vw, 480px)',
             display: 'flex',
@@ -898,7 +899,6 @@ export default function Home() {
                         WebkitLineClamp: 2,
                         WebkitBoxOrient: 'vertical',
                         overflow: 'hidden',
-                        minHeight: 28,
                         wordBreak: 'break-word',
                       }}
                     >
@@ -967,12 +967,12 @@ export default function Home() {
       {/* ─────────────────────────────────────────────────────────────
           5. RECENT WORK & PORTFOLIO (PRESERVED)
       ───────────────────────────────────────────────────────────── */}
-      <section className="container" style={{ marginTop: 'clamp(32px, 6vw, 48px)' }}>
+      <section className="container recent-work-section car-showcase-section" style={{ marginTop: 'clamp(32px, 6vw, 48px)' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 16, gap: 12, flexWrap: 'wrap' }}>
           <div>
             <div style={{ color: '#00C8F0', fontWeight: 800, fontSize: 11, letterSpacing: '0.14em' }}>OUR WORKMANSHIP</div>
             <div className="sec-title" style={{ fontSize: 'clamp(18px, 4vw, 24px)', marginTop: 4 }}>
-              RECENT WORK AT <span style={{ color: '#00C8F0' }}>LEE CARS</span>
+              RECENT WORK AT <span style={{ color: '#00C8F0' }}>LEE CAR ACCESSORIES</span>
             </div>
           </div>
           <Link to="/gallery" className="btn-cyan" style={{ padding: '8px 18px', fontSize: 11, minHeight: 38 }}>
@@ -984,10 +984,11 @@ export default function Home() {
           {recentWork.map((src, i) => (
             <div
               key={i}
+              className="recent-work-card"
               style={{
                 borderRadius: 14,
                 overflow: 'hidden',
-                border: '1px solid #1A232E',
+                border: '1px solid var(--card-border, #1A232E)',
                 aspectRatio: '4/3',
                 position: 'relative',
                 minWidth: 0,
@@ -1058,11 +1059,13 @@ export default function Home() {
           display: grid;
           grid-template-columns: repeat(2, minmax(0, 1fr));
           gap: clamp(8px, 2.5vw, 16px);
+          align-items: start;
         }
         .recent-grid-4 {
           display: grid;
           grid-template-columns: repeat(2, minmax(0, 1fr));
           gap: clamp(8px, 2.5vw, 16px);
+          align-items: start;
         }
         @media (min-width: 900px) {
           .featured-products-grid {

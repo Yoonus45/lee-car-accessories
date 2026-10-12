@@ -128,7 +128,7 @@ const fallbackGallery: DbGalleryItem[] = [
       </section>
 
       {/* GALLERY GRID */}
-      <section className="container" style={{ paddingBottom: 50 }}>
+      <section className="container gallery-showcase-section car-showcase-section" style={{ paddingBottom: 50 }}>
         {loading ? (
           <div
             style={{
